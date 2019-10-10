@@ -5,8 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
-/* Used https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
+import java.util.ArrayList;
+
+/* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class DataBaseActivity extends AppCompatActivity {
     private RecyclerView recycleView;
     private RecyclerView.Adapter mAdapter;
@@ -22,9 +25,10 @@ public class DataBaseActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recycleView.setLayoutManager(layoutManager);
 
-        // specify an adapter (see also next example)
-        String empty[] = new String[100];
-        mAdapter = new MyAdapter(empty);
+        recycleView.setHasFixedSize(true);
+
+        ArrayList<card> cards = new ArrayList<>();
+        MyAdapter mAdapter = new MyAdapter(this, cards);
         recycleView.setAdapter(mAdapter);
 
     }
