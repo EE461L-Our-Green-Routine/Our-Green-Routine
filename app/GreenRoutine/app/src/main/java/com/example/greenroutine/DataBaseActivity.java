@@ -12,24 +12,30 @@ import java.util.ArrayList;
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class DataBaseActivity extends AppCompatActivity {
     private RecyclerView recycleView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recycleView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        setContentView(R.layout.activity_data_base);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recycleView.setLayoutManager(layoutManager);
+        layManager = new LinearLayoutManager(this);
+        layManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+        recycleView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recycleView.setHasFixedSize(true);
+        recycleView.setLayoutManager(layManager);
 
         ArrayList<card> cards = new ArrayList<>();
+        card c1 = new card("Hey", "Ho");
+        card c2 = new card("Booty", "Butt");
+        cards.add(c1);
+        cards.add(c2);
         MyAdapter mAdapter = new MyAdapter(this, cards);
         recycleView.setAdapter(mAdapter);
+
 
     }
 
