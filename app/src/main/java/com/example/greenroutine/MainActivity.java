@@ -19,4 +19,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(aboutIntent);
     }
 
+    public void searchNear(View view) {
+    }
 }
