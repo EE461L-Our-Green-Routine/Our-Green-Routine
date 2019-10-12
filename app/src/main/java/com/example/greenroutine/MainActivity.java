@@ -24,4 +24,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(dbIntent);
     }
 
+    public void searchNear(View view) {
+    }
 }
