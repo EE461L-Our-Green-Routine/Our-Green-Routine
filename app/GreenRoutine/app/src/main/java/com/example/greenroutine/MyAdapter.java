@@ -23,13 +23,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-   //     ImageView pic;
+        ImageView pic;
         TextView item;
         TextView description;
 
         public MyViewHolder(View v) {
             super(v);
-  //          pic = v.findViewById(R.id.pic);
+            pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
 
@@ -48,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         card c = data.get(position);
         holder.item.setText(c.getItem());
-        //holder.pic.setImageDrawable(cardCont.getResources().getDrawable(c.getPic(), null));
+        holder.pic.setImageDrawable(cardCont.getResources().getDrawable(c.getPic(), null));
         holder.description.setText(c.getDescription());
     }
 

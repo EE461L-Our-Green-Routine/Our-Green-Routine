@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DataBaseActivity">
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="721dp"
+        android:layout_height="150dp"
         android:layout_margin="3dp">
 
-      <!--  <ImageView
-            android:id="@+id/pic"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:padding="1dp"
-            app:layout_constraintEnd_toStartOf="@+id/item"
-            app:layout_constraintStart_toStartOf="parent" />
-        -->
-        <TextView
-            android:id="@+id/item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ITEM GUY"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/description" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="46dp"
-            android:layout_height="wrap_content"
-            android:text="What is item guy?"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item" />
+            <ImageView
+                android:id="@+id/pic"
+                android:layout_height="140dp"
+                android:layout_width="wrap_content"
+                android:padding="2dp"
+                android:layout_toRightOf="@id/description"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/item"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/andika"
+                android:text="ITEM GUY"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:text="What is item guy?"
+                android:textSize="20sp" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
-</RelativeLayout>
+</LinearLayout>
