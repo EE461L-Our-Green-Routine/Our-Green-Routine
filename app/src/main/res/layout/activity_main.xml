@@ -39,7 +39,6 @@
         app:srcCompat="@drawable/recsymbol" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,24 +51,24 @@
         android:id="@+id/textbox"
         android:layout_width="312dp"
         android:layout_height="44dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="52dp"
         android:hint="Item (ex. aluminum can)"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="117dp"
         android:layout_height="87dp"
-        android:text="Search Nearby Facilities"
-        android:onClick="searchNear"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText2"
+        android:onClick="searchNear"
+        android:text="Search Nearby Facilities"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/textInputEditText2"
-        app:layout_constraintTop_toTopOf="@+id/textInputEditText2"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textbox"
+        app:layout_constraintVertical_bias="0.319" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
