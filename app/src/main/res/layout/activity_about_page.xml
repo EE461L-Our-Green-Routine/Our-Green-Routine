@@ -414,7 +414,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/michaelcommits"
+                android:text="... Total Commits"
                 />
 
             <TextView
@@ -423,7 +423,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Issues"
+                android:text="... Total Issues"
+                />
+            <TextView
+                android:id="@+id/totalTests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="... Total Tests"
                 />
 
             <TextView
@@ -432,7 +440,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Data source: /n Data Source Links:"
+                android:text="Data source: \n
+                 No data for Phase 1\n
+                 Data Source Links:\n
+                 No data for Phase 1\n"
                 />
             <TextView
                 android:id="@+id/tools"
@@ -440,7 +451,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TOOLS USED: /n Android Studio /n Otherthings"
+                android:text="TOOLS USED: \n
+                    Android Studio\n
+                    Used as the basic of our app creation\n
+                    Google Maps API\n
+                    Used to show maps of local recycling\n
+                    Github API\n
+                    Main collaborative tool\n"
                 />
             <TextView
                 android:id="@+id/giturl"
@@ -453,13 +470,13 @@
 
             <TextView
                 android:id="@+id/gihub"
+                android:autoLink="all"
+                android:clickable="true"
+                android:text="https://www.github.com/mpontikes/Our-Green-Routine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="https://www.github.com/mpontikes/Our-Green-Routine"
-                android:clickable="true"
-                android:linksClickable="true"
                 />
         </LinearLayout>
 
