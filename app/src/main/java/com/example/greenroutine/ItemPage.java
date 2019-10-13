@@ -21,8 +21,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String ITEM_NAME = "ITEM_NAME";
+    TextView nameView = (TextView) findViewById(R.id.name);
+
+
     private FusedLocationProviderClient fusedLocationClient;
-    private String itemName = "ballsaq";
+    private String itemName = "balsaq";
     private String pictureFilePath;
     private double lat = 30.2886486;
     private double lng = -97.7376337;
@@ -31,6 +35,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //itemName = getIntent().getStringExtra(ITEM_NAME);
+        setName();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
@@ -56,12 +63,12 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-    public void changeName(View view){
+    public void setName(){
         //(TextView) findViewById(R.id.name).setText(name);
 
-        TextView nameBox = (TextView) findViewById(R.id.name);
+        //TextView nameBox = (TextView) findViewById(R.id.name);
 
-        nameBox.setText(itemName);
+        nameView.setText(itemName);
     }
 
 
