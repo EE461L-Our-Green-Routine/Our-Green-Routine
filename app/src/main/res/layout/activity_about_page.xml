@@ -373,14 +373,14 @@
                 android:layout_marginTop="8dp"
                 android:text="... Tests"
                 />
+
             <TextView
                 android:id="@+id/totalCommits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Total Commits"
-                />
+                android:text="0 Total Commits" />
 
             <TextView
                 android:id="@+id/totalIssues"
@@ -388,16 +388,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Total Issues"
-                />
+                android:text="0 Total Issues" />
+
             <TextView
                 android:id="@+id/totalTests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Total Tests"
-                />
+                android:text="0 Total Tests" />
 
             <TextView
                 android:id="@+id/data"
