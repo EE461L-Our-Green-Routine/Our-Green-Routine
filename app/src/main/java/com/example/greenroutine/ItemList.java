@@ -53,7 +53,7 @@ public class ItemList extends AppCompatActivity {
 
     }
 
-    protected void sendToItemPage(View view){
+    public void sendToItemPage(View view){
         Intent itemIntent = new Intent(this, ItemPage.class);
         startActivity(itemIntent);
     }
