@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>{
     private Context cardCont;
     private ArrayList<Card> data;
+    private static String CATEGORY_NAME = "CATEGORY_NAME";
+
 
     public CategoriesAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
@@ -33,29 +36,24 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
         public MyViewHolder(View v) {
             super(v);
             View v1 = v;
-            v1.setOnClickListener(new View.OnClickListener(){
-                @Override public void onClick(View v){
-                    v.getContext().startActivity(new Intent(v.getContext(), ItemList.class));
-                }
-            });
+
             //cL=itemView.findViewById(R.id.recyMain);
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
             //cL.setOnClickListener(this);
             //pic.setOnClickListener(this);
+            v1.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v){
+                    Intent cL = new Intent(v.getContext(), ItemList.class);
+                    String category=(String)item.getText();
+                    cL.putExtra(CATEGORY_NAME, category);
+                    v.getContext().startActivity(new Intent(cL));
+                }
+            });
 
         }
-/*
-        @Override
-        public void onClick(View view){
-            if(view.getId() == R.id.pic){
-                System.out.println("YA THING WORKED MAINE");
-                //Intent dbIntent = new Intent(super(view), DataBaseActivity.class);
-                //startActivity(dbIntent);
-            }
-        }
-    */
+
     }
 
     @Override

@@ -30,21 +30,15 @@ public class CategoriesPage extends AppCompatActivity {
         ArrayList<Card> cards = new ArrayList<>();
         Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
         Card c2 = new Card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
-        /*card c3 = new card(R.drawable.beer,"Beer Bottles", "Any brand of glass beer bottle");
-        card c4 = new card(R.drawable.cereal,"Cereal Boxes", "Cardboard box");
-        card c5 = new card(R.drawable.cans,"Steel Cans", "Cans made from steel");
-        card c6 = new card(R.drawable.officepaper,"Office Paper", "Paper created for professional use");
-        card c7 = new card(R.drawable.newspaper,"Newspaper", "Thin paper used to distribute news");
-        card c8 = new card(R.drawable.wine,"Wine bottle", "Glass wine bottles");*/
+        Card c3 = new Card(R.drawable.cereal,"Cardboard", "Anything made from cardboard");
+        Card c4 = new Card(R.drawable.officepaper,"Paper", "Paper products");
+
 
         cards.add(c1);
         cards.add(c2);
-       /* cards.add(c3);
+        cards.add(c3);
         cards.add(c4);
-        cards.add(c5);
-        cards.add(c6);
-        cards.add(c7);
-        cards.add(c8);*/
+
 
         CategoriesAdapter mAdapter = new CategoriesAdapter(this, cards);
         recycleView.setAdapter(mAdapter);

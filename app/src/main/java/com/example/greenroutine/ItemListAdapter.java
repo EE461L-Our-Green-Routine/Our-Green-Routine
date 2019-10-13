@@ -18,6 +18,8 @@ import java.util.ArrayList;
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyViewHolder>{
     private Context cardCont;
     private ArrayList<Card> data;
+    private static String ITEM_NAME = "ITEM_NAME";
+    private static String PICTURE_ID = "PICTURE_ID";
 
     public ItemListAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
@@ -33,29 +35,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
         public MyViewHolder(View v) {
             super(v);
             View v1 = v;
-            v1.setOnClickListener(new View.OnClickListener(){
-              @Override public void onClick(View v){
-                  v.getContext().startActivity(new Intent(v.getContext(), ItemPage.class));
-              }
-            });
-            //cL=itemView.findViewById(R.id.recyMain);
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
-            //cL.setOnClickListener(this);
-            //pic.setOnClickListener(this);
+            v1.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v){
+                    Intent itL = new Intent(v.getContext(), ItemPage.class);
+                    String name=(String)item.getText();
+                    itL.putExtra(ITEM_NAME, name);
+                    v.getContext().startActivity(itL);
 
+                    pic.getImageAlpha();
+
+                }
+            });
         }
-/*
-        @Override
-        public void onClick(View view){
-            if(view.getId() == R.id.pic){
-                System.out.println("YA THING WORKED MAINE");
-                //Intent dbIntent = new Intent(super(view), DataBaseActivity.class);
-                //startActivity(dbIntent);
-            }
-        }
-    */
+
     }
 
     @Override
