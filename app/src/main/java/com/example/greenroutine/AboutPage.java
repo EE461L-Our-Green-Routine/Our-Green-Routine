@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -24,6 +25,7 @@ public class AboutPage extends AppCompatActivity {
         setContentView(R.layout.activity_about_page);
         getCommits("mpontikes", R.id.mpcommit);
         getIssues("mpontikes", R.id.mpIssues);
+        getTests("mpontikes", R.id.mptest);
     }
     public void getCommits(final String user, final int id){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -57,6 +59,26 @@ public class AboutPage extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 ((TextView)findViewById(id)).setText("ERR issues");
+            }
+        });
+        queue.add(stringRequest);
+    }
+    public void getTests(final String user, final int id){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        response = response.substring(response.indexOf("\"content\":\"")+11);
+                        response = response.substring(0,response.indexOf("\""));
+                        response = Base64.decode("response",0).toString();
+                        ((TextView)findViewById(id)).setText(0 + " tests");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                ((TextView)findViewById(id)).setText("ERR tests");
             }
         });
         queue.add(stringRequest);
