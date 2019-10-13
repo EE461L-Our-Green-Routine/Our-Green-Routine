@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToDB(View view){
-        Intent dbIntent = new Intent(this, DataBaseActivity.class);
+        Intent dbIntent = new Intent(this, ItemPage.class);
         startActivity(dbIntent);
     }
 
