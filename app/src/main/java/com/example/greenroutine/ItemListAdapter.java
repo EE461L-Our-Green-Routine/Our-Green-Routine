@@ -19,7 +19,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
     private Context cardCont;
     private ArrayList<Card> data;
 
-    public ItemListAdapter(Context cardCont, ArrayList<card> data) {
+    public ItemListAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
         this.data = data;
     }
