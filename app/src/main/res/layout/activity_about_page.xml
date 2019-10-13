@@ -71,7 +71,7 @@
                 android:layout_width="344dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="16dp"
-                android:text=" about the app Lorem ipsum d u. Ut enim ad minim veniam, quis nostrud exercitation ullamco oluptate velit esse cillum d sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:text="A Junior ECE student at UT, Alex enjoys software and game design. Hobbies include making funny youtube videos, doing stand up, and recycling."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -219,7 +219,7 @@
                 android:layout_width="344dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="16dp"
-                android:text=" about the app Lorem ipsum d u. Ut enim ad minim veniam, quis nostrud exercitation ullamco oluptate velit esse cillum d sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:text="A Junior ECE student at UT, Hussam loves solving challenging problems and learning new things. In his free time, he enjoys hiking."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -293,7 +293,7 @@
                 android:layout_width="344dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="16dp"
-                android:text=" about the app Lorem ipsum d u. Ut enim ad minim veniam, quis nostrud exercitation ullamco oluptate velit esse cillum d sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:text="A Senior ECE student at UT, Michael enjoys speading time in Austin and being involved in campus. He helps work on the outside integrations with Github, Travis-CI, and more."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -381,14 +381,6 @@
                 android:text="Eletrical and Computer Engineering"
                 />
 
-            <TextView
-                android:id="@+id/coreTitleFun4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Core/Title/Fun Fact"
-                />
 
             <TextView
                 android:id="@+id/mpcommit4"
@@ -451,12 +443,23 @@
                 android:text="TOOLS USED: /n Android Studio /n Otherthings"
                 />
             <TextView
+                android:id="@+id/giturl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Github URL:"
+                />
+
+            <TextView
                 android:id="@+id/gihub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="LINK TO GITHUB"
+                android:text="https://www.github.com/mpontikes/Our-Green-Routine"
+                android:clickable="true"
+                android:linksClickable="true"
                 />
         </LinearLayout>
 

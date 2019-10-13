@@ -36,7 +36,7 @@ public class AboutPage extends AppCompatActivity {
         getCommits("mpontikes", R.id.mpcommit3);
         getIssues("mpontikes", R.id.mpIssues3);
         getTests("mpontikes", R.id.mptest3);
-        
+
         getCommits("zsisti", R.id.mpcommit4);
         getIssues("zsisti", R.id.mpIssues4);
         getTests("zsisti", R.id.mptest4);
