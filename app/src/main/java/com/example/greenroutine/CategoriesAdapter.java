@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>{
     private Context cardCont;
     private ArrayList<Card> data;
-    //private static String ITEM_NAME = "ITEM_NAME";
+    private static String CATEGORY_NAME = "CATEGORY_NAME";
+
 
     public CategoriesAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
@@ -44,24 +45,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             //pic.setOnClickListener(this);
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    /*Intent itL = new Intent(v.getContext(), ItemList.class);
-                    String name=(String)item.getText();
-                    itL.putExtra(ITEM_NAME, name);*/
-                    v.getContext().startActivity(new Intent(v.getContext(), ItemList.class));
+                    Intent cL = new Intent(v.getContext(), ItemList.class);
+                    String category=(String)item.getText();
+                    cL.putExtra(CATEGORY_NAME, category);
+                    v.getContext().startActivity(new Intent(cL));
                 }
             });
 
         }
-/*
-        @Override
-        public void onClick(View view){
-            if(view.getId() == R.id.pic){
-                System.out.println("YA THING WORKED MAINE");
-                //Intent dbIntent = new Intent(super(view), DataBaseActivity.class);
-                //startActivity(dbIntent);
-            }
-        }
-    */
+
     }
 
     @Override

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ItemList extends AppCompatActivity {
     private RecyclerView recycleView;
     private LinearLayoutManager layManager;
+    private static final String CATEGORY_NAME = "CATEGORY_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +30,52 @@ public class ItemList extends AppCompatActivity {
         recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(layManager);
 
-        ArrayList<Card> cards = new ArrayList<>();
+        ArrayList<Card> plastic = new ArrayList<>();
+        ArrayList<Card> paper = new ArrayList<>();
+        ArrayList<Card> glass = new ArrayList<>();
+        ArrayList<Card> metal = new ArrayList<>();
+        ArrayList<Card> cardboard= new ArrayList<>();
         Card c1 = new Card(R.drawable.dasani,"Dasani", "Plastic water bottle");
         Card c2 = new Card(R.drawable.sunnyd,"Sunny D", "Plastic juice bottle");
         Card c3 = new Card(R.drawable.beer,"Beer Bottles", "Any brand of glass beer bottle");
         Card c4 = new Card(R.drawable.cereal,"Cereal Boxes", "Cardboard box");
         Card c5 = new Card(R.drawable.cans,"Steel Cans", "Cans made from steel");
-        Card c6 = new Card(R.drawable.officepaper,"Office Paper", "Paper created for professional use");
-        Card c7 = new Card(R.drawable.newspaper,"Newspaper", "Thin paper used to distribute news");
-        Card c8 = new Card(R.drawable.wine,"Wine bottle", "Glass wine bottles");
+        Card c6 = new Card(R.drawable.officepaper,"Office Papers", "Paper created for professional use");
+        Card c7 = new Card(R.drawable.newspaper,"Newspapers", "Thin paper used to distribute news");
+        Card c8 = new Card(R.drawable.wine,"Wine Bottles", "Glass wine bottles");
 
-        cards.add(c1);
-        cards.add(c2);
-        cards.add(c3);
-        cards.add(c4);
-        cards.add(c5);
-        cards.add(c6);
-        cards.add(c7);
-        cards.add(c8);
+        plastic.add(c1);
+        plastic.add(c2);
+        glass.add(c3);
+        cardboard.add(c4);
+        metal.add(c5);
+        paper.add(c6);
+        paper.add(c7);
+        glass.add(c8);
 
-        ItemListAdapter mAdapter = new ItemListAdapter(this, cards);
+        String cat = getIntent().getStringExtra(CATEGORY_NAME);
+        ItemListAdapter mAdapter;
+        switch(cat) {
+            case ("Glass Bottles"):
+                mAdapter = new ItemListAdapter(this, glass);
+                break;
+            case ("Plastic Bottles"):
+                mAdapter = new ItemListAdapter(this, plastic);
+                break;
+            case ("Cardboard"):
+                mAdapter = new ItemListAdapter(this, cardboard);
+                break;
+            case ("Metal"):
+                mAdapter = new ItemListAdapter(this, metal);
+                break;
+            case ("Paper"):
+                mAdapter = new ItemListAdapter(this, paper);
+                break;
+            default:
+                mAdapter = new ItemListAdapter(this, plastic);
+                break;
+        }
+
         recycleView.setAdapter(mAdapter);
 
     }
