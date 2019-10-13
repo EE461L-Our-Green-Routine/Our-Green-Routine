@@ -36,11 +36,14 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="352dp"
-        android:layout_height="221dp"
+        android:layout_width="349dp"
+        android:layout_height="211dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/recsymbol" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,17 +60,18 @@
         android:id="@+id/textbox"
         android:layout_width="312dp"
         android:layout_height="44dp"
-        android:layout_marginTop="12dp"
         android:hint="Item (ex. aluminum can)"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="117dp"
-        android:layout_height="87dp"
+        android:layout_width="116dp"
+        android:layout_height="59dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="searchNear"
         android:text="Search Nearby Facilities"
@@ -75,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.442" />
+        app:layout_constraintVertical_bias="0.473" />
 
     <Button
         android:id="@+id/button3"
@@ -92,12 +96,13 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="297dp"
-        android:layout_height="448dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="246dp"
+        android:layout_height="333dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textbox"
+        app:layout_constraintVertical_bias="0.952"
         app:srcCompat="@drawable/earth" />
 
     <TextView
@@ -109,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/ActualTip"
