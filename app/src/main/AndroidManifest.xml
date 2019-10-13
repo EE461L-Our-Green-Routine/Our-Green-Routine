@@ -24,9 +24,11 @@
 
         <activity android:name=".CategoriesPage"></activity>
         <activity android:name=".ItemPage" />
-        <activity android:name=".ItemList" />
         <activity android:name=".AboutPage" />
+        <activity android:name=".ItemList" />
+        <activity android:name=".CarbonFootPrint" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
