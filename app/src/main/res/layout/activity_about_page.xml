@@ -32,7 +32,7 @@
                 android:layout_width="363dp"
                 android:layout_height="161dp"
                 android:layout_marginTop="8dp"
-                android:text="Information about the app Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:text="The purpose of Our Green Routine is to inform users on how to properly recycle materials and how to better understand their environmental impact. Our app will be a one-stop-shop for environmental tools such as a carbon footprint tracker, recycling information, and personal climate action planning."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 />
@@ -442,6 +442,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 />
         </LinearLayout>
 
