@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -15,9 +14,9 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context cardCont;
-    private ArrayList<card> data;
+    private ArrayList<Card> data;
 
-    public MyAdapter(Context cardCont, ArrayList<card> data) {
+    public MyAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
         this.data = data;
     }
@@ -46,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        card c = data.get(position);
+        Card c = data.get(position);
         holder.item.setText(c.getItem());
         holder.pic.setImageDrawable(cardCont.getResources().getDrawable(c.getPic(), null));
         holder.description.setText(c.getDescription());

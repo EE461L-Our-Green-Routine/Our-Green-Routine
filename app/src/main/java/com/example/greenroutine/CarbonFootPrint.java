@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class carbonFootPrint extends AppCompatActivity {
+public class CarbonFootPrint extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

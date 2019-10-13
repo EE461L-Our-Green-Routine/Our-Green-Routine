@@ -1,11 +1,11 @@
 package com.example.greenroutine;
 
-public class card{
+public class Card {
     private int pic;
     private String item;
     private String description;
 
-    public card(int pic, String name, String description) {
+    public Card(int pic, String name, String description) {
         this.pic = pic;
         this.item = name;
         this.description = description;
