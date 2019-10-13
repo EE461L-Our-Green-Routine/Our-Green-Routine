@@ -27,6 +27,7 @@ public class CarbonFootPrint extends AppCompatActivity {
         totalTextView.setText(totalCarbon.toString());
     }
 
+    //TODO: actually do the actual conversion. something is VERY wrong here
     //does the actual conversion
     public Double stringToPoints(String str){
         //this is just a hardcoded output for show purpose
