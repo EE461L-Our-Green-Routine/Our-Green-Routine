@@ -1,0 +1,82 @@
+package com.example.greenroutine;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.android.gms.common.internal.Constants;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
+
+    private FusedLocationProviderClient fusedLocationClient;
+    private String itemName = "ballsaq";
+    private String pictureFilePath;
+    private double lat = 30.2886486;
+    private double lng = -97.7376337;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                        }
+                    }
+                });
+
+        // Retrieve the content view that renders the map.
+        setContentView(R.layout.activity_item_page);
+        // Get the SupportMapFragment and request notification
+        // when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+
+
+
+    public void changeName(View view){
+        //(TextView) findViewById(R.id.name).setText(name);
+
+        TextView nameBox = (TextView) findViewById(R.id.name);
+
+        nameBox.setText(itemName);
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+
+        LatLng location = new LatLng(lat, lng);
+        map.addMarker(new MarkerOptions().position(location)
+                .title("You are here."));
+        map.moveCamera(CameraUpdateFactory.newLatLng(location));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+//    map.setMyLocationEnabled(true);
+//        fusedLocationClient.getLastLocation();
+//        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(,
+//                        -73.98180484771729));
+//        CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+    }
+}

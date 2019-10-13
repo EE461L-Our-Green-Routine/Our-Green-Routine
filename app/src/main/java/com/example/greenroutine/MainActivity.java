@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(aboutIntent);
     }
 
-    public void goToDB(View view){
-        Intent dbIntent = new Intent(this, DataBaseActivity.class);
-        startActivity(dbIntent);
+    public void goToCats(View view){
+        Intent CIntent = new Intent(this, CategoriesPage.class);
+        startActivity(CIntent);
     }
 
     public void goToFoot(View view){//currently not working
