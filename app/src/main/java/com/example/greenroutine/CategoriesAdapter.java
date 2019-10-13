@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>{
     private Context cardCont;
-    private ArrayList<card> data;
+    private ArrayList<Card> data;
 
-    public CategoriesAdapter(Context cardCont, ArrayList<card> data) {
+    public CategoriesAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
         this.data = data;
     }
@@ -68,7 +68,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        card c = data.get(position);
+        Card c = data.get(position);
         holder.item.setText(c.getItem());
         holder.pic.setImageDrawable(cardCont.getResources().getDrawable(c.getPic(), null));
         holder.description.setText(c.getDescription());

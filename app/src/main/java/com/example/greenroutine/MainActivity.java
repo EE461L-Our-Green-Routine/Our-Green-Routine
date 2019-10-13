@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(CIntent);
     }
 
+    public void goToFoot(View view){//currently not working
+        Intent FootIntent = new Intent(this, CarbonFootPrint.class);
+        startActivity(FootIntent);
+    }
+
     public void searchNear(View view) {
     }
 }

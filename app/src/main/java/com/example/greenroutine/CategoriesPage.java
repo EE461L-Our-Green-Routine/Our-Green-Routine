@@ -27,9 +27,9 @@ public class CategoriesPage extends AppCompatActivity {
         recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(layManager);
 
-        ArrayList<card> cards = new ArrayList<>();
-        card c1 = new card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
-        card c2 = new card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
+        ArrayList<Card> cards = new ArrayList<>();
+        Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
+        Card c2 = new Card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
         /*card c3 = new card(R.drawable.beer,"Beer Bottles", "Any brand of glass beer bottle");
         card c4 = new card(R.drawable.cereal,"Cereal Boxes", "Cardboard box");
         card c5 = new card(R.drawable.cans,"Steel Cans", "Cans made from steel");
