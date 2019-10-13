@@ -1,6 +1,6 @@
-total 8
-mpontikes 1
-Djadih 2
-zsisti 3
-agonzales5071 4
-ElginAllen 5
+total 0
+mpontikes 0
+Djadih 0
+zsisti 0
+agonzales5071 0
+ElginAllen 0
