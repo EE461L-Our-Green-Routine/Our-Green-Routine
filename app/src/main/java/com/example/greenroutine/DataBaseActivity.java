@@ -14,7 +14,6 @@ public class DataBaseActivity extends AppCompatActivity {
     private RecyclerView recycleView;
     private LinearLayoutManager layManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +48,6 @@ public class DataBaseActivity extends AppCompatActivity {
 
         MyAdapter mAdapter = new MyAdapter(this, cards);
         recycleView.setAdapter(mAdapter);
-
 
     }
 
