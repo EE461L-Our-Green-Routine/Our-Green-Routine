@@ -19,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(aboutIntent);
     }
 
+    public void goToDB(View view){
+        Intent dbIntent = new Intent(this, DataBaseActivity.class);
+        startActivity(dbIntent);
+    }
+
     public void searchNear(View view) {
     }
 }
