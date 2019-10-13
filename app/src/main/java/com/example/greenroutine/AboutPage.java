@@ -100,4 +100,63 @@ public class AboutPage extends AppCompatActivity {
         });
         queue.add(stringRequest);
     }
+    public void getAllCommits(final int id){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/commits";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int out = response.split("\"commit\"").length -1;
+                        ((TextView)findViewById(id)).setText(Integer.toString(out) + " commits");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                ((TextView)findViewById(id)).setText("ERR commits");
+            }
+        });
+        queue.add(stringRequest);
+    }
+    public void getAllIssues(final int id){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int out = response.split("\"repository_url\"").length -1;
+                        ((TextView)findViewById(id)).setText(Integer.toString(out) + " issues/PRs");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                ((TextView)findViewById(id)).setText("ERR issues");
+            }
+        });
+        queue.add(stringRequest);
+    }
+    public void getAllTests(final int id){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        response = response.substring(response.indexOf("\"content\":\"")+11);
+                        response = response.substring(0,response.indexOf("\""));
+                        response = response.replace("\\n", "");
+                        response = new String(Base64.decode(response,0));
+                        response = response.substring(response.indexOf("total")+6);
+                        response = response.substring(0, response.indexOf("\n"));
+                        ((TextView)findViewById(id)).setText(response + " tests");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                ((TextView)findViewById(id)).setText("ERR tests");
+            }
+        });
+        queue.add(stringRequest);
+    }
 }
