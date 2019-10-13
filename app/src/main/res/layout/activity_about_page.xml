@@ -332,7 +332,7 @@
                 android:layout_width="344dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="16dp"
-                android:text="Zach is a fourth year Electrical and Computer Engineering major at the University of Texas who specializes in software engineering. He is particularly interested in applying his love of software to the exploration of outer space and combatting climate change."
+                android:text="A Senior ECE student at UT, Zach hopes to one day apply his love of software engineering to the exploration of outer space or to the combat climate change."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
