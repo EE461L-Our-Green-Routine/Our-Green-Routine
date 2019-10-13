@@ -33,6 +33,30 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private double lat = 30.2886486;
     private double lng = -97.7376337;
 
+    public String parser(String name){
+        char parsed[] = name.toCharArray();
+        int spaces=0;
+        for(int i=0; i<parsed.length; i++){
+            if(parsed[i]==' '&& i<parsed.length-1){
+                spaces++;
+                int temp=i;
+                for(int j=i+1; j<parsed.length; j++){
+                    parsed[temp]=parsed[j];
+                    temp++;
+                }
+            }
+            if((int)parsed[i]>64&&(int)parsed[i]<90){
+                parsed[i]=(char)((int)parsed[i]+32);
+            }
+        }
+        char shortened[]=new char[parsed.length-spaces];
+        for(int i=0; i<parsed.length-spaces; i++){
+            shortened[i]=parsed[i];
+        }
+        String str = new String(shortened);
+        return str;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +100,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private void setPicture(String pictureName){
         ImageView imageView = findViewById(R.id.imageView);
-        imageView.setImageResource(getResources().getIdentifier(itemName, "drawable", this.getPackageName()));
+        String imageName = parser(itemName);
+        imageView.setImageResource(getResources().getIdentifier(imageName, "drawable", this.getPackageName()));
     }
 
 
