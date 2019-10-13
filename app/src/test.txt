@@ -1,3 +1,4 @@
+total 8
 mpontikes 1
 Djadih 2
 zsisti 3
