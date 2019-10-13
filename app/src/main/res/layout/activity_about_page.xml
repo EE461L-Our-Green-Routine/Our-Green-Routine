@@ -86,15 +86,6 @@
                 />
 
             <TextView
-                android:id="@+id/coreTitleFun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Core/Title/Fun Fact"
-                />
-
-            <TextView
                 android:id="@+id/mpcommit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -157,15 +148,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Eletrical and Computer Engineering"
-                />
-
-            <TextView
-                android:id="@+id/coreTitleFun1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Core/Title/Fun Fact"
                 />
 
             <TextView
@@ -234,15 +216,6 @@
                 />
 
             <TextView
-                android:id="@+id/coreTitleFun2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Core/Title/Fun Fact"
-                />
-
-            <TextView
                 android:id="@+id/mpcommit2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -308,15 +281,6 @@
                 />
 
             <TextView
-                android:id="@+id/coreTitleFun3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Core/Title/Fun Fact"
-                />
-
-            <TextView
                 android:id="@+id/mpcommit3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -367,7 +331,7 @@
                 android:layout_width="344dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="16dp"
-                android:text=" about the app Lorem ipsum d u. Ut enim ad minim veniam, quis nostrud exercitation ullamco oluptate velit esse cillum d sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:text="Zach is a fourth year Electrical and Computer Engineering major at the University of Texas who specializes in software engineering. He is particularly interested in applying his love of software to the exploration of outer space and combatting climate change."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
