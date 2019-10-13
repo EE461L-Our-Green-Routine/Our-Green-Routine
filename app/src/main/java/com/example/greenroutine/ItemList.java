@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,6 +51,11 @@ public class ItemList extends AppCompatActivity {
         ItemListAdapter mAdapter = new ItemListAdapter(this, cards);
         recycleView.setAdapter(mAdapter);
 
+    }
+
+    protected void sendToItemPage(View view){
+        Intent itemIntent = new Intent(this, ItemPage.class);
+        startActivity(itemIntent);
     }
 
 }
