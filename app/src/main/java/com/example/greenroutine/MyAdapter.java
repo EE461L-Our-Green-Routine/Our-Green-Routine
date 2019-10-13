@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(v);
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
-            description = v.findViewById(R.id.description);
+            description = v.findViewById(R.id.siteDescription);
 
         }
     }

@@ -19,7 +19,7 @@
                 android:layout_height="140dp"
                 android:layout_width="wrap_content"
                 android:padding="2dp"
-                android:layout_toRightOf="@id/description"
+                android:layout_toRightOf="@id/siteDescription"
                 android:layout_centerVertical="true" />
 
             <TextView
@@ -33,7 +33,7 @@
                 android:textSize="28sp" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/siteDescription"
                 android:layout_width="215dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/item"
