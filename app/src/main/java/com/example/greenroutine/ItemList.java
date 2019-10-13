@@ -12,20 +12,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
-public class DataBaseActivity extends AppCompatActivity {
+public class ItemList extends AppCompatActivity {
     private RecyclerView recycleView;
     private LinearLayoutManager layManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_base);
+        setContentView(R.layout.activity_item_list);
 
         // use a linear layout manager
         layManager = new LinearLayoutManager(this);
         layManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        recycleView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recycleView = (RecyclerView) findViewById(R.id.my_recycler_view_items);
         recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(layManager);
 
@@ -48,7 +48,7 @@ public class DataBaseActivity extends AppCompatActivity {
         cards.add(c7);
         cards.add(c8);
 
-        MyAdapter mAdapter = new MyAdapter(this, cards);
+        ItemListAdapter mAdapter = new ItemListAdapter(this, cards);
         recycleView.setAdapter(mAdapter);
 
     }
