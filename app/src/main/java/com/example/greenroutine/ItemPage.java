@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,9 +74,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         totalTextView.setText(itemName);
     }
 
-    private void setPicture(String pictureFilePath){
+    private void setPicture(String pictureName){
         ImageView imageView = findViewById(R.id.imageView);
-        imageView.setImageResource(parent.getResources().getIdentifier());
+        imageView.setImageResource(getResources().getIdentifier(itemName, "drawable", this.getPackageName()));
     }
 
 
