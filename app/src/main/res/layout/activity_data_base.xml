@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:id="@+id/recyMain"
-    tools:context=".DataBaseActivity">
+    tools:context=".CategoriesPage">
 
 
     <androidx.recyclerview.widget.RecyclerView

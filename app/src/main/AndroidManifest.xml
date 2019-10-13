@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".CategoriesPage"></activity>
         <activity android:name=".ItemPage" />
-        <activity android:name=".DataBaseActivity" />
+        <activity android:name=".ItemList" />
         <activity android:name=".AboutPage" />
         <activity android:name=".MainActivity">
             <intent-filter>

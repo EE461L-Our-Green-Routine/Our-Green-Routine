@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyViewHolder>{
     private Context cardCont;
     private ArrayList<card> data;
 
-    public MyAdapter(Context cardCont, ArrayList<card> data) {
+    public ItemListAdapter(Context cardCont, ArrayList<card> data) {
         this.cardCont = cardCont;
         this.data = data;
     }
