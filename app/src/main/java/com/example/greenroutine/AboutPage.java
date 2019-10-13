@@ -20,9 +20,26 @@ public class AboutPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_page);
-        getCommits("mpontikes", R.id.mpcommit);
-        getIssues("mpontikes", R.id.mpIssues);
-        getTests("mpontikes", R.id.mptest);
+
+        getCommits("agonzales5071", R.id.mpcommit);
+        getIssues("agonzales5071", R.id.mpIssues);
+        getTests("agonzales5071", R.id.mptest);
+
+        getCommits("ElginAllen", R.id.mpcommit1);
+        getIssues("ElginAllen", R.id.mpIssues1);
+        getTests("ElginAllen", R.id.mptest1);
+
+        getCommits("Djadih", R.id.mpcommit2);
+        getIssues("Djadih", R.id.mpIssues2);
+        getTests("Djadih", R.id.mptest2);
+
+        getCommits("mpontikes", R.id.mpcommit3);
+        getIssues("mpontikes", R.id.mpIssues3);
+        getTests("mpontikes", R.id.mptest3);
+        
+        getCommits("zsisti", R.id.mpcommit4);
+        getIssues("zsisti", R.id.mpIssues4);
+        getTests("zsisti", R.id.mptest4);
     }
     public void getCommits(final String user, final int id){
         RequestQueue queue = Volley.newRequestQueue(this);
