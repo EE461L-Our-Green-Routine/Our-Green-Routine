@@ -2,9 +2,11 @@ package com.example.greenroutine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.internal.Constants;
@@ -22,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
+    private static final String PICTURE_PATH = "PICTURE_PATH";
 
     private FusedLocationProviderClient fusedLocationClient;
     public String itemName;
@@ -37,8 +40,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_item_page);
 
         itemName = getIntent().getStringExtra(ITEM_NAME);
+        pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
 
         setName(itemName);
+        setPicture(pictureFilePath);
 
         //itemName = getIntent().getStringExtra(ITEM_NAME);
 
@@ -66,6 +71,11 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private void setName(String itemName){
         TextView totalTextView = findViewById(R.id.name);
         totalTextView.setText(itemName);
+    }
+
+    private void setPicture(String pictureFilePath){
+        ImageView imageView = findViewById(R.id.imageView);
+        imageView.setImageResource(parent.getResources().getIdentifier());
     }
 
 
