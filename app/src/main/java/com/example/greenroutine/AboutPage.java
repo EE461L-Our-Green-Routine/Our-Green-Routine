@@ -1,10 +1,7 @@
 package com.example.greenroutine;
 
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.TextView;
@@ -72,8 +69,11 @@ public class AboutPage extends AppCompatActivity {
                     public void onResponse(String response) {
                         response = response.substring(response.indexOf("\"content\":\"")+11);
                         response = response.substring(0,response.indexOf("\""));
-                        response = Base64.decode("response",0).toString();
-                        ((TextView)findViewById(id)).setText(0 + " tests");
+                        response = response.replace("\\n", "");
+                        response = new String(Base64.decode(response,0));
+                        response = response.substring(response.indexOf(user)+user.length()+1);
+                        response = response.substring(0, response.indexOf("\n"));
+                        ((TextView)findViewById(id)).setText(response + " tests");
                     }
                 }, new Response.ErrorListener() {
             @Override
