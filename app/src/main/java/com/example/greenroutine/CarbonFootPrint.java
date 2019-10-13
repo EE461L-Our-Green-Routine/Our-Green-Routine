@@ -18,13 +18,11 @@ public class CarbonFootPrint extends AppCompatActivity {
     }
     //gets the user input and calculates the foot print based on that
     public void calculateFP(View view){
-        TextView inputTextView = findViewById(R.id.carbonInput);
-        String inputString = inputTextView.getText().toString();
+        String inputString = findViewById(R.id.carbonInput).toString();
         Double value = stringToPoints(inputString);
 
         totalCarbon += value;
-
-        TextView totalTextView = findViewById(R.id.carbonInput);
+        TextView totalTextView = findViewById(R.id.carbonTotal);
 
         totalTextView.setText(totalCarbon.toString());
     }
