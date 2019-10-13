@@ -22,11 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
-    TextView nameView = (TextView) findViewById(R.id.name);
-
 
     private FusedLocationProviderClient fusedLocationClient;
-    private String itemName = "balsaq";
+    public String itemName;
     private String pictureFilePath;
     private double lat = 30.2886486;
     private double lng = -97.7376337;
@@ -35,9 +33,14 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Retrieve the content view that renders the map.
+        setContentView(R.layout.activity_item_page);
+
+        itemName = getIntent().getStringExtra(ITEM_NAME);
+
+        setName(itemName);
 
         //itemName = getIntent().getStringExtra(ITEM_NAME);
-        setName();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
@@ -51,8 +54,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 });
 
-        // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_item_page);
+
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -61,15 +63,11 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
-
-
-    public void setName(){
-        //(TextView) findViewById(R.id.name).setText(name);
-
-        //TextView nameBox = (TextView) findViewById(R.id.name);
-
-        nameView.setText(itemName);
+    private void setName(String itemName){
+        TextView totalTextView = findViewById(R.id.name);
+        totalTextView.setText(itemName);
     }
+
 
 
     @Override
