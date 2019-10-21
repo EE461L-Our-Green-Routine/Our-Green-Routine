@@ -31,6 +31,7 @@ public class CarbonFootPrint extends AppCompatActivity {
     //does the actual conversion
     public Double stringToPoints(String str){
         //this is just a hardcoded output for show purpose
+
         return 15.0;
     }
 }
