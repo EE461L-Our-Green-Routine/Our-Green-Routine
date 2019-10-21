@@ -26,21 +26,116 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/itemUrl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078"/>
 
+    <TextView
+        android:id="@+id/itemUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Recycling Information:"
+        app:layout_constraintBottom_toTopOf="@id/link"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name" />
+
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="383dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="544dp"
+        android:autoLink="all"
+        android:clickable="true"
+        android:text="https://earth911.com/recycling-guide/how-to-recycle-medical-sharps/"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="116dp"
         android:layout_height="164dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintEnd_toStartOf="@id/locations"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/link" />
+
+    <TextView
+        android:id="@+id/loctitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Recycling Centers that will accept this:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/locations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/link" />
+
+    <TableLayout
+        android:id="@+id/locations"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:stretchColumns="1"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/loctitle">
+        <TableRow>
+            <TextView
+                android:text="loc1"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist1"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc2"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist2"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc3"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist3"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc4"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist4"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc5"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist5"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

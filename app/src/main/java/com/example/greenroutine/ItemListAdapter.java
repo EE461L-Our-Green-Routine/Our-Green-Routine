@@ -38,6 +38,17 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
+            pic.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v){
+                    Intent itL = new Intent(v.getContext(), ItemPage.class);
+                    String name=(String)item.getText();
+                    itL.putExtra(ITEM_NAME, name);
+                    v.getContext().startActivity(itL);
+
+                    pic.getImageAlpha();
+
+                }
+            });
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     Intent itL = new Intent(v.getContext(), ItemPage.class);

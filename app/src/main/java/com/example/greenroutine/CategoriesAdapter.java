@@ -41,6 +41,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
+            pic.setClickable(true);
+            pic.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v){
+                    Intent cL = new Intent(v.getContext(), ItemList.class);
+                    String category=(String)item.getText();
+                    cL.putExtra(CATEGORY_NAME, category);
+                    v.getContext().startActivity(new Intent(cL));
+                }
+            });
+
             //cL.setOnClickListener(this);
             //pic.setOnClickListener(this);
             v1.setOnClickListener(new View.OnClickListener(){
