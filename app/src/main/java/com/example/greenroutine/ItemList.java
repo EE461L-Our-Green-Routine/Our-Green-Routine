@@ -34,7 +34,10 @@ public class ItemList extends AppCompatActivity {
         ArrayList<Card> paper = new ArrayList<>();
         ArrayList<Card> glass = new ArrayList<>();
         ArrayList<Card> metal = new ArrayList<>();
-        ArrayList<Card> cardboard= new ArrayList<>();
+        ArrayList<Card> hhw= new ArrayList<>();
+        ArrayList<Card> house= new ArrayList<>();
+        ArrayList<Card> automotive= new ArrayList<>();
+        ArrayList<Card> electronics= new ArrayList<>();
         Card c1 = new Card(R.drawable.dasani,"Dasani", "Plastic water bottle");
         Card c2 = new Card(R.drawable.sunnyd,"Sunny D", "Plastic juice bottle");
         Card c3 = new Card(R.drawable.beer,"Beer", "Any brand of glass beer bottle");
@@ -47,7 +50,6 @@ public class ItemList extends AppCompatActivity {
         plastic.add(c1);
         plastic.add(c2);
         glass.add(c3);
-        cardboard.add(c4);
         metal.add(c5);
         paper.add(c6);
         paper.add(c7);
@@ -62,10 +64,10 @@ public class ItemList extends AppCompatActivity {
             case ("Plastic Bottles"):
                 mAdapter = new ItemListAdapter(this, plastic);
                 break;
-            case ("Cardboard"):
+            /*case ("Cardboard"):
                 mAdapter = new ItemListAdapter(this, cardboard);
                 break;
-            case ("Metal"):
+            */case ("Metal"):
                 mAdapter = new ItemListAdapter(this, metal);
                 break;
             case ("Paper"):

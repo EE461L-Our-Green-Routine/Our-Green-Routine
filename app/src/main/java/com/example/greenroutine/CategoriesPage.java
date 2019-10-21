@@ -28,16 +28,33 @@ public class CategoriesPage extends AppCompatActivity {
         recycleView.setLayoutManager(layManager);
 
         ArrayList<Card> cards = new ArrayList<>();
-        Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
+      /*  Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
         Card c2 = new Card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
         Card c3 = new Card(R.drawable.cereal,"Cardboard", "Anything made from cardboard");
         Card c4 = new Card(R.drawable.officepaper,"Paper", "Paper products");
+        */
+        Card c1 = new Card(R.drawable.automotive,"Automotive", "Car parts and accessories");
+        Card c2 = new Card(R.drawable.construction,"Construction", "Construction waste and materials");
+        Card c3 = new Card(R.drawable.beer,"Glass", "Glass products and materials");
+        Card c4 = new Card(R.drawable.dasani,"Plastic", "Plastic products");
+        Card c5 = new Card(R.drawable.householdwaste,"Household Waste", "Residential waste not " +
+                                                                               "applicable to the other categories");
+        Card c6 = new Card(R.drawable.cans,"Metal", "Products made from metal");
+        Card c7 = new Card(R.drawable.electronics,"Electronics", "Household electronic products");
+        Card c8 = new Card(R.drawable.officepaper,"Paper", "Professional and household paper products");
+        Card c9 = new Card(R.drawable.household,"Household", "Residential products not applicable " +
+                                                                        "to the other categories");
 
 
         cards.add(c1);
         cards.add(c2);
         cards.add(c3);
         cards.add(c4);
+        cards.add(c5);
+        cards.add(c6);
+        cards.add(c7);
+        cards.add(c8);
+        cards.add(c9);
 
 
         CategoriesAdapter mAdapter = new CategoriesAdapter(this, cards);
