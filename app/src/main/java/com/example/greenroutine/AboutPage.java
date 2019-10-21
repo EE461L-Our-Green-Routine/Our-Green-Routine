@@ -15,41 +15,54 @@ import com.android.volley.toolbox.Volley;
 
 
 public class AboutPage extends AppCompatActivity {
-
+    private RequestQueue queue = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        queue = Volley.newRequestQueue(this);
         setContentView(R.layout.activity_about_page);
-        getCommits1("agonzales5071", R.id.mpcommit);
+        getCommits("agonzales5071", R.id.mpcommit);
         getIssues("agonzales5071", R.id.mpIssues);
         getTests("agonzales5071", R.id.mptest);
 
-        getCommits1("ElginAllen", R.id.mpcommit1);
+        getCommits("ElginAllen", R.id.mpcommit1);
         getIssues("ElginAllen", R.id.mpIssues1);
         getTests("ElginAllen", R.id.mptest1);
 
-        getCommits2("Djadih", R.id.mpcommit2);
+        getCommits("Djadih", R.id.mpcommit2);
         getIssues("Djadih", R.id.mpIssues2);
         getTests("Djadih", R.id.mptest2);
 
-        getCommits2("mpontikes", R.id.mpcommit3);
+        getCommits("mpontikes", R.id.mpcommit3);
         getIssues("mpontikes", R.id.mpIssues3);
         getTests("mpontikes", R.id.mptest3);
 
-        getCommits1("zsisti", R.id.mpcommit4);
+        getCommits("zsisti", R.id.mpcommit4);
         getIssues("zsisti", R.id.mpIssues4);
         getTests("zsisti", R.id.mptest4);
     }
-    public void getCommits1(final String user, final int id){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/commits?page=1&author=" + user;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+    public void getAPIData(String url, String search, int id, String tag){
+        getAPIHelp(url,1,search, id, tag);
+    }
+
+    private void getAPIHelp(final String url, final int page, final String search, final int id, final String tag){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url+"&page="+page,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                       int out = response.split("\"commit\"").length -1;
-                        ((TextView)findViewById(id)).setText(Integer.toString(out) + " commits");
-                        ((TextView)findViewById(R.id.totalCommits)).setText(Integer.toString(exterctNumber(R.id.totalCommits)+out)+" Total Commits");
+                        int out = response.split(search).length -1;
+                        if(out == 30){
+                            getAPIHelp(url,page+1,search, id, tag);
+                        }else{
+                            ((TextView)findViewById(id)).setText(Integer.toString(out + 30*(page-1)) + " " + tag);
+                            if(tag.equals("commits")) {
+                                ((TextView) findViewById(R.id.totalCommits)).setText(Integer.toString(exterctNumber(R.id.totalCommits) + out + 30 * (page - 1)) + " Total Commits");
+                            }
+                            if(tag.equals("issues")) {
+                                ((TextView) findViewById(R.id.totalIssues)).setText(Integer.toString(exterctNumber(R.id.totalIssues) + out + 30 * (page - 1)) + " Total Issues");
+                            }
+                        }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -59,43 +72,14 @@ public class AboutPage extends AppCompatActivity {
         });
         queue.add(stringRequest);
     }
-    public void getCommits2(final String user, final int id){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/commits?page=2&author=" + user;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        int out = 30 + response.split("\"commit\"").length -1;
-                        ((TextView)findViewById(id)).setText(Integer.toString(out) + " commits");
-                        ((TextView)findViewById(R.id.totalCommits)).setText(Integer.toString(exterctNumber(R.id.totalCommits)+out)+" Total Commits");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ((TextView)findViewById(id)).setText("ERR commits");
-            }
-        });
-        queue.add(stringRequest);
+
+    public void getCommits(final String user, final int id){
+        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/commits?author=" + user;
+        getAPIData(url, "\"commit\"", id, "commits");
     }
     public void getIssues(final String user, final int id){
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all&creator=" + user;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        int out = response.split("\"repository_url\"").length -1;
-                        ((TextView)findViewById(id)).setText(Integer.toString(out) + " issues/PRs");
-                        ((TextView)findViewById(R.id.totalIssues)).setText(Integer.toString(exterctNumber(R.id.totalIssues)+out)+" Total Issues");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ((TextView)findViewById(id)).setText("ERR issues");
-            }
-        });
-        queue.add(stringRequest);
+        getAPIData(url, "\"repository_url\"", id, "issues");
     }
     public void getTests(final String user, final int id){
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -121,54 +105,9 @@ public class AboutPage extends AppCompatActivity {
         });
         queue.add(stringRequest);
     }
-    public void getAllCommits(final int id){
-            int pf = exterctNumber(R.id.mpcommit) + exterctNumber(R.id.mpcommit2) + exterctNumber(R.id.mpcommit3) + exterctNumber(R.id.mpcommit4) + exterctNumber(R.id.mpcommit4);
-            ((TextView)findViewById(id)).setText(Integer.toString(pf) + " total commits");
-    }
     public int exterctNumber(int ind){
         String up = (String) ((TextView)findViewById(ind)).getText();
         up = up.substring(0,up.indexOf(" "));
         return Integer.parseInt(up);
-    }
-    public void getAllIssues(final int id){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        int out = response.split("\"repository_url\"").length -1;
-                        ((TextView)findViewById(id)).setText(Integer.toString(out) + " issues/PRs");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ((TextView)findViewById(id)).setText("ERR issues");
-            }
-        });
-        queue.add(stringRequest);
-    }
-    public void getAllTests(final int id){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        response = response.substring(response.indexOf("\"content\":\"")+11);
-                        response = response.substring(0,response.indexOf("\""));
-                        response = response.replace("\\n", "");
-                        response = new String(Base64.decode(response,0));
-                        response = response.substring(response.indexOf("total")+6);
-                        response = response.substring(0, response.indexOf("\n"));
-                        ((TextView)findViewById(id)).setText(response + " tests");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ((TextView)findViewById(id)).setText("ERR tests");
-            }
-        });
-        queue.add(stringRequest);
     }
 }
