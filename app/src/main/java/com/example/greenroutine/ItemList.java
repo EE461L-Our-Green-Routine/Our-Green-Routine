@@ -58,10 +58,10 @@ public class ItemList extends AppCompatActivity {
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
         ItemListAdapter mAdapter;
         switch(cat) {
-            case ("Glass Bottles"):
+            case ("Glass"):
                 mAdapter = new ItemListAdapter(this, glass);
                 break;
-            case ("Plastic Bottles"):
+            case ("Plastic"):
                 mAdapter = new ItemListAdapter(this, plastic);
                 break;
             /*case ("Cardboard"):
