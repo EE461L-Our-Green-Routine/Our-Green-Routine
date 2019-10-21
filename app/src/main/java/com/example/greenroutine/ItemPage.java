@@ -1,19 +1,21 @@
 package com.example.greenroutine;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import android.content.res.Resources;
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,12 +28,14 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
     private static final String PICTURE_PATH = "PICTURE_PATH";
+    private static final int FINE_LOCATION_REQUEST = 69;
+    private final Object initLock = new Object();
 
     private FusedLocationProviderClient fusedLocationClient;
     public String itemName;
     private String pictureFilePath;
-    private double lat = 30.2886486;
-    private double lng = -97.7376337;
+    private double lat;
+    private double lng;
 
     public String parser(String name){
         char parsed[] = name.toCharArray();
@@ -64,32 +68,21 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_item_page);
 
+        setupItemDetails();
+
+        checkPermissions();
+
+        //getCurrentLocation();
+
+        //displayMap();
+    }
+
+    private void setupItemDetails(){
         itemName = getIntent().getStringExtra(ITEM_NAME);
         pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
 
         setName(itemName);
         setPicture(pictureFilePath);
-
-        //itemName = getIntent().getStringExtra(ITEM_NAME);
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                        }
-                    }
-                });
-
-
-        // Get the SupportMapFragment and request notification
-        // when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
 
@@ -105,7 +98,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
-
     @Override
     public void onMapReady(GoogleMap map) {
 
@@ -119,5 +111,103 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(,
 //                        -73.98180484771729));
 //        CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+    }
+
+    private void checkPermissions(){
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        FINE_LOCATION_REQUEST);
+
+            }
+        } else {
+            // Permission has already been granted
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case FINE_LOCATION_REQUEST : {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+//                    Intent intent = getIntent();
+//                    finish();
+//                    startActivity(intent);
+                    getCurrentLocation();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private void getCurrentLocation(){
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+
+
+                        //lat = 30.2886486;
+                        //lng = -97.7376337;
+
+                        Context context = getApplicationContext();
+                        if (location != null) {
+                            // Logic to handle location object
+                            //lat = 30.2886486;
+                            //lng = -97.7376337;
+                            //lat = 0;
+                            //lng = 0;
+                            // Got last known location. In some rare situations this can be null.
+                            Toast debugToast = Toast.makeText(context, lat+" "+lng, Toast.LENGTH_LONG);
+
+                            lat = location.getLatitude();
+                            lng = location.getLongitude();
+                            displayMap();
+                        }
+                        else {
+                            Toast nullToast = Toast.makeText(context, "Location was not available", Toast.LENGTH_LONG);
+                            nullToast.show();
+                        }
+                    }
+                });
+    }
+
+    private void displayMap(){
+        // Get the SupportMapFragment and request notification
+        // when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 }
