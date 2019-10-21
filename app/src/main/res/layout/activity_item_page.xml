@@ -65,17 +65,77 @@
         android:layout_height="164dp"
         android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/locations"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/link" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="293dp"
-        android:layout_height="244dp"
+    <TextView
+        android:id="@+id/loctitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Recycling Centers that will accept this:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/locations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/link" />
+
+    <TableLayout
+        android:id="@+id/locations"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:stretchColumns="1"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/link" />
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/loctitle">
+        <TableRow>
+            <TextView
+                android:text="loc1"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist1"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc2"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist2"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc3"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist3"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc4"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist4"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="loc5"
+                android:padding="3dip"/>
+            <TextView
+                android:text="dist5"
+                android:gravity="right"
+                android:padding="3dip"/>
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
