@@ -20,6 +20,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
     private ArrayList<Card> data;
     private static String ITEM_NAME = "ITEM_NAME";
     private static String PICTURE_ID = "PICTURE_ID";
+    private static String CATEGORY_NAME = "CATEGORY_NAME";
+
 
     public ItemListAdapter(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
@@ -44,7 +46,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
                     String name=(String)item.getText();
                     itL.putExtra(ITEM_NAME, name);
                     v.getContext().startActivity(itL);
-
                     pic.getImageAlpha();
 
                 }
@@ -55,7 +56,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
                     String name=(String)item.getText();
                     itL.putExtra(ITEM_NAME, name);
                     v.getContext().startActivity(itL);
-
                     pic.getImageAlpha();
 
                 }

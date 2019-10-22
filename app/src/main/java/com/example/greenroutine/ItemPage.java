@@ -45,6 +45,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private FirebaseFirestore mFirestore;
     private FusedLocationProviderClient fusedLocationClient;
     public String itemName;
+    public String categoryName;
     private String pictureFilePath;
     private String cat;
     private double lat;
@@ -73,7 +74,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         String str = new String(shortened);
         return str;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +105,12 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private void setupItemDetails(){
         itemName = getIntent().getStringExtra(ITEM_NAME);
+        categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+
         pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
         cat = getIntent().getStringExtra(CATEGORY_NAME);
-        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(),ITEM_NAME,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),categoryName,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),itemName,Toast.LENGTH_SHORT).show();
         //setLink();
         setName(itemName);
         setPicture(pictureFilePath);
