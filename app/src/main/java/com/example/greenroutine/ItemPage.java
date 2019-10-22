@@ -117,8 +117,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private void setLink(){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
-        //DocumentReference docRef = mFirestore.collection(categoryName.toLowerCase()).document(itemName.toLowerCase());
-        DocumentReference docRef = mFirestore.collection("glass").document("glass");
+        DocumentReference docRef = mFirestore.collection(categoryName.toLowerCase()).document(itemName.toLowerCase());
+        //DocumentReference docRef = mFirestore.collection("glass").document("glass");
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
