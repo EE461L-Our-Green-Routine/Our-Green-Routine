@@ -7,11 +7,9 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +26,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +37,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private static final String PICTURE_PATH = "PICTURE_PATH";
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private static final int FINE_LOCATION_REQUEST = 69;
+    private static String link;
     private final Object initLock = new Object();
     private FirebaseFirestore mFirestore;
     private FusedLocationProviderClient fusedLocationClient;
@@ -108,7 +105,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         categoryName = getIntent().getStringExtra(CATEGORY_NAME);
 
         pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
-        cat = getIntent().getStringExtra(CATEGORY_NAME);
+        //cat = getIntent().getStringExtra(CATEGORY_NAME);
 
 //        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(),ITEM_NAME,Toast.LENGTH_SHORT).show();
@@ -120,10 +117,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private void setLink(){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
-        String link;
-        //DocumentReference docRef = mFirestore.collection(cat.toLowerCase()).document(itemName.toLowerCase());
+        //DocumentReference docRef = mFirestore.collection(categoryName.toLowerCase()).document(itemName.toLowerCase());
         DocumentReference docRef = mFirestore.collection("glass").document("glass");
-        //
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -131,10 +127,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                     DocumentSnapshot document = task.getResult();
                     link = (String) document.get("recycling_guide");
                     if(document.exists()){
-                        Toast.makeText(getApplicationContext(),"HOORRAAAYYYY",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(),(String)document.get("recycling_guide"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),link,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),(String)document.get("recycling_guide"),Toast.LENGTH_SHORT).show();
                     }
-
             }
         }});
         //
@@ -145,7 +140,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 //        }
         //Toast.makeText(getApplicationContext(),link[0],Toast.LENGTH_SHORT).show();
         TextView linkText = findViewById(R.id.link);
-        linkText.setText(link);
+        //linkText.setText(link);
     }
     private void setName(String itemName){
         TextView totalTextView = findViewById(R.id.name);
