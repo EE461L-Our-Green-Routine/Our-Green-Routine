@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -89,6 +90,17 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         //getCurrentLocation();
 
         //displayMap();
+
+        // [START get_firestore_instance]
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // [END get_firestore_instance]
+
+        // [START set_firestore_settings]
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);
+        // [END set_firestore_settings]
     }
 
     private void setupItemDetails(){
