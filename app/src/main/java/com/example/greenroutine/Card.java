@@ -4,6 +4,7 @@ public class Card {
     private int pic;
     private String item;
     private String description;
+    private String category;
 
     public Card(int pic, String name, String description) {
         this.pic = pic;

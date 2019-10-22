@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -44,6 +45,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private FirebaseFirestore mFirestore;
     private FusedLocationProviderClient fusedLocationClient;
     public String itemName;
+    public String categoryName;
     private String pictureFilePath;
     private String cat;
     private double lat;
@@ -73,7 +75,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         return str;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,15 +90,30 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         //getCurrentLocation();
 
         //displayMap();
+
+        // [START get_firestore_instance]
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // [END get_firestore_instance]
+
+        // [START set_firestore_settings]
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);
+        // [END set_firestore_settings]
     }
 
     private void setupItemDetails(){
         itemName = getIntent().getStringExtra(ITEM_NAME);
+        categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+
         pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
         cat = getIntent().getStringExtra(CATEGORY_NAME);
+
 //        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(),ITEM_NAME,Toast.LENGTH_SHORT).show();
         setLink();
+
         setName(itemName);
         setPicture(pictureFilePath);
     }
