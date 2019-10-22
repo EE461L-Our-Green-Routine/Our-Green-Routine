@@ -25,8 +25,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(aboutIntent);
     }
 
-    public void goToCats(View view){
-        Intent CIntent = new Intent(this, CategoriesPage.class);
+    public void goToCatsWTR(View view){
+        Intent CIntent = new Intent(this, CategoriesPageWTR.class);
+        startActivity(CIntent);
+    }
+
+    public void goToCatsHTR(View view){
+        Intent CIntent = new Intent(this, CategoriesPageHTR.class);
         startActivity(CIntent);
     }
 

@@ -8,26 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 
-public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyViewHolder>{
+public class CategoriesAdapterWTR extends RecyclerView.Adapter<CategoriesAdapterWTR.MyViewHolder>{
     private Context cardCont;
     private ArrayList<Card> data;
-    private String catName;
-    private static String ITEM_NAME = "ITEM_NAME";
-    private static String PICTURE_ID = "PICTURE_ID";
     private static String CATEGORY_NAME = "CATEGORY_NAME";
 
 
-    public ItemListAdapter(Context cardCont, ArrayList<Card> data, String catName) {
+    public CategoriesAdapterWTR(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
         this.data = data;
-        this.catName = catName;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
@@ -35,36 +29,36 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
         ImageView pic;
         TextView item;
         TextView description;
-        String catName;
 
-        public MyViewHolder(View v, final String catName) {
+        public MyViewHolder(View v) {
             super(v);
             View v1 = v;
+
+            //cL=itemView.findViewById(R.id.recyMain);
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
-            pic.setOnClickListener(new View.OnClickListener(){
+            pic.setClickable(true);
+            pic.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v){
-                    Intent itL = new Intent(v.getContext(), ItemPage.class);
-                    String name=(String)item.getText();
-                    itL.putExtra(ITEM_NAME, name);
-                    itL.putExtra(CATEGORY_NAME, catName );
-                    v.getContext().startActivity(itL);
-                    pic.getImageAlpha();
-
+                    Intent cL = new Intent(v.getContext(), ItemListWTR.class);
+                    String category=(String)item.getText();
+                    cL.putExtra(CATEGORY_NAME, category);
+                    v.getContext().startActivity(new Intent(cL));
                 }
             });
+
+            //cL.setOnClickListener(this);
+            //pic.setOnClickListener(this);
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    Intent itL = new Intent(v.getContext(), ItemPage.class);
-                    String name=(String)item.getText();
-                    itL.putExtra(CATEGORY_NAME, catName );
-                    itL.putExtra(ITEM_NAME, name);
-                    v.getContext().startActivity(itL);
-                    pic.getImageAlpha();
-
+                    Intent cL = new Intent(v.getContext(), ItemListWTR.class);
+                    String category=(String)item.getText();
+                    cL.putExtra(CATEGORY_NAME, category);
+                    v.getContext().startActivity(new Intent(cL));
                 }
             });
+
         }
 
     }
@@ -73,7 +67,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inf = LayoutInflater.from(cardCont);
         View v = inf.inflate(R.layout.card, null);
-        MyViewHolder h = new MyViewHolder(v, catName);
+        MyViewHolder h = new MyViewHolder(v);
         return h;
     }
 

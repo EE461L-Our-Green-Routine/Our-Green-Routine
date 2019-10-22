@@ -1,23 +1,23 @@
 package com.example.greenroutine;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
-public class CategoriesPage extends AppCompatActivity {
+public class CategoriesPageHTR extends AppCompatActivity {
     private RecyclerView recycleView;
     private LinearLayoutManager layManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categories_page);
+        setContentView(R.layout.activity_categories_page_htr);
 
         // use a linear layout manager
         layManager = new LinearLayoutManager(this);
@@ -38,12 +38,12 @@ public class CategoriesPage extends AppCompatActivity {
         Card c3 = new Card(R.drawable.beer,"Glass", "Glass products and materials");
         Card c4 = new Card(R.drawable.dasani,"Plastic", "Plastic products");
         Card c5 = new Card(R.drawable.householdwaste,"Household Waste", "Residential waste not " +
-                                                                               "applicable to the other categories");
+                "applicable to the other categories");
         Card c6 = new Card(R.drawable.cans,"Metal", "Products made from metal");
         Card c7 = new Card(R.drawable.electronics,"Electronics", "Household electronic products");
         Card c8 = new Card(R.drawable.officepaper,"Paper", "Professional and household paper products");
         Card c9 = new Card(R.drawable.household,"Household", "Residential products not applicable " +
-                                                                        "to the other categories");
+                "to the other categories");
 
 
         cards.add(c1);
@@ -57,7 +57,7 @@ public class CategoriesPage extends AppCompatActivity {
         cards.add(c9);
 
 
-        CategoriesAdapter mAdapter = new CategoriesAdapter(this, cards);
+        CategoriesAdapterWTR mAdapter = new CategoriesAdapterWTR(this, cards);
         recycleView.setAdapter(mAdapter);
 
     }

@@ -23,10 +23,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/googleMaps" />
 
-        <activity android:name=".CategoriesPage"></activity>
+        <activity android:name=".CategoriesPageWTR"></activity>
+        <activity android:name=".CategoriesPageHTR"></activity>
         <activity android:name=".ItemPage" />
         <activity android:name=".AboutPage" />
-        <activity android:name=".ItemList" />
+        <activity android:name=".ItemListWTR" />
+        <activity android:name=".ItemListHTR" />
         <activity android:name=".CarbonFootPrint" />
         <activity android:name=".MainActivity">
 

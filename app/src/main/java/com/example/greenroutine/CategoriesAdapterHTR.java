@@ -8,21 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>{
+public class CategoriesAdapterHTR extends RecyclerView.Adapter<CategoriesAdapterHTR.MyViewHolder>{
     private Context cardCont;
     private ArrayList<Card> data;
     private static String CATEGORY_NAME = "CATEGORY_NAME";
 
 
-    public CategoriesAdapter(Context cardCont, ArrayList<Card> data) {
+    public CategoriesAdapterHTR(Context cardCont, ArrayList<Card> data) {
         this.cardCont = cardCont;
         this.data = data;
     }
@@ -44,7 +41,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             pic.setClickable(true);
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v){
-                    Intent cL = new Intent(v.getContext(), ItemList.class);
+                    Intent cL = new Intent(v.getContext(), ItemListWTR.class);
                     String category=(String)item.getText();
                     cL.putExtra(CATEGORY_NAME, category);
                     v.getContext().startActivity(new Intent(cL));
@@ -55,7 +52,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             //pic.setOnClickListener(this);
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    Intent cL = new Intent(v.getContext(), ItemList.class);
+                    Intent cL = new Intent(v.getContext(), ItemListWTR.class);
                     String category=(String)item.getText();
                     cL.putExtra(CATEGORY_NAME, category);
                     v.getContext().startActivity(new Intent(cL));
