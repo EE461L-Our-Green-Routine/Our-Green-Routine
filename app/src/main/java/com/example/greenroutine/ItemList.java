@@ -46,7 +46,7 @@ public class ItemList extends AppCompatActivity {
         Card c6 = new Card(R.drawable.officepaper,"Office Paper", "Paper created for professional use");
         Card c7 = new Card(R.drawable.newspaper,"Newspaper", "Thin paper used to distribute news");
         Card c8 = new Card(R.drawable.wine,"Wine", "Glass wine bottles");
-        Card c9 = new Card(R.drawable.alex, "glass", "glass link test");
+        //Card c9 = new Card(R.drawable.alex, "glass", "glass link test");
 
         plastic.add(c1);
         plastic.add(c2);
@@ -55,7 +55,7 @@ public class ItemList extends AppCompatActivity {
         paper.add(c6);
         paper.add(c7);
         glass.add(c8);
-        glass.add(c9);
+        //glass.add(c9);
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
         ItemListAdapter mAdapter;
         switch(cat) {
