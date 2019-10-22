@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDIrbjKVMPkptP8uk_IBjx89GtCqSfRL8o" />
+            android:value="@string/googleMaps" />
 
         <activity android:name=".CategoriesPage"></activity>
         <activity android:name=".ItemPage" />
