@@ -1,12 +1,12 @@
 package com.example.greenroutine;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -22,18 +22,29 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
     private static final String PICTURE_PATH = "PICTURE_PATH";
+    private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private static final int FINE_LOCATION_REQUEST = 69;
+    private static String link;
     private final Object initLock = new Object();
-
+    private FirebaseFirestore mFirestore;
     private FusedLocationProviderClient fusedLocationClient;
     public String itemName;
+    public String categoryName;
     private String pictureFilePath;
+    private String cat;
     private double lat;
     private double lng;
 
@@ -61,10 +72,11 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         return str;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
+        mFirestore = FirebaseFirestore.getInstance();
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_item_page);
 
@@ -75,17 +87,61 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         //getCurrentLocation();
 
         //displayMap();
+
+        // [START get_firestore_instance]
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // [END get_firestore_instance]
+
+        // [START set_firestore_settings]
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);
+        // [END set_firestore_settings]
     }
 
     private void setupItemDetails(){
         itemName = getIntent().getStringExtra(ITEM_NAME);
+        categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+
         pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
+        //cat = getIntent().getStringExtra(CATEGORY_NAME);
+
+//        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),ITEM_NAME,Toast.LENGTH_SHORT).show();
+        setLink();
 
         setName(itemName);
         setPicture(pictureFilePath);
     }
 
+    private void setLink(){
+        //mDatabase.child(CATEGORY_NAME).child(itemName);
+        DocumentReference docRef = mFirestore.collection(categoryName.toLowerCase()).document(itemName.toLowerCase());
+        //DocumentReference docRef = mFirestore.collection("glass").document("glass");
 
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    link = (String) document.get("recycling_guide");
+                    if(document.exists()){
+                        Toast.makeText(getApplicationContext(),link,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),(String)document.get("recycling_guide"),Toast.LENGTH_SHORT).show();
+                    }
+            }
+        }});
+        //
+//        String[] link = new String[1];
+//        link[0] = "a";
+//        if(link[0].equals("")){
+//            Toast.makeText(getApplicationContext(),"REEEEEE",Toast.LENGTH_SHORT).show();
+//        }
+        //Toast.makeText(getApplicationContext(),link[0],Toast.LENGTH_SHORT).show();
+        TextView linkText = findViewById(R.id.link);
+        //linkText.setText(link);
+    }
     private void setName(String itemName){
         TextView totalTextView = findViewById(R.id.name);
         totalTextView.setText(itemName);

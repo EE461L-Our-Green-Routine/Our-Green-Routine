@@ -18,12 +18,16 @@ import java.util.ArrayList;
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyViewHolder>{
     private Context cardCont;
     private ArrayList<Card> data;
+    private String catName;
     private static String ITEM_NAME = "ITEM_NAME";
     private static String PICTURE_ID = "PICTURE_ID";
+    private static String CATEGORY_NAME = "CATEGORY_NAME";
 
-    public ItemListAdapter(Context cardCont, ArrayList<Card> data) {
+
+    public ItemListAdapter(Context cardCont, ArrayList<Card> data, String catName) {
         this.cardCont = cardCont;
         this.data = data;
+        this.catName = catName;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
@@ -31,8 +35,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
         ImageView pic;
         TextView item;
         TextView description;
+        String catName;
 
-        public MyViewHolder(View v) {
+        public MyViewHolder(View v, final String catName) {
             super(v);
             View v1 = v;
             pic = v.findViewById(R.id.pic);
@@ -43,8 +48,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
                     Intent itL = new Intent(v.getContext(), ItemPage.class);
                     String name=(String)item.getText();
                     itL.putExtra(ITEM_NAME, name);
+                    itL.putExtra(CATEGORY_NAME, catName );
                     v.getContext().startActivity(itL);
-
                     pic.getImageAlpha();
 
                 }
@@ -53,9 +58,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
                 @Override public void onClick(View v){
                     Intent itL = new Intent(v.getContext(), ItemPage.class);
                     String name=(String)item.getText();
+                    itL.putExtra(CATEGORY_NAME, catName );
                     itL.putExtra(ITEM_NAME, name);
                     v.getContext().startActivity(itL);
-
                     pic.getImageAlpha();
 
                 }
@@ -68,7 +73,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inf = LayoutInflater.from(cardCont);
         View v = inf.inflate(R.layout.card, null);
-        MyViewHolder h = new MyViewHolder(v);
+        MyViewHolder h = new MyViewHolder(v, catName);
         return h;
     }
 
