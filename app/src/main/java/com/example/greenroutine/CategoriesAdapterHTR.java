@@ -41,7 +41,7 @@ public class CategoriesAdapterHTR extends RecyclerView.Adapter<CategoriesAdapter
             pic.setClickable(true);
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v){
-                    Intent cL = new Intent(v.getContext(), ItemListWTR.class);
+                    Intent cL = new Intent(v.getContext(), ItemListHTR.class);
                     String category=(String)item.getText();
                     cL.putExtra(CATEGORY_NAME, category);
                     v.getContext().startActivity(new Intent(cL));
@@ -52,7 +52,7 @@ public class CategoriesAdapterHTR extends RecyclerView.Adapter<CategoriesAdapter
             //pic.setOnClickListener(this);
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    Intent cL = new Intent(v.getContext(), ItemListWTR.class);
+                    Intent cL = new Intent(v.getContext(), ItemListHTR.class);
                     String category=(String)item.getText();
                     cL.putExtra(CATEGORY_NAME, category);
                     v.getContext().startActivity(new Intent(cL));

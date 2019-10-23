@@ -57,7 +57,7 @@ public class CategoriesPageHTR extends AppCompatActivity {
         cards.add(c9);
 
 
-        CategoriesAdapterWTR mAdapter = new CategoriesAdapterWTR(this, cards);
+        CategoriesAdapterHTR mAdapter = new CategoriesAdapterHTR(this, cards);
         recycleView.setAdapter(mAdapter);
 
     }
