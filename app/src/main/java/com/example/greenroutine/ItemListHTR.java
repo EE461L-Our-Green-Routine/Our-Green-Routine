@@ -152,17 +152,17 @@ public class ItemListHTR extends AppCompatActivity {
         Card c57 = new Card(R.drawable.defaultimage,"Household Cleaners", "Glass cleaner, multi-use surface cleaner, etc.");
         Card c58 = new Card(R.drawable.defaultimage,"Mattresses", "Old mattresses");
         Card c59 = new Card(R.drawable.defaultimage,"Christmas Trees", "Cut trees utilized for the holidays");
-        paper.add(c49);
-        paper.add(c50);
-        paper.add(c51);
-        paper.add(c52);
-        paper.add(c53);
-        paper.add(c54);
-        paper.add(c55);
-        paper.add(c56);
-        paper.add(c57);
-        paper.add(c58);
-        paper.add(c59);
+        house.add(c49);
+        house.add(c50);
+        house.add(c51);
+        house.add(c52);
+        house.add(c53);
+        house.add(c54);
+        house.add(c55);
+        house.add(c56);
+        house.add(c57);
+        house.add(c58);
+        house.add(c59);
 
 
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
