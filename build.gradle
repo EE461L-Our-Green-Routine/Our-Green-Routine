@@ -42,14 +42,12 @@ tasks.register("createAPI") {
     description = 'Creates the API script'
     doLast {
         def keyFile = new File( new File( "." ).getCanonicalPath() + "/app/src/main/res/values/keys.xml")
-        keyFile.delete();
         if(keyFile.exists()){
             println("File already exists, delete and re-run to replace the file.");
         }else {
             println("No file found, creating new keys.xml");
             keyFile.createNewFile();
-            keyFile.write "<resources>\n    <string name=\"earth911\">test</string>\n    <string name=\"googleMaps\">test</string>\n    <string name=\"fireBaseFireStore\">test</string>\n</resources>"
+            keyFile.write "<resources>\n    <string name=\"earth911\">" + System.getenv("TESTING") + "</string>\n    <string name=\"googleMaps\">" + System.getenv("TESTING") + "</string>\n    <string name=\"fireBaseFireStore\">" + System.getenv("TESTING") + "</string>\n</resources>"
         }
-        println(System.getenv("TESTING"))
     }
 }
