@@ -2,6 +2,7 @@ package com.example.greenroutine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,51 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
         this.catName = catName;
     }
 
+
+
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
         //ConstraintLayout cL;
         ImageView pic;
         TextView item;
         TextView description;
         String catName;
+
+        public String createURL(String name){
+            char nameChars[] = name.toCharArray();
+            for(int i=0; i<nameChars.length; i++){
+                if((int)nameChars[i]>64&&(int)nameChars[i]<90){
+                    nameChars[i]=(char)((int)nameChars[i]+32);
+                }
+                if(nameChars[i]==' ' || nameChars[i]=='&'){
+                    nameChars[i]='-';
+                }
+            }
+
+            int removed=0;
+            for(int i=0; i<nameChars.length; i++){
+                if(nameChars[i]=='-'&& i<nameChars.length-1) {
+                    if (nameChars[i + 1] == '-') {
+                        removed++;
+                        int temp = i;
+                        for (int j = i + 1; j < nameChars.length; j++) {
+                            nameChars[temp] = nameChars[j];
+                            temp++;
+                        }
+                        i--;
+                    }
+                }
+            }
+            char shortened[]=new char[nameChars.length-removed];
+            for(int i=0; i<nameChars.length-removed; i++){
+                shortened[i]=nameChars[i];
+            }
+            String str = new String(shortened);
+            StringBuilder url = new StringBuilder("http://earth911.com/recycling-guide/how-to-recycle-");
+            url.append(str);
+            url.append("/");
+            return url.toString();
+        }
+
 
         public MyViewHolder(View v, final String catName) {
             super(v);
@@ -43,23 +83,16 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
             description = v.findViewById(R.id.description);
             pic.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    Intent itL = new Intent(v.getContext(), ItemPage.class);
                     String name=(String)item.getText();
-                    itL.putExtra(ITEM_NAME, name);
-                    itL.putExtra(CATEGORY_NAME, catName );
-                    v.getContext().startActivity(itL);
-                    pic.getImageAlpha();
-
+                    Intent recycleGuide = new Intent(Intent.ACTION_VIEW, Uri.parse(createURL(name)));
+                    v.getContext().startActivity(recycleGuide);
                 }
             });
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    Intent itL = new Intent(v.getContext(), ItemPage.class);
                     String name=(String)item.getText();
-                    itL.putExtra(CATEGORY_NAME, catName );
-                    itL.putExtra(ITEM_NAME, name);
-                    v.getContext().startActivity(itL);
-                    pic.getImageAlpha();
+                    Intent recycleGuide = new Intent(Intent.ACTION_VIEW, Uri.parse(createURL(name)));
+                    v.getContext().startActivity(recycleGuide);
 
                 }
             });
