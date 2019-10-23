@@ -50,6 +50,6 @@ tasks.register("createAPI") {
             keyFile.createNewFile();
             keyFile.write "<resources>\n    <string name=\"earth911\">test</string>\n    <string name=\"googleMaps\">test</string>\n    <string name=\"fireBaseFireStore\">test</string>\n</resources>"
         }
-        println(System.getenv("secrets.TESTING"))
+        println(System.getenv("TESTING"))
     }
 }
