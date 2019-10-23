@@ -15,5 +15,7 @@ jobs:
         java-version: 1.8
     - name: Set up API Keys
       run: ./gradlew createAPI
+      env:
+        TESTING: ${{ secrets.TESTING }}
     - name: Build with Gradle
       run: ./gradlew build
