@@ -49,6 +49,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     public ArrayList<String> locNames;
     public ArrayList<String> locDist;
+    public ArrayList<String> locLat;
+    public ArrayList<String> locLng;
 
     public String parser(String name){
         char parsed[] = name.toCharArray();
@@ -267,6 +269,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                                 locNames.add(locArray.getJSONObject(i).getString("description"));
                                 //add distance of result i
                                 locDist.add(locArray.getJSONObject(i).getString("distance"));
+                                //add long of result i
+                                locLng.add(locArray.getJSONObject(i).getString("longitude"));
+                                //add lat of result i
+                                locLat.add(locArray.getJSONObject(i).getString("latitude"));
                                 //*************************
                                 //will need to setText later as well as get locations based on item
                                 //*************************
