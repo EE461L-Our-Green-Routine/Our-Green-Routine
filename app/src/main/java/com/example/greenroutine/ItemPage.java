@@ -227,20 +227,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
     }
 
-/* Example JSON Material entry
-    {"description": "#1 Plastic Bags",
-     "url": "", 
-     "description_legacy": "", 
-     "material_id": 445, 
-     "long_description": "Plastic bags are used to transport products 
-     or to seal foods. #1 Plastic bags may be difficult to recycle 
-     because they have limited markets.", 
-     "family_ids": [9, 106, 108], 
-     "image": "materials/1-plastic-bags.jpg"}
-    */
+
 
 /* Example JSON Location entry
-    {"curbside": false, 
+    result: [{"curbside": false,
     "description": "Sprint Store", 
     "distance": 0.5, 
     "longitude": -97.74190159539837, 
@@ -248,6 +238,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     "location_type_id": 28, 
     "location_id": "Q1RQNVJeW1tCUQ", 
     "municipal": false}
+    {...}...]
 
 */
     //https://dzone.com/articles/how-to-parse-json-data-from-a-rest-api-using-simpl
@@ -268,9 +259,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                             //create json object from string
                             JSONObject locObj = new JSONObject(response);
                             //create array of "results"
-                            JSONArray locArray = locObj.getJSONArray("results");
+                            JSONArray locArray = locObj.getJSONArray("result");
 
-                            for(int i = 0; i < locArray.length(); i++){
+                            //only store the 5 closest, as the api response is sorted by distance
+                            for(int i = 0; i < 5; i++){
                                 //add description / name of result i
                                 locNames.add(locArray.getJSONObject(i).getString("description"));
                                 //add distance of result i
