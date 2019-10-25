@@ -32,7 +32,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import org.json.*;
 
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -46,6 +54,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private String pictureFilePath;
     private double lat;
     private double lng;
+
 
     public ArrayList<String> locNames;
     public ArrayList<String> locDist;
@@ -251,47 +260,51 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     //https://dzone.com/articles/how-to-parse-json-data-from-a-rest-api-using-simpl
 
 
+
     private void nearbyRecycling(){
+
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         //api request, there are additonal parameters such as item wish to recycle fyi
         String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911)
                 + "&latitude=" + lat + "&longitude=" + lng;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //try catch because android studio was yelling at me
-                        try {
-                            //create json object from string
-                            JSONObject locObj = new JSONObject(response);
-                            //create array of "results"
-                            JSONArray locArray = locObj.getJSONArray("result");
 
-                            //only store the 5 closest, as the api response is sorted by distance
-                            for(int i = 0; i < 5; i++){
-                                //add description / name of result i
-                                locNames.add(locArray.getJSONObject(i).getString("description"));
-                                //add distance of result i
-                                locDist.add(locArray.getJSONObject(i).getString("distance"));
-                                //add lat of result i
-                                locLat.add(locArray.getJSONObject(i).getString("latitude"));
-                                //add long of result i
-                                locLng.add(locArray.getJSONObject(i).getString("longitude"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        try {
+            JSONObject db = getData(url);
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //((TextView)findViewById(loc1)).setText("ERR tests");
+            JSONArray locArray = db.getJSONArray("result");
+
+            //only store the 5 closest, as the api response is sorted by distance
+            for (int i = 0; i < 5; i++) {
+                //add description / name of result i
+                locNames.add(locArray.getJSONObject(i).getString("description"));
+                //add distance of result i
+                locDist.add(locArray.getJSONObject(i).getString("distance"));
+                //add lat of result i
+                locLat.add(locArray.getJSONObject(i).getString("latitude"));
+                //add long of result i
+                locLng.add(locArray.getJSONObject(i).getString("longitude"));
             }
-        });
-        queue.add(stringRequest);
-
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //code reuse from MaterialsParser
+    public static JSONObject getData(String url) throws IOException, JSONException {
+        InputStream web = new URL(url).openStream();
+        BufferedReader read = new BufferedReader(new InputStreamReader(web, Charset.forName("UTF-8")));
+        StringBuilder bld = new StringBuilder();
+        int cp;
+        while ((cp = read.read()) != -1) {
+            bld.append((char) cp);
+        }
+        JSONObject data = new JSONObject(bld.toString());
+        web.close();
+        return data;
     }
 
     private void setRecyclingLocations() {
