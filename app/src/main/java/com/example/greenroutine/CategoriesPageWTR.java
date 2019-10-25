@@ -5,19 +5,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
-public class CategoriesPage extends AppCompatActivity {
+public class CategoriesPageWTR extends AppCompatActivity {
     private RecyclerView recycleView;
     private LinearLayoutManager layManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categories_page);
+        setContentView(R.layout.activity_categories_page_wtr);
 
         // use a linear layout manager
         layManager = new LinearLayoutManager(this);
@@ -57,7 +56,7 @@ public class CategoriesPage extends AppCompatActivity {
         cards.add(c9);
 
 
-        CategoriesAdapter mAdapter = new CategoriesAdapter(this, cards);
+        CategoriesAdapterWTR mAdapter = new CategoriesAdapterWTR(this, cards);
         recycleView.setAdapter(mAdapter);
 
     }

@@ -6,25 +6,26 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/recyMainI"
-    tools:context=".ItemList">
+    android:id="@+id/recyMainC"
+    tools:context=".CategoriesPageHTR">
+
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:fontFamily="@font/andika"
-        android:text="Items:"
+        android:text="Categories:"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/my_recycler_view_items"
+        app:layout_constraintBottom_toTopOf="@id/my_recycler_view_cats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_recycler_view_items"
+        android:id="@+id/my_recycler_view_cats"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,5 +33,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView4" />
+        app:layout_constraintTop_toBottomOf="@id/textView3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
