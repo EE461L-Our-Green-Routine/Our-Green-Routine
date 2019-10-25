@@ -29,7 +29,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws IOException, JSONException {
         // Context of the app under test.
         onView(withId(R.string.earth911));
-        ArrayList mp = MaterialsParser.getDatabase(null);
+        ArrayList mp = MaterialsParser.getDatabase(System.getenv("earth911"));
         System.out.println("hey!");
 
     }
