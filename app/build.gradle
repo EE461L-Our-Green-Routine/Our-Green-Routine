@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.2.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.0' //firebase/firestore
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
+
 }
 
 apply plugin: 'com.google.gms.google-services'      //firebase / firestore

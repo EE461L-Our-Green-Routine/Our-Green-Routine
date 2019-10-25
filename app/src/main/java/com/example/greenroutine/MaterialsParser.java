@@ -1,5 +1,11 @@
 package com.example.greenroutine;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,9 +18,17 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class MaterialsParser {
-
+    private FirebaseFirestore mFirestore;
     public static ArrayList<materialEntry> getDatabase(String key) throws IOException, JSONException {
         ArrayList<materialEntry> out = new ArrayList();
         JSONArray data = (JSONArray)(getData("https://api.earth911.com/earth911.getMaterials?api_key=" + key).get("result"));
@@ -43,7 +57,38 @@ public class MaterialsParser {
         web.close();
         return data;
     }
+    public void firestoreInit(){
+//        FirebaseApp.initializeApp();
+        mFirestore = FirebaseFirestore.getInstance();
+    }
 
+    public void populateDatabase(ArrayList<materialEntry> matList){
+        for(materialEntry m : matList){
+            Map<String, Object> currentItem = new HashMap<>();
+            currentItem.put("description", m.description);
+            currentItem.put("url", m.url);
+            currentItem.put("description_legacy", m.description_legacy);
+            currentItem.put("material_id", m.material_id);
+            currentItem.put("long_description", m.long_description);
+            currentItem.put("image", m.image);
+            currentItem.put("family_ids", m.family_ids );
+            mFirestore.collection("ItemList")
+                    .add(currentItem)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("nice" , "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("notNice", "error adding document", e);
+                        }
+                    });
+        }
+    }
     static class materialEntry {
         public String description;
         public String url;
