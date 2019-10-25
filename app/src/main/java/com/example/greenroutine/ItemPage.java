@@ -30,6 +30,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+
 import org.json.*;
 
 import java.io.Reader;
@@ -41,6 +43,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TimerTask;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -89,6 +92,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        nearbyRecycling();
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_item_page);
 
@@ -261,7 +265,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-    private void nearbyRecycling(){
+    public void nearbyRecycling(){
 
 
 
