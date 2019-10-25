@@ -92,46 +92,58 @@
         app:layout_constraintStart_toEndOf="@id/imageView"
         app:layout_constraintTop_toBottomOf="@id/loctitle">
         <TableRow>
+
             <TextView
-                android:text="loc1"
-                android:padding="3dip"/>
+                android:id="@+id/location1"
+                android:layout_width="107dp"
+                android:padding="3dip"
+                android:text="loc1" />
             <TextView
+                android:id="@+id/distance1"
                 android:text="dist1"
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
         <TableRow>
             <TextView
+                android:id="@+id/location2"
                 android:text="loc2"
                 android:padding="3dip"/>
             <TextView
+                android:id="@+id/distance2"
                 android:text="dist2"
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
         <TableRow>
             <TextView
+                android:id="@+id/location3"
                 android:text="loc3"
                 android:padding="3dip"/>
             <TextView
+                android:id="@+id/distance3"
                 android:text="dist3"
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
         <TableRow>
             <TextView
+                android:id="@+id/location4"
                 android:text="loc4"
                 android:padding="3dip"/>
             <TextView
+                android:id="@+id/distance4"
                 android:text="dist4"
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
         <TableRow>
             <TextView
+                android:id="@+id/location5"
                 android:text="loc5"
                 android:padding="3dip"/>
             <TextView
+                android:id="@+id/distance5"
                 android:text="dist5"
                 android:gravity="right"
                 android:padding="3dip"/>

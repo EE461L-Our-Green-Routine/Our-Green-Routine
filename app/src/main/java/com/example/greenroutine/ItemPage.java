@@ -90,6 +90,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         locNames = new ArrayList<String>();
         locDist = new ArrayList<String>();
 
+
         //getCurrentLocation();
 
         //displayMap();
@@ -124,6 +125,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 .title("You are here."));
         map.moveCamera(CameraUpdateFactory.newLatLng(location));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        dropLocationPins(map);
 //    map.setMyLocationEnabled(true);
 //        fusedLocationClient.getLastLocation();
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(,
@@ -212,6 +215,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                             displayMap();
+                            nearbyRecycling();
+                            setRecyclingLocations();
                         }
                         else {
                             Toast nullToast = Toast.makeText(context, "Location was not available", Toast.LENGTH_LONG);
@@ -250,13 +255,13 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         //api request, there are additonal parameters such as item wish to recycle fyi
-        String url ="https://api.earth911.com/searchLocations?api_key="+ getString(R.string.earth911)
+        String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911)
                 + "&latitude=" + lat + "&longitude=" + lng;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //try catch because android stuido was yelling at me
+                        //try catch because android studio was yelling at me
                         try {
                             //create json object from string
                             JSONObject locObj = new JSONObject(response);
@@ -269,15 +274,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                                 locNames.add(locArray.getJSONObject(i).getString("description"));
                                 //add distance of result i
                                 locDist.add(locArray.getJSONObject(i).getString("distance"));
-                                //add long of result i
-                                locLng.add(locArray.getJSONObject(i).getString("longitude"));
                                 //add lat of result i
                                 locLat.add(locArray.getJSONObject(i).getString("latitude"));
-                                //*************************
-                                //will need to setText later as well as get locations based on item
-                                //*************************
-                                //*************************
-                                //*************************
+                                //add long of result i
+                                locLng.add(locArray.getJSONObject(i).getString("longitude"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -293,4 +293,50 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         queue.add(stringRequest);
 
     }
+
+    private void setRecyclingLocations() {
+
+        //setting location names
+
+        ((TextView)findViewById(R.id.location1)).setText(locNames.get(0));
+        ((TextView)findViewById(R.id.location2)).setText(locNames.get(1));
+        ((TextView)findViewById(R.id.location3)).setText(locNames.get(2));
+        ((TextView)findViewById(R.id.location4)).setText(locNames.get(3));
+        ((TextView)findViewById(R.id.location5)).setText(locNames.get(4));
+
+
+        //setting the distance fields
+        ((TextView)findViewById(R.id.distance1)).setText(locDist.get(0));
+        ((TextView)findViewById(R.id.distance2)).setText(locDist.get(1));
+        ((TextView)findViewById(R.id.distance3)).setText(locDist.get(2));
+        ((TextView)findViewById(R.id.distance4)).setText(locDist.get(3));
+        ((TextView)findViewById(R.id.distance5)).setText(locDist.get(4));
+
+    }
+
+
+    private void dropLocationPins(GoogleMap googleMap) {
+        LatLng location0 = new LatLng (Double.parseDouble(locLat.get(0)), Double.parseDouble(locLng.get(0)));
+        LatLng location1 = new LatLng (Double.parseDouble(locLat.get(1)), Double.parseDouble(locLng.get(1)));
+        LatLng location2 = new LatLng (Double.parseDouble(locLat.get(2)), Double.parseDouble(locLng.get(2)));
+        LatLng location3 = new LatLng (Double.parseDouble(locLat.get(3)), Double.parseDouble(locLng.get(3)));
+        LatLng location4 = new LatLng (Double.parseDouble(locLat.get(4)), Double.parseDouble(locLng.get(4)));
+
+        LatLng[] locationPins = new LatLng [] {location0, location1, location2, location3, location4};
+
+        String location0_name = locNames.get(0);
+        String location1_name = locNames.get(1);
+        String location2_name = locNames.get(2);
+        String location3_name = locNames.get(3);
+        String location4_name = locNames.get(4);
+
+        String[] locationNames = new String [] {location0_name, location1_name, location2_name, location3_name, location4_name};
+
+        for (int i = 0; i < locationPins.length; i++){
+            googleMap.addMarker(new MarkerOptions().position(locationPins[i])
+                    .title(locationNames[i]));
+        }
+
+    }
+
 }
