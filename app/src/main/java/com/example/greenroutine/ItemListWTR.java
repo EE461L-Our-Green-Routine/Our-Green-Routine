@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
-public class ItemList extends AppCompatActivity {
+public class ItemListWTR extends AppCompatActivity {
     private RecyclerView recycleView;
     private LinearLayoutManager layManager;
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
@@ -20,7 +17,7 @@ public class ItemList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_item_list_wtr);
 
         // use a linear layout manager
         layManager = new LinearLayoutManager(this);
@@ -46,6 +43,7 @@ public class ItemList extends AppCompatActivity {
         Card c6 = new Card(R.drawable.officepaper,"Office Paper", "Paper created for professional use");
         Card c7 = new Card(R.drawable.newspaper,"Newspaper", "Thin paper used to distribute news");
         Card c8 = new Card(R.drawable.wine,"Wine", "Glass wine bottles");
+        //Card c9 = new Card(R.drawable.alex, "glass", "glass link test");
 
         plastic.add(c1);
         plastic.add(c2);
@@ -54,37 +52,37 @@ public class ItemList extends AppCompatActivity {
         paper.add(c6);
         paper.add(c7);
         glass.add(c8);
-
+        //glass.add(c9);
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
-        ItemListAdapter mAdapter;
+        ItemListAdapterWTR mAdapter;
         switch(cat) {
             case ("Glass"):
-                mAdapter = new ItemListAdapter(this, glass);
+                mAdapter = new ItemListAdapterWTR(this, glass, cat);
                 break;
             case ("Plastic"):
-                mAdapter = new ItemListAdapter(this, plastic);
+                mAdapter = new ItemListAdapterWTR(this, plastic, cat);
                 break;
             /*case ("Cardboard"):
-                mAdapter = new ItemListAdapter(this, cardboard);
+                mAdapter = new ItemListAdapterWTR(this, cardboard);
                 break;
             */case ("Metal"):
-                mAdapter = new ItemListAdapter(this, metal);
+                mAdapter = new ItemListAdapterWTR(this, metal, cat);
                 break;
             case ("Paper"):
-                mAdapter = new ItemListAdapter(this, paper);
+                mAdapter = new ItemListAdapterWTR(this, paper, cat);
                 break;
             default:
-                mAdapter = new ItemListAdapter(this, plastic);
+                mAdapter = new ItemListAdapterWTR(this, plastic, cat);
                 break;
         }
 
         recycleView.setAdapter(mAdapter);
 
     }
-
+    /*
     public void sendToItemPage(View view){
         Intent itemIntent = new Intent(this, ItemPage.class);
         startActivity(itemIntent);
-    }
+    }*/
 
 }

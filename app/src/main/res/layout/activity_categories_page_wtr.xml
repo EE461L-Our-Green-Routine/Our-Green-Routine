@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:id="@+id/recyMainC"
-    tools:context=".CategoriesPage">
+    tools:context=".CategoriesPageWTR">
 
 
     <TextView

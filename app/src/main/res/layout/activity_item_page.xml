@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemCard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ItemPage">
@@ -30,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078"/>
+        app:layout_constraintVertical_bias="0.078" />
 
     <TextView
         android:id="@+id/itemUrl"
@@ -91,6 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageView"
         app:layout_constraintTop_toBottomOf="@id/loctitle">
+
         <TableRow>
 
             <TextView
@@ -104,7 +106,9 @@
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
+
         <TableRow>
+
             <TextView
                 android:id="@+id/location2"
                 android:text="loc2"
@@ -115,7 +119,9 @@
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
+
         <TableRow>
+
             <TextView
                 android:id="@+id/location3"
                 android:text="loc3"
@@ -126,7 +132,9 @@
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
+
         <TableRow>
+
             <TextView
                 android:id="@+id/location4"
                 android:text="loc4"
@@ -137,7 +145,9 @@
                 android:gravity="right"
                 android:padding="3dip"/>
         </TableRow>
+
         <TableRow>
+
             <TextView
                 android:id="@+id/location5"
                 android:text="loc5"

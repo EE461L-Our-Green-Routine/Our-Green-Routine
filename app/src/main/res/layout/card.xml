@@ -31,7 +31,7 @@
                 android:layout_alignParentTop="true"
                 android:fontFamily="@font/andika"
                 android:text="ITEM GUY"
-                android:textSize="28sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/description"
@@ -41,7 +41,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
                 android:text="What is item guy?"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
