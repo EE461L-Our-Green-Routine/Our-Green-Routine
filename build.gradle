@@ -37,11 +37,17 @@ buildScan {
     termsOfServiceAgree = 'yes'
 }
 
-tasks.register("complie") {
+tasks.register("createAPI") {
     group = 'Custom'
-    description = 'Assembles and tests the application'
+    description = 'Creates the API script'
     doLast {
-        println 'uwu'
+        def keyFile = new File( new File( "." ).getCanonicalPath() + "/app/src/main/res/values/keys.xml")
+        if(keyFile.exists()){
+            println("File already exists, delete and re-run to replace the file.");
+        }else {
+            println("No file found, creating new keys.xml");
+            keyFile.createNewFile();
+            keyFile.write "<resources>\n    <string name=\"earth911\">" + System.getenv("TESTING") + "</string>\n    <string name=\"googleMaps\">" + System.getenv("TESTING") + "</string>\n    <string name=\"fireBaseFireStore\">" + System.getenv("TESTING") + "</string>\n</resources>"
+        }
     }
 }
-tasks.getByName("complie").dependsOn(tasks.getByName("complie"))
