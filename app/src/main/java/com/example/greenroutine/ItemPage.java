@@ -10,10 +10,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +30,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import org.json.*;
+
+import java.util.ArrayList;
 
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -36,6 +46,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private String pictureFilePath;
     private double lat;
     private double lng;
+
+    public ArrayList<String> locNames;
+    public ArrayList<String> locDist;
 
     public String parser(String name){
         char parsed[] = name.toCharArray();
@@ -71,6 +84,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         setupItemDetails();
 
         checkPermissions();
+
+        locNames = new ArrayList<String>();
+        locDist = new ArrayList<String>();
 
         //getCurrentLocation();
 
@@ -209,5 +225,74 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+/* Example JSON Material entry
+    {"description": "#1 Plastic Bags",
+     "url": "", 
+     "description_legacy": "", 
+     "material_id": 445, 
+     "long_description": "Plastic bags are used to transport products 
+     or to seal foods. #1 Plastic bags may be difficult to recycle 
+     because they have limited markets.", 
+     "family_ids": [9, 106, 108], 
+     "image": "materials/1-plastic-bags.jpg"}
+    */
+
+/* Example JSON Location entry
+    {"curbside": false, 
+    "description": "Sprint Store", 
+    "distance": 0.5, 
+    "longitude": -97.74190159539837, 
+    "latitude": 30.28700741685142, 
+    "location_type_id": 28, 
+    "location_id": "Q1RQNVJeW1tCUQ", 
+    "municipal": false}
+
+*/
+    //https://dzone.com/articles/how-to-parse-json-data-from-a-rest-api-using-simpl
+
+
+    private void nearbyRecycling(){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        //api request, there are additonal parameters such as item wish to recycle fyi
+        String url ="https://api.earth911.com/searchLocations?api_key="+ getString(R.string.earth911)
+                + "&latitude=" + lat + "&longitude=" + lng;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //try catch because android stuido was yelling at me
+                        try {
+                            //create json object from string
+                            JSONObject locObj = new JSONObject(response);
+                            //create array of "results"
+                            JSONArray locArray = locObj.getJSONArray("results");
+
+                            for(int i = 0; i < locArray.length(); i++){
+                                //add description / name of result i
+                                locNames.add(locArray.getJSONObject(i).getString("description"));
+                                //add distance of result i
+                                locDist.add(locArray.getJSONObject(i).getString("distance"));
+                                //*************************
+                                //will need to setText later as well as get locations based on item
+                                //*************************
+                                //*************************
+                                //*************************
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //((TextView)findViewById(loc1)).setText("ERR tests");
+            }
+        });
+        queue.add(stringRequest);
+
     }
 }
