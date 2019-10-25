@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aboutpage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AboutPage">
@@ -13,8 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/projectName"
@@ -24,8 +25,7 @@
                 android:text="Our Green Routine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                 android:textSize="36sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/siteDescription"
@@ -34,8 +34,7 @@
                 android:layout_marginTop="8dp"
                 android:text="The purpose of Our Green Routine is to inform users on how to properly recycle materials and how to better understand their environmental impact. Our app will be a one-stop-shop for environmental tools such as a carbon footprint tracker, recycling information, and personal climate action planning."
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/teamName"
@@ -45,8 +44,7 @@
                 android:text="Team Liger"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/name"
@@ -55,8 +53,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Alex Gonzales"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -64,8 +61,7 @@
                 android:layout_height="101dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/alex"
-                />
+                app:srcCompat="@drawable/alex" />
 
             <TextView
                 android:id="@+id/biography"
@@ -83,8 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Eletrical and Computer Engineering"
-                />
+                android:text="Eletrical and Computer Engineering" />
 
             <TextView
                 android:id="@+id/mpcommit"
@@ -92,8 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/michaelcommits"
-                />
+                android:text="@string/michaelcommits" />
 
             <TextView
                 android:id="@+id/mpIssues"
@@ -101,8 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Issues"
-                />
+                android:text="... Issues" />
 
             <TextView
                 android:id="@+id/mptest"
@@ -110,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Tests"
-                />
+                android:text="... Tests" />
+
             <TextView
                 android:id="@+id/name1"
                 android:layout_width="wrap_content"
@@ -119,8 +112,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Elgin Allen"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -129,8 +121,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
 
-                app:srcCompat="@drawable/elgin"
-                />
+                app:srcCompat="@drawable/elgin" />
 
             <TextView
                 android:id="@+id/biography1"
@@ -148,8 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Eletrical and Computer Engineering"
-                />
+                android:text="Eletrical and Computer Engineering" />
 
             <TextView
                 android:id="@+id/mpcommit1"
@@ -157,8 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/michaelcommits"
-                />
+                android:text="@string/michaelcommits" />
 
             <TextView
                 android:id="@+id/mpIssues1"
@@ -166,8 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Issues"
-                />
+                android:text="... Issues" />
 
             <TextView
                 android:id="@+id/mptest1"
@@ -175,8 +163,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Tests"
-                />
+                android:text="... Tests" />
+
             <TextView
                 android:id="@+id/name2"
                 android:layout_width="wrap_content"
@@ -184,8 +172,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Hussam Djadi"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -194,8 +181,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
 
-                app:srcCompat="@drawable/hussam"
-                />
+                app:srcCompat="@drawable/hussam" />
 
             <TextView
                 android:id="@+id/biography2"
@@ -213,8 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Eletrical and Computer Engineering"
-                />
+                android:text="Eletrical and Computer Engineering" />
 
             <TextView
                 android:id="@+id/mpcommit2"
@@ -222,8 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/michaelcommits"
-                />
+                android:text="@string/michaelcommits" />
 
             <TextView
                 android:id="@+id/mpIssues2"
@@ -231,8 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Issues"
-                />
+                android:text="... Issues" />
 
             <TextView
                 android:id="@+id/mptest2"
@@ -240,8 +223,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Tests"
-                />
+                android:text="... Tests" />
+
             <TextView
                 android:id="@+id/name3"
                 android:layout_width="wrap_content"
@@ -249,8 +232,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Michael Pontikes"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -259,8 +241,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
 
-                app:srcCompat="@drawable/michael"
-                />
+                app:srcCompat="@drawable/michael" />
 
             <TextView
                 android:id="@+id/biography3"
@@ -278,8 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Eletrical and Computer Engineering"
-                />
+                android:text="Eletrical and Computer Engineering" />
 
             <TextView
                 android:id="@+id/mpcommit3"
@@ -287,8 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/michaelcommits"
-                />
+                android:text="@string/michaelcommits" />
 
             <TextView
                 android:id="@+id/mpIssues3"
@@ -296,8 +275,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Issues"
-                />
+                android:text="... Issues" />
 
             <TextView
                 android:id="@+id/mptest3"
@@ -305,8 +283,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Tests"
-                />
+                android:text="... Tests" />
+
             <TextView
                 android:id="@+id/name4"
                 android:layout_width="wrap_content"
@@ -314,8 +292,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Zach Sisti"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -324,8 +301,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
 
-                app:srcCompat="@drawable/zach"
-                />
+                app:srcCompat="@drawable/zach" />
 
             <TextView
                 android:id="@+id/biography4"
@@ -343,8 +319,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Eletrical and Computer Engineering"
-                />
+                android:text="Eletrical and Computer Engineering" />
 
 
             <TextView
@@ -353,8 +328,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/michaelcommits"
-                />
+                android:text="@string/michaelcommits" />
 
             <TextView
                 android:id="@+id/mpIssues4"
@@ -362,8 +336,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Issues"
-                />
+                android:text="... Issues" />
 
             <TextView
                 android:id="@+id/mptest4"
@@ -371,8 +344,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... Tests"
-                />
+                android:text="... Tests" />
 
             <TextView
                 android:id="@+id/totalCommits"
@@ -407,8 +379,8 @@
                 android:text="Data source: \n
                  No data for Phase 1\n
                  Data Source Links:\n
-                 No data for Phase 1\n"
-                />
+                 No data for Phase 1\n" />
+
             <TextView
                 android:id="@+id/tools"
                 android:layout_width="wrap_content"
@@ -421,28 +393,26 @@
                     Google Maps API\n
                     Used to show maps of local recycling\n
                     Github API\n
-                    Main collaborative tool\n"
-                />
+                    Main collaborative tool\n" />
+
             <TextView
                 android:id="@+id/giturl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Github URL:"
-                />
+                android:text="Github URL:" />
 
             <TextView
                 android:id="@+id/gihub"
-                android:autoLink="all"
-                android:clickable="true"
-                android:text="https://www.github.com/mpontikes/Our-Green-Routine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                />
+                android:autoLink="all"
+                android:clickable="true"
+                android:text="https://www.github.com/mpontikes/Our-Green-Routine" />
         </LinearLayout>
 
     </ScrollView>
