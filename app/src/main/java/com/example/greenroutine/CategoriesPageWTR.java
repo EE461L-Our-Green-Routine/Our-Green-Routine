@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class CategoriesPageWTR extends AppCompatActivity {
@@ -38,16 +39,21 @@ public class CategoriesPageWTR extends AppCompatActivity {
         catch(Exception e){
             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
         }
-        if(families!=null){
+        if(families!=null) {
+            Set<String> categories = families.keySet();
 
-        }
-
-        ArrayList<Card> cards = new ArrayList<>();
+            ArrayList<Card> cards = new ArrayList<>();
+            for (String s : categories) {
+                Card c = new Card(getDrawable((R.drawable.defaultimage)), s, "uh");
+                cards.add(c);
+            }
       /*  Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
         Card c2 = new Card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
         Card c3 = new Card(R.drawable.cereal,"Cardboard", "Anything made from cardboard");
         Card c4 = new Card(R.drawable.officepaper,"Paper", "Paper products");
         */
+
+      /*
         Card c1 = new Card(getDrawable(R.drawable.automotive),"Automotive", "Car parts and accessories");
         Card c2 = new Card(getDrawable(R.drawable.construction),"Construction", "Construction waste and materials");
         Card c3 = new Card(getDrawable(R.drawable.beer),"Glass", "Glass products and materials");
@@ -70,11 +76,11 @@ public class CategoriesPageWTR extends AppCompatActivity {
         cards.add(c7);
         cards.add(c8);
         cards.add(c9);
+*/
 
-
-        CategoriesAdapterWTR mAdapter = new CategoriesAdapterWTR(this, cards);
-        recycleView.setAdapter(mAdapter);
-
+            CategoriesAdapterWTR mAdapter = new CategoriesAdapterWTR(this, cards);
+            recycleView.setAdapter(mAdapter);
+        }
     }
 
 }

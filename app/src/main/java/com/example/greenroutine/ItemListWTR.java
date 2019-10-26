@@ -101,11 +101,11 @@ public class ItemListWTR extends AppCompatActivity {
                                         String descript = (String) document.get("long_description");
                                         String picUrl = (String) document.get("image");
                                         try {
-                                            InputStream is = (InputStream) new URL(picUrl).getContent();
-                                            Drawable itemPic = Drawable.createFromStream(is, null);
+                                            //InputStream is = (InputStream) new URL(picUrl).getContent();
+                                            //Drawable itemPic = Drawable.createFromStream(is, null);
+                                            Drawable itemPic = getDrawable(R.drawable.defaultimage);
                                             Card item = new Card(itemPic, name, descript);
                                             itemsInFam.add(item);
-                                            //not done pic not obtained, card not created or stroed in arraylist
                                         } catch (Exception e) {
                                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
                                         }
