@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,8 +47,8 @@ public class ItemListWTR extends AppCompatActivity {
 
 
     //parses database to return map containing string
-    public static Map<String, Object> getDatabase(String key) throws IOException, JSONException {
-        Map<String, Object> out = new HashMap<>();
+    public static Map<String, ArrayList<String>> getDatabase(String key) throws IOException, JSONException {
+        Map<String, ArrayList<String>> out = new HashMap<>();
         JSONArray data = (JSONArray)(getData("https://api.earth911.com/earth911.getFamilies?api_key=" + key).get("result"));
         for(int i = 0; i < data.length(); i++){
             JSONObject cat = (JSONObject)data.get(i);
@@ -62,9 +63,6 @@ public class ItemListWTR extends AppCompatActivity {
 
                 out.put(name, ids); //maps key value pair created
             }
-
-
-
 
         }
         return out;
@@ -85,7 +83,7 @@ public class ItemListWTR extends AppCompatActivity {
     }
 
     //gets list of items in input family returns list of cards
-    private void makeCards(final String fam, final HashMap<String, ArrayList<String>> famItems ){
+    private void makeCards(final String fam, final Map<String, ArrayList<String>> famItems ){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
         final CollectionReference colRef = mFirestore.collection("Items"); //collection of items from database
         //DocumentReference docRef = mFirestore.collection("glass").document("glass");
@@ -185,9 +183,18 @@ public class ItemListWTR extends AppCompatActivity {
 
          */
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
-        makeCards(cat, );
-        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(this, itemsInFam, cat);
-        recycleView.setAdapter(mAdapter);
+
+        Resources res = getApplicationContext().getResources();
+        String key = res.getString(R.string.earth911);
+        try{
+            makeCards(cat, getDatabase(key));
+            ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(this, itemsInFam, cat);
+            recycleView.setAdapter(mAdapter);
+        }
+        catch(Exception e){
+            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+        }
+
 
     }
     /*

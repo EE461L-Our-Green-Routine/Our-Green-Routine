@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class CategoriesPageWTR extends AppCompatActivity {
@@ -25,6 +28,19 @@ public class CategoriesPageWTR extends AppCompatActivity {
         recycleView = (RecyclerView) findViewById(R.id.my_recycler_view_cats);
         recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(layManager);
+
+        Resources res = getApplicationContext().getResources();
+        String key = res.getString(R.string.earth911);
+        Map<String, ArrayList<String>> families = null;
+        try{
+            families = ItemListWTR.getDatabase(key);
+        }
+        catch(Exception e){
+            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+        }
+        if(families!=null){
+
+        }
 
         ArrayList<Card> cards = new ArrayList<>();
       /*  Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
