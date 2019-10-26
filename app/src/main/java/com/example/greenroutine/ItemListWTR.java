@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class ItemListWTR extends AppCompatActivity {
@@ -31,11 +32,12 @@ public class ItemListWTR extends AppCompatActivity {
     private LinearLayoutManager layManager;
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private FirebaseFirestore mFirestore;
+    private ArrayList<Card> itemsInFam;
 
 
 
     //gets list of items in input family returns list of cards
-    private ArrayList<Card> getList(final String fam){
+    private void makeCards(final String fam, final HashMap<String, ArrayList<String>> famItems ){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
         final CollectionReference colRef = mFirestore.collection("Items"); //collection of items from database
         //DocumentReference docRef = mFirestore.collection("glass").document("glass");
@@ -45,40 +47,31 @@ public class ItemListWTR extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Card> itemsInFam = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("nice", document.getId() + " => " + document.getData());
-                                String[] allFams = (String[]) document.get("family_ids");
-                                for(String currentID : allFams){
-                                    if(currentID.equals(fam)){
+                                for(String currentID : famItems.get(fam)){
+                                    if(currentID.equals(document.get("material_id"))){
                                         String name = (String) document.get("description");
                                         String descript = (String) document.get("long_description");
-//                                        String picUrl = (String) document.get("image");
-//                                        try {
-//                                            InputStream is = (InputStream) new URL(picUrl).getContent();
-//                                            Drawable itemPic = Drawable.createFromStream(is, null);
-//                                            //not done pic not obtained, card not created or stroed in arraylist
-//                                        } catch (Exception e) {
-//                                            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
-//                                        }
-                                        // Card item = new Card();
+                                        String picUrl = (String) document.get("image");
+                                        try {
+                                            InputStream is = (InputStream) new URL(picUrl).getContent();
+                                            Drawable itemPic = Drawable.createFromStream(is, null);
+                                            Card item = new Card(itemPic, name, descript);
+                                            itemsInFam.add(item);
+                                            //not done pic not obtained, card not created or stroed in arraylist
+                                        } catch (Exception e) {
+                                            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
                             }
+
                         } else {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
                     }
                 });
-        //
-//        String[] link = new String[1];
-//        link[0] = "a";
-//        if(link[0].equals("")){
-//            Toast.makeText(getApplicationContext(),"REEEEEE",Toast.LENGTH_SHORT).show();
-//        }
-        //Toast.makeText(getApplicationContext(),link[0],Toast.LENGTH_SHORT).show();
-        TextView linkText = findViewById(R.id.link);
-        //linkText.setText(link);
     }
 
 
@@ -94,8 +87,9 @@ public class ItemListWTR extends AppCompatActivity {
         recycleView = (RecyclerView) findViewById(R.id.my_recycler_view_items);
         recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(layManager);
+        itemsInFam = new ArrayList<Card>();
 
-        ArrayList<Card> plastic = new ArrayList<>();
+        /*ArrayList<Card> plastic = new ArrayList<>();
         ArrayList<Card> paper = new ArrayList<>();
         ArrayList<Card> glass = new ArrayList<>();
         ArrayList<Card> metal = new ArrayList<>();
@@ -130,10 +124,7 @@ public class ItemListWTR extends AppCompatActivity {
             case ("Plastic"):
                 mAdapter = new ItemListAdapterWTR(this, plastic, cat);
                 break;
-            /*case ("Cardboard"):
-                mAdapter = new ItemListAdapterWTR(this, cardboard);
-                break;
-            */case ("Metal"):
+            case ("Metal"):
                 mAdapter = new ItemListAdapterWTR(this, metal, cat);
                 break;
             case ("Paper"):
@@ -144,6 +135,10 @@ public class ItemListWTR extends AppCompatActivity {
                 break;
         }
 
+         */
+        String cat = getIntent().getStringExtra(CATEGORY_NAME);
+        makeCards(cat, );
+        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(this, itemsInFam, cat);
         recycleView.setAdapter(mAdapter);
 
     }
