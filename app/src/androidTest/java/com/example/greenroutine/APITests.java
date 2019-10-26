@@ -33,9 +33,9 @@ public class APITests {
     }
 
     @Test
-    public void MICHAEL_THIS_IS_HOW_YOU_HIDE_THE_KEY() {
+    public void get_api_key() {
         Resources res = context.getResources();
-        String key = res.getString(R.string.earth_911);
+        String key = res.getString(R.string.earth911);
         System.out.println("this is the key " + key);
     }
 }
