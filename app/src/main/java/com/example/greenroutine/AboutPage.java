@@ -62,7 +62,6 @@ public class AboutPage extends AppCompatActivity {
                                 ((TextView) findViewById(R.id.totalIssues)).setText(Integer.toString(exterctNumber(R.id.totalIssues) + out + 30 * (page - 1)) + " Total Issues");
                             }
                         }
-
                     }
                 }, new Response.ErrorListener() {
             @Override
