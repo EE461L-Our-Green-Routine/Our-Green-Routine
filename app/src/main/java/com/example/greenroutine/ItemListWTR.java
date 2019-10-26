@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class ItemListWTR extends AppCompatActivity {
@@ -49,15 +51,35 @@ public class ItemListWTR extends AppCompatActivity {
     //parses database to return map containing string
     public static Map<String, ArrayList<String>> getDatabase(String key) throws IOException, JSONException {
         Map<String, ArrayList<String>> out = new HashMap<>();
-        JSONArray data = (JSONArray)(getData("https://api.earth911.com/earth911.getFamilies?api_key=" + key).get("result"));
+
+        JSONObject data_task;
+        JSONArray data = null;
+
+        AsyncTask task = new dataTask().execute("https://api.earth911.com/earth911.getFamilies?api_key=" + key);
+        try {
+            data_task = (JSONObject) task.get();
+            data = (JSONArray) data_task.get("result");
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        //JSONArray data = (JSONArray)(getData("https://api.earth911.com/earth911.getFamilies?api_key=" + key).get("result"));
         for(int i = 0; i < data.length(); i++){
             JSONObject cat = (JSONObject)data.get(i);
             ArrayList<String> ids = new ArrayList<>();
             String name;
             if(cat.has("material_ids") && cat.has("description")){
-                String[] idsArray = (String[]) cat.get("material_ids"); //gets array of string
-                for (String cur: idsArray) {//puts array of string into mappable arraylist
-                    ids.add(cur);
+                JSONArray idsArray = (JSONArray) cat.get("material_ids"); //gets array of string
+//                for (JSONObject cur : idsArray) {//puts array of string into mappable arraylist
+//                    ids.add(cur);
+//                }
+
+                for (int j = 0; j < idsArray.length(); j++) {
+                    ids.add(idsArray.get(j).toString());
                 }
                 name = (String) cat.get("description");
 

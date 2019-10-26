@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.ImageView;
@@ -97,6 +98,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         String str = new String(shortened);
         return str;
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -321,15 +325,17 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     public void nearbyRecycling(){
 
-
-
         RequestQueue queue = Volley.newRequestQueue(this);
         //api request, there are additonal parameters such as item wish to recycle fyi
         String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911)
                 + "&latitude=" + lat + "&longitude=" + lng;
 
         try {
-            JSONObject db = getData(url);
+            //JSONObject db = getData(url);                                                         Networking on main thread exception
+
+            AsyncTask name = new dataTask().execute(url);
+            JSONObject db = (JSONObject) name.get();
+
 
             JSONArray locArray = db.getJSONArray("result");
 
@@ -347,12 +353,13 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         }
         catch (JSONException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
     //code reuse from MaterialsParser
-    public static JSONObject getData(String url) throws IOException, JSONException {
+    private static JSONObject getData(String url) throws IOException, JSONException {
         InputStream web = new URL(url).openStream();
         BufferedReader read = new BufferedReader(new InputStreamReader(web, Charset.forName("UTF-8")));
         StringBuilder bld = new StringBuilder();
@@ -364,6 +371,9 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         web.close();
         return data;
     }
+
+
+
 
     private void setRecyclingLocations() {
 
