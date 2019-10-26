@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -107,6 +108,8 @@ public class ItemListWTR extends AppCompatActivity {
     //gets list of items in input family returns list of cards
     private void makeCards(final String fam, final Map<String, ArrayList<String>> famItems ){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
+        FirebaseApp.initializeApp(this);
+        mFirestore = FirebaseFirestore.getInstance();
         final CollectionReference colRef = mFirestore.collection("Items"); //collection of items from database
         //DocumentReference docRef = mFirestore.collection("glass").document("glass");
 
@@ -114,6 +117,7 @@ public class ItemListWTR extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //Thread.sleep(1000);
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("nice", document.getId() + " => " + document.getData());
@@ -209,7 +213,8 @@ public class ItemListWTR extends AppCompatActivity {
         Resources res = getApplicationContext().getResources();
         String key = res.getString(R.string.earth911);
         try{
-            makeCards(cat, getDatabase(key));
+            Map<String, ArrayList<String>> dum = getDatabase(key);
+            makeCards(cat, dum);
             ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(this, itemsInFam, cat);
             recycleView.setAdapter(mAdapter);
         }
