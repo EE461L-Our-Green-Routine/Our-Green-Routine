@@ -20,10 +20,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /* Got information from https://developer.android.com/guide/topics/ui/layout/recyclerview#java */
 public class ItemListWTR extends AppCompatActivity {
@@ -33,6 +44,44 @@ public class ItemListWTR extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
 
 
+    //parses database to return map containing string
+    public static Map<String, Object> getDatabase(String key) throws IOException, JSONException {
+        Map<String, Object> out = new HashMap<>();
+        JSONArray data = (JSONArray)(getData("https://api.earth911.com/earth911.getFamilies?api_key=" + key).get("result"));
+        for(int i = 0; i < data.length(); i++){
+            JSONObject cat = (JSONObject)data.get(i);
+            ArrayList<String> ids = new ArrayList<>();
+            String name;
+            if(cat.has("material_ids") && cat.has("description")){
+                String[] idsArray = (String[]) cat.get("material_ids"); //gets array of string
+                for (String cur: idsArray) {//puts array of string into mappable arraylist
+                    ids.add(cur);
+                }
+                name = (String) cat.get("description");
+
+                out.put(name, ids); //maps key value pair created
+            }
+
+
+
+
+        }
+        return out;
+    }
+
+
+    public static JSONObject getData(String url) throws IOException, JSONException {
+        InputStream web = new URL(url).openStream();
+        BufferedReader read = new BufferedReader(new InputStreamReader(web, Charset.forName("UTF-8")));
+        StringBuilder bld = new StringBuilder();
+        int cp;
+        while ((cp = read.read()) != -1) {
+            bld.append((char) cp);
+        }
+        JSONObject data = new JSONObject(bld.toString());
+        web.close();
+        return data;
+    }
 
     //gets list of items in input family returns list of cards
     private ArrayList<Card> getList(final String fam){
