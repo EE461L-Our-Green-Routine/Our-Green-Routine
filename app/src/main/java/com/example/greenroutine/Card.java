@@ -1,18 +1,20 @@
 package com.example.greenroutine;
 
+import android.graphics.drawable.Drawable;
+
 public class Card {
-    private int pic;
+    private Drawable pic;
     private String item;
     private String description;
     private String category;
 
-    public Card(int pic, String name, String description) {
+    public Card(Drawable pic, String name, String description) {
         this.pic = pic;
         this.item = name;
         this.description = description;
     }
 
-    public int getPic() {
+    public Drawable getPic() {
         return pic;
     }
 
