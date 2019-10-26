@@ -2,6 +2,7 @@ package com.example.greenroutine;
 
 import android.util.Log;
 
+import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,7 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class MaterialsParser {
+
     private FirebaseFirestore mFirestore;
+
     public static ArrayList<materialEntry> getDatabase(String key) throws IOException, JSONException {
         ArrayList<materialEntry> out = new ArrayList();
         JSONArray data = (JSONArray)(getData("https://api.earth911.com/earth911.getMaterials?api_key=" + key).get("result"));
@@ -63,6 +66,9 @@ public class MaterialsParser {
     }
 
     public void populateDatabase(ArrayList<materialEntry> matList){
+
+        firestoreInit();
+
         for(materialEntry m : matList){
             Map<String, Object> currentItem = new HashMap<>();
             currentItem.put("description", m.description);
@@ -72,11 +78,11 @@ public class MaterialsParser {
             currentItem.put("long_description", m.long_description);
             currentItem.put("image", m.image);
             currentItem.put("family_ids", m.family_ids );
-            mFirestore.collection("ItemList")
-                    .add(currentItem)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
 
+
+
+            mFirestore.collection("Items").add(currentItem).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("nice" , "DocumentSnapshot added with ID: " + documentReference.getId());
                         }
@@ -95,7 +101,7 @@ public class MaterialsParser {
         public String description_legacy;
         public String material_id;
         public String long_description;
-        public JSONArray family_ids;
+        public ArrayList<String> family_ids;
         public String image;
 
         public materialEntry(String desc, String url, String desc_leg, String mat_id, String long_desc, JSONArray fam_id, String img) {
@@ -104,7 +110,17 @@ public class MaterialsParser {
             this.description_legacy = desc_leg;
             this.material_id = mat_id;
             this.long_description = long_desc;
-            this.family_ids = fam_id;
+
+            family_ids = new ArrayList<>();
+            try {
+                for (int i = 0; i < fam_id.length(); i++) {
+                    family_ids.add(fam_id.getString(i));
+                }
+            }
+            catch(JSONException e){
+                System.out.println("Problem with converting arrays");
+            }
+
             this.image = img;
         }
 

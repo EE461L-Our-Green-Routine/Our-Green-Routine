@@ -3,10 +3,12 @@ package com.example.greenroutine;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
+import org.json.JSONException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -24,5 +26,14 @@ public class APITests {
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.aboutpage)).check(matches(isDisplayed()));
         wait(1000);
+    }
+
+    @Test
+    public void materialPullAndPush() throws IOException, JSONException {
+
+        ArrayList<MaterialsParser.materialEntry> retVal = MaterialsParser.getDatabase("");
+
+        MaterialsParser hello = new MaterialsParser();
+        hello.populateDatabase(retVal);
     }
 }
