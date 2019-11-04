@@ -29,7 +29,7 @@ public class APITests {
     @Rule public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     private Context context = getApplicationContext();
-    Resources res = context.getResources();
+    //Resources res = context.getResources();
 
     @Test
     public void gitHubPull() {
@@ -41,11 +41,16 @@ public class APITests {
         onView(withId(R.id.mptest)).check(matches(not(withText("... Tests"))));
     }
 
-
-
-    @Test //min encoding
-    public void get_api_key() {
-        String key = res.getString(R.string.earth911);
-        System.out.println("this is the key " + key);
+    //String key = res.getString(R.string.earth911);
+    @Test
+    public void mapTest(){
+        onView(withId(R.id.button1)).perform(click());
+        onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
+        onView(withId(R.id.my_recycler_view_cats)).perform(click());
+        onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
+        onView(withId(R.id.my_recycler_view_items)).perform(click());
+        onView(withId(R.id.itemCard)).check(matches(isDisplayed()));
+        SystemClock.sleep(4000);
+        onView(withId(R.id.map)).check(matches(isDisplayed()));
     }
 }
