@@ -147,6 +147,8 @@ public class ItemListWTR extends AppCompatActivity {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
                         cardsMade = true;
+                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam);
+                        recycleView.setAdapter(mAdapter);
                     }
 
                 });
@@ -164,12 +166,7 @@ public class ItemListWTR extends AppCompatActivity {
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            while(!cardsMade){}
-            ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam);
-            recycleView.setAdapter(mAdapter);
-        }
+
     }
 
 //    public void myMakeCards(String fam, Map<String, ArrayList<String>> famItems){
