@@ -48,7 +48,7 @@ public class ItemListWTR extends AppCompatActivity {
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private FirebaseFirestore mFirestore;
     private ArrayList<Card> itemsInFam;
-
+    private ItemListWTR whatever = this;
 
     //parses database to return map containing string
     public static Map<String, ArrayList<String>> getDatabase(String key) throws IOException, JSONException {
@@ -158,6 +158,12 @@ public class ItemListWTR extends AppCompatActivity {
             makeCards(arrayLists[0]);
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam);
+            recycleView.setAdapter(mAdapter);
+        }
     }
 
 //    public void myMakeCards(String fam, Map<String, ArrayList<String>> famItems){
@@ -247,10 +253,18 @@ public class ItemListWTR extends AppCompatActivity {
         try{
             Map<String, ArrayList<String>> dum = getDatabase(key);
             ArrayList<String> itemList = dum.get(cat);
-            new cardTask().execute(itemList);
+            Integer syncKey = 0;
+            synchronized (syncKey) {
+                new cardTask().execute(itemList);
+            }
+            synchronized (syncKey) {
+                int i = 0;
+                while (i<100000) {i++;}
+
+
+            }
             Toast.makeText(getApplicationContext(),"reeeee",Toast.LENGTH_SHORT).show();
-            ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(this, itemsInFam, cat);
-            recycleView.setAdapter(mAdapter);
+
         }
         catch(Exception e){
             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
