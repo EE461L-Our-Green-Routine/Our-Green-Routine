@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.sql.Array;
 import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,7 +107,7 @@ public class ItemListWTR extends AppCompatActivity {
     }
 
     //gets list of items in input family returns list of cards
-    private void makeCards(final String fam, final Map<String, ArrayList<String>> famItems ){
+    private void makeCards(final ArrayList<String> famItems ){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
         FirebaseApp.initializeApp(this);
         mFirestore = FirebaseFirestore.getInstance();
@@ -121,8 +122,9 @@ public class ItemListWTR extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("nice", document.getId() + " => " + document.getData());
-                                for(String currentID : famItems.get(fam)){
-                                    if(currentID.equals(document.get("material_id"))){
+                                for(String currentID : famItems){
+                                    Object docMatId = document.getData().get("material_id");
+                                    if(currentID.equals(docMatId)){
                                         String name = (String) document.get("description");
                                         String descript = (String) document.get("long_description");
                                         String picUrl = (String) document.get("image");
@@ -147,6 +149,35 @@ public class ItemListWTR extends AppCompatActivity {
     }
 
 
+    public class cardTask extends AsyncTask<ArrayList<String>, Integer, Void> {
+
+
+        @Override
+        protected Void doInBackground(ArrayList<String>... arrayLists) {
+
+            makeCards(arrayLists[0]);
+            return null;
+        }
+    }
+
+//    public void myMakeCards(String fam, Map<String, ArrayList<String>> famItems){
+//        for(String currentID : famItems.get(fam)){
+//            if(currentID.equals(document.get("material_id"))){
+//                String name = (String) document.get("description");
+//                String descript = (String) document.get("long_description");
+//                String picUrl = (String) document.get("image");
+//                try {
+//                    //InputStream is = (InputStream) new URL(picUrl).getContent();
+//                    //Drawable itemPic = Drawable.createFromStream(is, null);
+//                    Drawable itemPic = getDrawable(R.drawable.defaultimage);
+//                    Card item = new Card(itemPic, name, descript);
+//                    itemsInFam.add(item);
+//                } catch (Exception e) {
+//                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,12 +240,15 @@ public class ItemListWTR extends AppCompatActivity {
 
          */
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
-
+        ArrayList<String> catArray = new ArrayList<>();
+        catArray.add(cat);
         Resources res = getApplicationContext().getResources();
         String key = res.getString(R.string.earth911);
         try{
             Map<String, ArrayList<String>> dum = getDatabase(key);
-            makeCards(cat, dum);
+            ArrayList<String> itemList = dum.get(cat);
+            new cardTask().execute(itemList);
+            Toast.makeText(getApplicationContext(),"reeeee",Toast.LENGTH_SHORT).show();
             ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(this, itemsInFam, cat);
             recycleView.setAdapter(mAdapter);
         }
