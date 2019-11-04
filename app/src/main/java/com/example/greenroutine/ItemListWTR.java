@@ -49,6 +49,7 @@ public class ItemListWTR extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
     private ArrayList<Card> itemsInFam;
     private ItemListWTR whatever = this;
+    private boolean cardsMade = false;
 
     //parses database to return map containing string
     public static Map<String, ArrayList<String>> getDatabase(String key) throws IOException, JSONException {
@@ -141,11 +142,15 @@ public class ItemListWTR extends AppCompatActivity {
                                 }
                             }
 
+
                         } else {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
+                        cardsMade = true;
                     }
+
                 });
+
     }
 
 
@@ -161,6 +166,7 @@ public class ItemListWTR extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            while(!cardsMade){}
             ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam);
             recycleView.setAdapter(mAdapter);
         }
@@ -254,16 +260,10 @@ public class ItemListWTR extends AppCompatActivity {
             Map<String, ArrayList<String>> dum = getDatabase(key);
             ArrayList<String> itemList = dum.get(cat);
             Integer syncKey = 0;
-            synchronized (syncKey) {
-                new cardTask().execute(itemList);
-            }
-            synchronized (syncKey) {
-                int i = 0;
-                while (i<100000) {i++;}
+
+            new cardTask().execute(itemList);
 
 
-            }
-            Toast.makeText(getApplicationContext(),"reeeee",Toast.LENGTH_SHORT).show();
 
         }
         catch(Exception e){
