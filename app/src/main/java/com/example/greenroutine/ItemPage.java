@@ -99,9 +99,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         return str;
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +140,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
 //        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(),ITEM_NAME,Toast.LENGTH_SHORT).show();
-        setLink();
+        //setLink();
 
         setName(itemName);
         setPicture(pictureFilePath);
@@ -197,7 +194,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLng(location));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        dropLocationPins(map);
+        //dropLocationPins(map);
 //    map.setMyLocationEnabled(true);
 //        fusedLocationClient.getLastLocation();
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(,
@@ -269,7 +266,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void onSuccess(Location location) {
 
-
                         //lat = 30.2886486;
                         //lng = -97.7376337;
 
@@ -282,12 +278,13 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                             //lng = 0;
                             // Got last known location. In some rare situations this can be null.
                             Toast debugToast = Toast.makeText(context, lat+" "+lng, Toast.LENGTH_LONG);
+                            debugToast.show();
 
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                             displayMap();
                             nearbyRecycling();
-                            setRecyclingLocations();
+                            //setRecyclingLocations();
                         }
                         else {
                             Toast nullToast = Toast.makeText(context, "Location was not available", Toast.LENGTH_LONG);

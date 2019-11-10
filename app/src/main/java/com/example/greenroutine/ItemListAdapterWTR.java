@@ -22,7 +22,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     private static String CATEGORY_NAME = "CATEGORY_NAME";
 
 
-    public ItemListAdapterWTR(ItemListWTR cardCont, ArrayList<Card> data ) {
+    public ItemListAdapterWTR(ItemListWTR cardCont, ArrayList<Card> data, String catName ) {
         this.cardCont = cardCont;
         this.data = data;
     }

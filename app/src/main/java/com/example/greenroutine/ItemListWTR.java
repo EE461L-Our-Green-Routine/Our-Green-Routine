@@ -50,6 +50,7 @@ public class ItemListWTR extends AppCompatActivity {
     private ArrayList<Card> itemsInFam;
     private ItemListWTR whatever = this;
     private boolean cardsMade = false;
+    private String cat;
 
     //parses database to return map containing string
     public static Map<String, ArrayList<String>> getDatabase(String key) throws IOException, JSONException {
@@ -147,7 +148,7 @@ public class ItemListWTR extends AppCompatActivity {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
                         cardsMade = true;
-                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam);
+                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, cat);
                         recycleView.setAdapter(mAdapter);
                     }
 
@@ -248,7 +249,7 @@ public class ItemListWTR extends AppCompatActivity {
         }
 
          */
-        String cat = getIntent().getStringExtra(CATEGORY_NAME);
+        cat = getIntent().getStringExtra(CATEGORY_NAME);
         ArrayList<String> catArray = new ArrayList<>();
         catArray.add(cat);
         Resources res = getApplicationContext().getResources();
