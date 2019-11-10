@@ -22,10 +22,9 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     private static String CATEGORY_NAME = "CATEGORY_NAME";
 
 
-    public ItemListAdapterWTR(Context cardCont, ArrayList<Card> data, String catName) {
+    public ItemListAdapterWTR(ItemListWTR cardCont, ArrayList<Card> data, String catName ) {
         this.cardCont = cardCont;
         this.data = data;
-        this.catName = catName;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
@@ -79,7 +78,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Card c = data.get(position);
         holder.item.setText(c.getItem());
-        holder.pic.setImageDrawable(cardCont.getResources().getDrawable(c.getPic(), null));
+        holder.pic.setImageDrawable(c.getPic());
         holder.description.setText(c.getDescription());
     }
 

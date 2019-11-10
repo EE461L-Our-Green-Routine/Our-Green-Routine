@@ -10,11 +10,19 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +34,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import org.json.*;
+
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TimerTask;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,6 +68,12 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private String cat;
     private double lat;
     private double lng;
+
+
+    public ArrayList<String> locNames;
+    public ArrayList<String> locDist;
+    public ArrayList<String> locLat;
+    public ArrayList<String> locLng;
 
     public String parser(String name){
         char parsed[] = name.toCharArray();
@@ -85,6 +111,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
         checkPermissions();
 
+        locNames = new ArrayList<String>();
+        locDist = new ArrayList<String>();
+
+
         //getCurrentLocation();
 
         //displayMap();
@@ -110,7 +140,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
 //        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(),ITEM_NAME,Toast.LENGTH_SHORT).show();
-        setLink();
+        //setLink();
 
         setName(itemName);
         setPicture(pictureFilePath);
@@ -163,6 +193,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 .title("You are here."));
         map.moveCamera(CameraUpdateFactory.newLatLng(location));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        //dropLocationPins(map);
 //    map.setMyLocationEnabled(true);
 //        fusedLocationClient.getLastLocation();
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(,
@@ -234,7 +266,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void onSuccess(Location location) {
 
-
                         //lat = 30.2886486;
                         //lng = -97.7376337;
 
@@ -247,10 +278,13 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                             //lng = 0;
                             // Got last known location. In some rare situations this can be null.
                             Toast debugToast = Toast.makeText(context, lat+" "+lng, Toast.LENGTH_LONG);
+                            debugToast.show();
 
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                             displayMap();
+                            nearbyRecycling();
+                            //setRecyclingLocations();
                         }
                         else {
                             Toast nullToast = Toast.makeText(context, "Location was not available", Toast.LENGTH_LONG);
@@ -267,4 +301,120 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+
+
+/* Example JSON Location entry
+    result: [{"curbside": false,
+    "description": "Sprint Store", 
+    "distance": 0.5, 
+    "longitude": -97.74190159539837, 
+    "latitude": 30.28700741685142, 
+    "location_type_id": 28, 
+    "location_id": "Q1RQNVJeW1tCUQ", 
+    "municipal": false}
+    {...}...]
+
+*/
+    //https://dzone.com/articles/how-to-parse-json-data-from-a-rest-api-using-simpl
+
+
+
+    public void nearbyRecycling(){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        //api request, there are additonal parameters such as item wish to recycle fyi
+        String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911)
+                + "&latitude=" + lat + "&longitude=" + lng;
+
+        try {
+            //JSONObject db = getData(url);                                                         Networking on main thread exception
+
+            AsyncTask name = new dataTask().execute(url);
+            JSONObject db = (JSONObject) name.get();
+
+
+            JSONArray locArray = db.getJSONArray("result");
+
+            //only store the 5 closest, as the api response is sorted by distance
+            for (int i = 0; i < 5; i++) {
+                //add description / name of result i
+                locNames.add(locArray.getJSONObject(i).getString("description"));
+                //add distance of result i
+                locDist.add(locArray.getJSONObject(i).getString("distance"));
+                //add lat of result i
+                locLat.add(locArray.getJSONObject(i).getString("latitude"));
+                //add long of result i
+                locLng.add(locArray.getJSONObject(i).getString("longitude"));
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //code reuse from MaterialsParser
+    private static JSONObject getData(String url) throws IOException, JSONException {
+        InputStream web = new URL(url).openStream();
+        BufferedReader read = new BufferedReader(new InputStreamReader(web, Charset.forName("UTF-8")));
+        StringBuilder bld = new StringBuilder();
+        int cp;
+        while ((cp = read.read()) != -1) {
+            bld.append((char) cp);
+        }
+        JSONObject data = new JSONObject(bld.toString());
+        web.close();
+        return data;
+    }
+
+
+
+
+    private void setRecyclingLocations() {
+
+        //setting location names
+
+        ((TextView)findViewById(R.id.location1)).setText(locNames.get(0));
+        ((TextView)findViewById(R.id.location2)).setText(locNames.get(1));
+        ((TextView)findViewById(R.id.location3)).setText(locNames.get(2));
+        ((TextView)findViewById(R.id.location4)).setText(locNames.get(3));
+        ((TextView)findViewById(R.id.location5)).setText(locNames.get(4));
+
+
+        //setting the distance fields
+        ((TextView)findViewById(R.id.distance1)).setText(locDist.get(0));
+        ((TextView)findViewById(R.id.distance2)).setText(locDist.get(1));
+        ((TextView)findViewById(R.id.distance3)).setText(locDist.get(2));
+        ((TextView)findViewById(R.id.distance4)).setText(locDist.get(3));
+        ((TextView)findViewById(R.id.distance5)).setText(locDist.get(4));
+
+    }
+
+
+    private void dropLocationPins(GoogleMap googleMap) {
+        LatLng location0 = new LatLng (Double.parseDouble(locLat.get(0)), Double.parseDouble(locLng.get(0)));
+        LatLng location1 = new LatLng (Double.parseDouble(locLat.get(1)), Double.parseDouble(locLng.get(1)));
+        LatLng location2 = new LatLng (Double.parseDouble(locLat.get(2)), Double.parseDouble(locLng.get(2)));
+        LatLng location3 = new LatLng (Double.parseDouble(locLat.get(3)), Double.parseDouble(locLng.get(3)));
+        LatLng location4 = new LatLng (Double.parseDouble(locLat.get(4)), Double.parseDouble(locLng.get(4)));
+
+        LatLng[] locationPins = new LatLng [] {location0, location1, location2, location3, location4};
+
+        String location0_name = locNames.get(0);
+        String location1_name = locNames.get(1);
+        String location2_name = locNames.get(2);
+        String location3_name = locNames.get(3);
+        String location4_name = locNames.get(4);
+
+        String[] locationNames = new String [] {location0_name, location1_name, location2_name, location3_name, location4_name};
+
+        for (int i = 0; i < locationPins.length; i++){
+            googleMap.addMarker(new MarkerOptions().position(locationPins[i])
+                    .title(locationNames[i]));
+        }
+
+    }
+
 }

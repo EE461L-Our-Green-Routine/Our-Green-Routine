@@ -75,7 +75,7 @@ public class CategoriesAdapterHTR extends RecyclerView.Adapter<CategoriesAdapter
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Card c = data.get(position);
         holder.item.setText(c.getItem());
-        holder.pic.setImageDrawable(cardCont.getResources().getDrawable(c.getPic(), null));
+        holder.pic.setImageDrawable(c.getPic());
         holder.description.setText(c.getDescription());
     }
 
