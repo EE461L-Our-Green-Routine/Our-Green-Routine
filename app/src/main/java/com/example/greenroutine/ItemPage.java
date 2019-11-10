@@ -68,12 +68,13 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private String cat;
     private double lat;
     private double lng;
+    private GoogleMap map;
 
 
     public ArrayList<String> locNames;
     public ArrayList<String> locDist;
-    public ArrayList<String> locLat;
-    public ArrayList<String> locLng;
+    public ArrayList<Double> locLat;
+    public ArrayList<Double> locLng;
 
     public String parser(String name){
         char parsed[] = name.toCharArray();
@@ -107,12 +108,14 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_item_page);
 
+        locNames = new ArrayList<String>();
+        locDist = new ArrayList<String>();
+        locLat = new ArrayList<Double>();
+        locLng = new ArrayList<Double>();
+
         setupItemDetails();
 
         checkPermissions();
-
-        locNames = new ArrayList<String>();
-        locDist = new ArrayList<String>();
 
 
         //getCurrentLocation();
@@ -193,8 +196,11 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 .title("You are here."));
         map.moveCamera(CameraUpdateFactory.newLatLng(location));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
+        this.map = map;
+        nearbyRecycling();
 
-        //dropLocationPins(map);
+
+
 //    map.setMyLocationEnabled(true);
 //        fusedLocationClient.getLastLocation();
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(,
@@ -277,13 +283,13 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                             //lat = 0;
                             //lng = 0;
                             // Got last known location. In some rare situations this can be null.
+                            lat = location.getLatitude();
+                            lng = location.getLongitude();
+
                             Toast debugToast = Toast.makeText(context, lat+" "+lng, Toast.LENGTH_LONG);
                             debugToast.show();
 
-                            lat = location.getLatitude();
-                            lng = location.getLongitude();
                             displayMap();
-                            nearbyRecycling();
                             //setRecyclingLocations();
                         }
                         else {
@@ -343,17 +349,21 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 //add distance of result i
                 locDist.add(locArray.getJSONObject(i).getString("distance"));
                 //add lat of result i
-                locLat.add(locArray.getJSONObject(i).getString("latitude"));
+                locLat.add(locArray.getJSONObject(i).getDouble("latitude"));
                 //add long of result i
-                locLng.add(locArray.getJSONObject(i).getString("longitude"));
+                locLng.add(locArray.getJSONObject(i).getDouble("longitude"));
             }
         }
         catch (JSONException e) {
             e.printStackTrace();
+            throw new ArithmeticException();
         }
         catch (Exception e) {
             e.printStackTrace();
+            throw new ArithmeticException();
         }
+        dropLocationPins();
+        setRecyclingLocations();
     }
     //code reuse from MaterialsParser
     private static JSONObject getData(String url) throws IOException, JSONException {
@@ -393,12 +403,12 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
-    private void dropLocationPins(GoogleMap googleMap) {
-        LatLng location0 = new LatLng (Double.parseDouble(locLat.get(0)), Double.parseDouble(locLng.get(0)));
-        LatLng location1 = new LatLng (Double.parseDouble(locLat.get(1)), Double.parseDouble(locLng.get(1)));
-        LatLng location2 = new LatLng (Double.parseDouble(locLat.get(2)), Double.parseDouble(locLng.get(2)));
-        LatLng location3 = new LatLng (Double.parseDouble(locLat.get(3)), Double.parseDouble(locLng.get(3)));
-        LatLng location4 = new LatLng (Double.parseDouble(locLat.get(4)), Double.parseDouble(locLng.get(4)));
+    private void dropLocationPins() {
+        LatLng location0 = new LatLng (locLat.get(0), locLng.get(0));
+        LatLng location1 = new LatLng (locLat.get(1), locLng.get(1));
+        LatLng location2 = new LatLng (locLat.get(2), locLng.get(2));
+        LatLng location3 = new LatLng (locLat.get(3), locLng.get(3));
+        LatLng location4 = new LatLng (locLat.get(4), locLng.get(4));
 
         LatLng[] locationPins = new LatLng [] {location0, location1, location2, location3, location4};
 
@@ -411,7 +421,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         String[] locationNames = new String [] {location0_name, location1_name, location2_name, location3_name, location4_name};
 
         for (int i = 0; i < locationPins.length; i++){
-            googleMap.addMarker(new MarkerOptions().position(locationPins[i])
+            map.addMarker(new MarkerOptions().position(locationPins[i])
                     .title(locationNames[i]));
         }
 
