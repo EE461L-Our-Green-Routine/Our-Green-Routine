@@ -28,8 +28,16 @@ public class UITests {
     }
 
     @Test
-    public void homeToCategories() {
+    public void homeToWhere() {
         onView(withId(R.id.button1)).perform(click());
+        onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
+        Espresso.pressBack();
+        onView(withId(R.id.homePage)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void homeToHow() {
+        onView(withId(R.id.button4)).perform(click());
         onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
         Espresso.pressBack();
         onView(withId(R.id.homePage)).check(matches(isDisplayed()));
@@ -66,5 +74,13 @@ public class UITests {
         onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
         Espresso.pressBack();
         onView(withId(R.id.homePage)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void howToUI(){
+        onView(withId(R.id.button4)).perform(click());
+        onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
+        onView(withId(R.id.my_recycler_view_cats)).perform(click());
+        onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
     }
 }
