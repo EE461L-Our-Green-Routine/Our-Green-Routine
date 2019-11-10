@@ -150,31 +150,31 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void setLink(){
-        //mDatabase.child(CATEGORY_NAME).child(itemName);
-        DocumentReference docRef = mFirestore.collection(categoryName.toLowerCase()).document(itemName.toLowerCase());
-        //DocumentReference docRef = mFirestore.collection("glass").document("glass");
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    link = (String) document.get("recycling_guide");
-                    if(document.exists()){
-                        Toast.makeText(getApplicationContext(),link,Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getApplicationContext(),(String)document.get("recycling_guide"),Toast.LENGTH_SHORT).show();
-                    }
-            }
-        }});
-        //
-//        String[] link = new String[1];
-//        link[0] = "a";
-//        if(link[0].equals("")){
-//            Toast.makeText(getApplicationContext(),"REEEEEE",Toast.LENGTH_SHORT).show();
-//        }
-        //Toast.makeText(getApplicationContext(),link[0],Toast.LENGTH_SHORT).show();
-        TextView linkText = findViewById(R.id.link);
-        //linkText.setText(link);
+//        //mDatabase.child(CATEGORY_NAME).child(itemName);
+//        DocumentReference docRef = mFirestore.collection(categoryName.toLowerCase()).document(itemName.toLowerCase());
+//        //DocumentReference docRef = mFirestore.collection("glass").document("glass");
+//
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    link = (String) document.get("recycling_guide");
+//                    if(document.exists()){
+//                        Toast.makeText(getApplicationContext(),link,Toast.LENGTH_SHORT).show();
+//                        //Toast.makeText(getApplicationContext(),(String)document.get("recycling_guide"),Toast.LENGTH_SHORT).show();
+//                    }
+//            }
+//        }});
+//        //
+////        String[] link = new String[1];
+////        link[0] = "a";
+////        if(link[0].equals("")){
+////            Toast.makeText(getApplicationContext(),"REEEEEE",Toast.LENGTH_SHORT).show();
+////        }
+//        //Toast.makeText(getApplicationContext(),link[0],Toast.LENGTH_SHORT).show();
+//        TextView linkText = findViewById(R.id.link);
+//        //linkText.setText(link);
     }
     private void setName(String itemName){
         TextView totalTextView = findViewById(R.id.name);

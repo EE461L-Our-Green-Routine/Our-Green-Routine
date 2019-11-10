@@ -113,7 +113,7 @@ public class ItemListWTR extends AppCompatActivity {
         //mDatabase.child(CATEGORY_NAME).child(itemName);
         FirebaseApp.initializeApp(this);
         mFirestore = FirebaseFirestore.getInstance();
-        final CollectionReference colRef = mFirestore.collection("Items"); //collection of items from database
+        final CollectionReference colRef = mFirestore.collection("testmp"); //collection of items from database
         //DocumentReference docRef = mFirestore.collection("glass").document("glass");
 
             colRef.get()
