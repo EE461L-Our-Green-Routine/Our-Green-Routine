@@ -57,12 +57,14 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private static final String ITEM_NAME = "ITEM_NAME";
     private static final String PICTURE_PATH = "PICTURE_PATH";
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
+    private static String DESCRIPTION = "DESCRIPTION";
     private static final int FINE_LOCATION_REQUEST = 69;
     private static String link;
     private final Object initLock = new Object();
     private FirebaseFirestore mFirestore;
     private FusedLocationProviderClient fusedLocationClient;
     public String itemName;
+    public String description;
     public String categoryName;
     private String pictureFilePath;
     private String cat;
@@ -137,6 +139,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private void setupItemDetails(){
         itemName = getIntent().getStringExtra(ITEM_NAME);
         categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+        description = getIntent().getStringExtra(DESCRIPTION);
 
         pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
         //cat = getIntent().getStringExtra(CATEGORY_NAME);
@@ -146,6 +149,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         //setLink();
 
         setName(itemName);
+        setDescrip(description);
         setPicture(pictureFilePath);
     }
 
@@ -179,6 +183,11 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private void setName(String itemName){
         TextView totalTextView = findViewById(R.id.name);
         totalTextView.setText(itemName);
+    }
+
+    private void setDescrip(String descrip){
+        TextView totalTextView = findViewById(R.id.description);
+        totalTextView.setText(descrip);
     }
 
     private void setPicture(String pictureName){
