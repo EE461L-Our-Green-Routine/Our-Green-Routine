@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,9 +45,13 @@ public class CategoriesPageWTR extends AppCompatActivity {
 
             ArrayList<Card> cards = new ArrayList<>();
             for (String s : categories) {
-                Card c = new Card(getDrawable((R.drawable.defaultimage)), s, "uh");
+                Card c = new Card(getDrawable((R.drawable.defaultimage)), s, "Category");
                 cards.add(c);
             }
+
+            Collections.sort(cards);
+                         
+
       /*  Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
         Card c2 = new Card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
         Card c3 = new Card(R.drawable.cereal,"Cardboard", "Anything made from cardboard");

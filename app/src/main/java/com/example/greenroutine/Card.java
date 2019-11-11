@@ -2,7 +2,7 @@ package com.example.greenroutine;
 
 import android.graphics.drawable.Drawable;
 
-public class Card {
+public class Card implements Comparable<Card> {
     private Drawable pic;
     private String item;
     private String description;
@@ -24,5 +24,10 @@ public class Card {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public int compareTo(Card other){
+        return this.getItem().compareTo(other.getItem());
     }
 }
