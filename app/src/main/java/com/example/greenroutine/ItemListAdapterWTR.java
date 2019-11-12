@@ -100,7 +100,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
             descript = d;
         }
         else if(descript.length()>80){
-            String d = descript.substring(0,85)+"...";
+            String d = descript.substring(0,79)+"...";
             descript = d;
         }
         holder.description.setText(descript);
