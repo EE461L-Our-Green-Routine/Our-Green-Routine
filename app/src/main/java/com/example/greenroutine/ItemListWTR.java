@@ -257,8 +257,6 @@ public class ItemListWTR extends AppCompatActivity {
         try{
             Map<String, ArrayList<String>> dum = getDatabase(key);
             ArrayList<String> itemList = dum.get(cat);
-            Integer syncKey = 0;
-
             new cardTask().execute(itemList);
 
 
