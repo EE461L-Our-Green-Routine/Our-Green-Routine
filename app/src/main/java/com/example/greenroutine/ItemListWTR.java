@@ -202,54 +202,9 @@ public class ItemListWTR extends AppCompatActivity {
         recycleView.setLayoutManager(layManager);
         itemsInFam = new ArrayList<Card>();
 
-        /*ArrayList<Card> plastic = new ArrayList<>();
-        ArrayList<Card> paper = new ArrayList<>();
-        ArrayList<Card> glass = new ArrayList<>();
-        ArrayList<Card> metal = new ArrayList<>();
-        ArrayList<Card> hhw= new ArrayList<>();
-        ArrayList<Card> house= new ArrayList<>();
-        ArrayList<Card> automotive= new ArrayList<>();
-        ArrayList<Card> electronics= new ArrayList<>();
-        Card c1 = new Card(getDrawable(R.drawable.dasani),"Dasani", "Plastic water bottle");
-        Card c2 = new Card(getDrawable(R.drawable.sunnyd),"Sunny D", "Plastic juice bottle");
-        Card c3 = new Card(getDrawable(R.drawable.beer),"Beer", "Any brand of glass beer bottle");
-        Card c4 = new Card(getDrawable(R.drawable.cereal),"Cereal", "Cardboard box");
-        Card c5 = new Card(getDrawable(R.drawable.cans),"Cans", "Cans made from steel");
-        Card c6 = new Card(getDrawable(R.drawable.officepaper),"Office Paper", "Paper created for professional use");
-        Card c7 = new Card(getDrawable(R.drawable.newspaper),"Newspaper", "Thin paper used to distribute news");
-        Card c8 = new Card(getDrawable(R.drawable.wine),"Wine", "Glass wine bottles");
-        //Card c9 = new Card(R.drawable.alex, "glass", "glass link test");
 
-        plastic.add(c1);
-        plastic.add(c2);
-        glass.add(c3);
-        metal.add(c5);
-        paper.add(c6);
-        paper.add(c7);
-        glass.add(c8);
-        //glass.add(c9);
-        String cat = getIntent().getStringExtra(CATEGORY_NAME);
-        ItemListAdapterWTR mAdapter;
-        switch(cat) {
-            case ("Glass"):
-                mAdapter = new ItemListAdapterWTR(this, glass, cat);
-                break;
-            case ("Plastic"):
-                mAdapter = new ItemListAdapterWTR(this, plastic, cat);
-                break;
-            case ("Metal"):
-                mAdapter = new ItemListAdapterWTR(this, metal, cat);
-                break;
-            case ("Paper"):
-                mAdapter = new ItemListAdapterWTR(this, paper, cat);
-                break;
-            default:
-                mAdapter = new ItemListAdapterWTR(this, plastic, cat);
-                break;
-        }
-
-         */
         cat = getIntent().getStringExtra(CATEGORY_NAME);
+        ((TextView)findViewById(R.id.textView4)).setText(cat+":");
         ArrayList<String> catArray = new ArrayList<>();
         catArray.add(cat);
         Resources res = getApplicationContext().getResources();
