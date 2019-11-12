@@ -113,7 +113,20 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
         Card c = data.get(position);
         holder.item.setText(c.getItem());
         holder.pic.setImageDrawable(c.getPic());
-        holder.description.setText(c.getDescription());
+        String descript = c.getDescription();
+        String name = c.getItem();
+        if(name.length()>28){
+            descript = " ";
+        }
+        if(name.length()>=17 && descript.length()>30){
+            String d = descript.substring(0,29)+"...";
+            descript = d;
+        }
+        else if(descript.length()>80){
+            String d = descript.substring(0,85)+"...";
+            descript = d;
+        }
+        holder.description.setText(descript);
     }
 
     @Override
