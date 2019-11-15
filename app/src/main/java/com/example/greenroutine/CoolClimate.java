@@ -45,8 +45,17 @@ public class CoolClimate extends AppCompatActivity {
         String houseSize = getHouseSize(size_spin.getSelectedItem().toString());
         String ZIP = txtDescription.getText().toString();
 
-        getCarbon(income, houseSize, ZIP);
-
+        if(Integer.valueOf(ZIP) < Integer.valueOf("OOOOO")){
+            TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
+            myAwesomeTextView.setText("N/A");
+        }
+        else if(Integer.valueOf(ZIP) > Integer.valueOf("99999")){
+            TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
+            myAwesomeTextView.setText("N/A");
+        }
+        else {
+            getCarbon(income, houseSize, ZIP);
+        }
 
 
     }
