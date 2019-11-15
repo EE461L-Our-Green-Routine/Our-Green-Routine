@@ -121,6 +121,7 @@ public class ItemListWTR extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         //Thread.sleep(1000);
+                        Map matIDs = new HashMap();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("nice", document.getId() + " => " + document.getData());
@@ -136,6 +137,7 @@ public class ItemListWTR extends AppCompatActivity {
                                             Drawable itemPic = getDrawable(R.drawable.defaultimage);
                                             Card item = new Card(itemPic, name, descript);
                                             itemsInFam.add(item);
+                                            matIDs.put(name, currentID);
                                         } catch (Exception e) {
                                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
                                         }
@@ -148,7 +150,7 @@ public class ItemListWTR extends AppCompatActivity {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
                         cardsMade = true;
-                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, cat);
+                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, cat, matIDs);
                         recycleView.setAdapter(mAdapter);
                     }
 

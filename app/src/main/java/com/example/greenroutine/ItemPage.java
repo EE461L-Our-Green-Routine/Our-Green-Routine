@@ -53,12 +53,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
+import static java.lang.Integer.parseInt;
+
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
     //private static final String PICTURE_PATH = "PICTURE_PATH";
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private static String DESCRIPTION = "DESCRIPTION";
+    private static String ID = "ID";
     private static final int FINE_LOCATION_REQUEST = 69;
     private static String link;
     private final Object initLock = new Object();
@@ -78,6 +81,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     public ArrayList<String> locDist;
     public ArrayList<Double> locLat;
     public ArrayList<Double> locLng;
+    public int limit=0;
 
     public String parser(String name){
         char parsed[] = name.toCharArray();
@@ -344,8 +348,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         //api request, there are additonal parameters such as item wish to recycle fyi
+        String matID = getIntent().getStringExtra(ID);
+        int matIDNum = parseInt(matID);
         String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911)
-                + "&latitude=" + lat + "&longitude=" + lng;
+                + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum;
 
         try {
             //JSONObject db = getData(url);                                                         Networking on main thread exception
@@ -357,7 +363,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
             JSONArray locArray = db.getJSONArray("result");
 
             //only store the 5 closest, as the api response is sorted by distance
-            for (int i = 0; i < 5; i++) {
+            limit = (locArray.length()<5) ? locArray.length() : 5;
+            for (int i = 0; i < limit; i++) {
                 //add description / name of result i
                 locNames.add(locArray.getJSONObject(i).getString("description"));
                 //add distance of result i
@@ -399,46 +406,93 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private void setRecyclingLocations() {
 
         //setting location names
+        String name0 = "N/A";
+        String name1 = "N/A";
+        String name2 = "N/A";
+        String name3 = "N/A";
+        String name4 = "N/A";
+        if(limit>0) name0 = locNames.get(0);
+        if(limit>1) name1 = locNames.get(1);
+        if(limit>2) name2 = locNames.get(2);
+        if(limit>3) name3 = locNames.get(3);
+        if(limit>4) name4 = locNames.get(4);
 
-        ((TextView)findViewById(R.id.location1)).setText(locNames.get(0));
-        ((TextView)findViewById(R.id.location2)).setText(locNames.get(1));
-        ((TextView)findViewById(R.id.location3)).setText(locNames.get(2));
-        ((TextView)findViewById(R.id.location4)).setText(locNames.get(3));
-        ((TextView)findViewById(R.id.location5)).setText(locNames.get(4));
+        ((TextView)findViewById(R.id.location1)).setText(name0);
+        ((TextView)findViewById(R.id.location2)).setText(name1);
+        ((TextView)findViewById(R.id.location3)).setText(name2);
+        ((TextView)findViewById(R.id.location4)).setText(name3);
+        ((TextView)findViewById(R.id.location5)).setText(name4);
 
 
         //setting the distance fields
-        ((TextView)findViewById(R.id.distance1)).setText(locDist.get(0));
-        ((TextView)findViewById(R.id.distance2)).setText(locDist.get(1));
-        ((TextView)findViewById(R.id.distance3)).setText(locDist.get(2));
-        ((TextView)findViewById(R.id.distance4)).setText(locDist.get(3));
-        ((TextView)findViewById(R.id.distance5)).setText(locDist.get(4));
+
+        name0 = "N/A";
+        name1 = "N/A";
+        name2 = "N/A";
+        name3 = "N/A";
+        name4 = "N/A";
+
+        if(limit>0) name0 = locDist.get(0)+"mi";
+        if(limit>1) name1 = locDist.get(1)+"mi";
+        if(limit>2) name2 = locDist.get(2)+"mi";
+        if(limit>3) name3 = locDist.get(3)+"mi";
+        if(limit>4) name4 = locDist.get(4)+"mi";
+
+        ((TextView)findViewById(R.id.distance1)).setText(name0);
+        ((TextView)findViewById(R.id.distance2)).setText(name1);
+        ((TextView)findViewById(R.id.distance3)).setText(name2);
+        ((TextView)findViewById(R.id.distance4)).setText(name3);
+        ((TextView)findViewById(R.id.distance5)).setText(name4);
 
     }
 
 
     private void dropLocationPins() {
-        LatLng location0 = new LatLng (locLat.get(0), locLng.get(0));
-        LatLng location1 = new LatLng (locLat.get(1), locLng.get(1));
-        LatLng location2 = new LatLng (locLat.get(2), locLng.get(2));
-        LatLng location3 = new LatLng (locLat.get(3), locLng.get(3));
-        LatLng location4 = new LatLng (locLat.get(4), locLng.get(4));
+        LatLng location0 = null;
+        LatLng location1 = null;
+        LatLng location2 = null;
+        LatLng location3 = null;
+        LatLng location4 = null;
 
-        LatLng[] locationPins = new LatLng [] {location0, location1, location2, location3, location4};
+        if(limit>0)location0 = new LatLng (locLat.get(0), locLng.get(0));
+        if(limit>1)location1 = new LatLng (locLat.get(1), locLng.get(1));
+        if(limit>2)location2 = new LatLng (locLat.get(2), locLng.get(2));
+        if(limit>3)location3 = new LatLng (locLat.get(3), locLng.get(3));
+        if(limit>4)location4 = new LatLng (locLat.get(4), locLng.get(4));
 
-        String location0_name = locNames.get(0);
-        String location1_name = locNames.get(1);
-        String location2_name = locNames.get(2);
-        String location3_name = locNames.get(3);
-        String location4_name = locNames.get(4);
+        LatLng[] locationPins = null;
+        if(limit>4)  locationPins = new LatLng [] {location0, location1, location2, location3, location4};
+        else if(limit>3)  locationPins = new LatLng [] {location0, location1, location2, location3};
+        else if(limit>2)  locationPins = new LatLng [] {location0, location1, location2};
+        else if(limit>1)  locationPins = new LatLng [] {location0, location1};
+        else if(limit>0)  locationPins = new LatLng [] {location0};
 
-        String[] locationNames = new String [] {location0_name, location1_name, location2_name, location3_name, location4_name};
 
-        for (int i = 0; i < locationPins.length; i++){
-            map.addMarker(new MarkerOptions().position(locationPins[i])
-                    .title(locationNames[i]));
+        String location0_name = null;
+        String location1_name = null;
+        String location2_name = null;
+        String location3_name = null;
+        String location4_name = null;
+
+        if(limit>0)location0_name = locNames.get(0);
+        if(limit>1)location1_name = locNames.get(1);
+        if(limit>2)location2_name = locNames.get(2);
+        if(limit>3)location3_name = locNames.get(3);
+        if(limit>4)location4_name = locNames.get(4);
+
+        String[] locationNames = null;
+        if(limit>4)  locationNames = new String [] {location0_name, location1_name, location2_name, location3_name, location4_name};
+        else if(limit>3)  locationNames = new String [] {location0_name, location1_name, location2_name, location3_name};
+        else if(limit>2)  locationNames = new String [] {location0_name, location1_name, location2_name};
+        else if(limit>1)  locationNames = new String [] {location0_name, location1_name};
+        else if(limit>0)  locationNames = new String [] {location0_name};
+
+        if(locationPins!=null && locationNames!=null ) {
+            for (int i = 0; i < locationPins.length; i++) {
+                map.addMarker(new MarkerOptions().position(locationPins[i])
+                        .title(locationNames[i]));
+            }
         }
-
     }
 
 }

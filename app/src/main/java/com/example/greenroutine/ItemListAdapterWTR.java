@@ -23,12 +23,15 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     //private static String PICTURE_ID = "PICTURE_ID";
     private static String CATEGORY_NAME = "CATEGORY_NAME";
     private static String DESCRIPTION = "DESCRIPTION";
+    private static String ID = "ID";
     private static Map nameDescrip = new HashMap();
+    private static Map IDMAPGlobal;
 
 
-    public ItemListAdapterWTR(ItemListWTR cardCont, ArrayList<Card> data, String catName ) {
+    public ItemListAdapterWTR(ItemListWTR cardCont, ArrayList<Card> data, String catName, Map<String, String> IDMAP ) {
         this.cardCont = cardCont;
         this.data = data;
+        IDMAPGlobal = IDMAP;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
@@ -64,9 +67,12 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
                     String name=(String)item.getText();
                     itL.putExtra(CATEGORY_NAME, catName );
                     itL.putExtra(ITEM_NAME, name);
+                    String iden = (String)IDMAPGlobal.get(name);
                     String descrip = (String)nameDescrip.get(name);
                     if(descrip!=null) itL.putExtra(DESCRIPTION, descrip);
                     else itL.putExtra(DESCRIPTION, description.getText());
+                    if(iden!=null) itL.putExtra(ID, iden);
+                    else itL.putExtra(ID, "450");
                     v.getContext().startActivity(itL);
                     //pic.getImageAlpha();
 

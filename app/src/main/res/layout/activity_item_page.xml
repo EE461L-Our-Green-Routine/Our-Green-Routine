@@ -62,8 +62,8 @@
 
     <TableLayout
         android:id="@+id/locations"
-        android:layout_width="329dp"
-        android:layout_height="174dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:stretchColumns="1"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,13 +77,15 @@
                 android:id="@+id/location1"
                 android:layout_width="107dp"
                 android:padding="3dip"
-                android:text="loc1" />
+                android:text="loc1"
+                android:textSize="12dp"/>
 
             <TextView
                 android:id="@+id/distance1"
                 android:gravity="right"
                 android:padding="3dip"
-                android:text="dist1" />
+                android:text="dist1"
+                android:textSize="12dp" />
         </TableRow>
 
         <TableRow>
@@ -91,13 +93,15 @@
             <TextView
                 android:id="@+id/location2"
                 android:padding="3dip"
-                android:text="loc2" />
+                android:text="loc2"
+                android:textSize="12dp"/>
 
             <TextView
                 android:id="@+id/distance2"
                 android:gravity="right"
                 android:padding="3dip"
-                android:text="dist2" />
+                android:text="dist2"
+                android:textSize="12dp" />
         </TableRow>
 
         <TableRow>
@@ -105,13 +109,15 @@
             <TextView
                 android:id="@+id/location3"
                 android:padding="3dip"
-                android:text="loc3" />
+                android:text="loc3"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/distance3"
                 android:gravity="right"
                 android:padding="3dip"
-                android:text="dist3" />
+                android:text="dist3"
+                android:textSize="12dp" />
         </TableRow>
 
         <TableRow>
@@ -119,13 +125,15 @@
             <TextView
                 android:id="@+id/location4"
                 android:padding="3dip"
-                android:text="loc4" />
+                android:text="loc4"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/distance4"
                 android:gravity="right"
                 android:padding="3dip"
-                android:text="dist4" />
+                android:text="dist4"
+                android:textSize="12dp" />
         </TableRow>
 
         <TableRow>
@@ -133,13 +141,15 @@
             <TextView
                 android:id="@+id/location5"
                 android:padding="3dip"
-                android:text="loc5" />
+                android:text="loc5"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/distance5"
                 android:gravity="right"
                 android:padding="3dip"
-                android:text="dist5" />
+                android:text="dist5"
+                android:textSize="12dp" />
         </TableRow>
     </TableLayout>
 
