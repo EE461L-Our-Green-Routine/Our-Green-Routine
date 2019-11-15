@@ -95,7 +95,7 @@ public class APITests {
         }
         onView(ViewMatchers.withId(R.id.my_recycler_view_items)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         //SystemClock.sleep(5000); //emulator lag
-        SystemClock.sleep(500);
+        SystemClock.sleep(1000);
         onView(ViewMatchers.withId(R.id.location1)).check(matches(IsNot.not((withText("loc1")))));
         onView(ViewMatchers.withId(R.id.location2)).check(matches(IsNot.not((withText("loc2")))));
         onView(ViewMatchers.withId(R.id.location3)).check(matches(IsNot.not((withText("loc3")))));
@@ -109,24 +109,37 @@ public class APITests {
         onView(ViewMatchers.withId(R.id.name)).check(matches(IsNot.not((withText("TextView")))));
         onView(ViewMatchers.withId(R.id.description)).check(matches(IsNot.not((withText("TextView")))));
         UiObject map = device.findObject(new UiSelector().descriptionContains("Google Map"));
-        map.pinchIn(80, 10);
+        map.pinchIn(100, 10);
+        map.pinchIn(100, 10);
+        map.pinchIn(100, 10);
+        map.pinchIn(100, 10);
         UiObject loc = device.findObject(new UiSelector().descriptionContains("You are here."));
         loc.click();
         String test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location1))).getText();
-        loc = device.findObject(new UiSelector().descriptionContains(test));
-        loc.click();
+        if(!test.equals("N/A")) {
+            loc = device.findObject(new UiSelector().descriptionContains(test));
+            loc.click();
+        }
         test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location2))).getText();
-        loc = device.findObject(new UiSelector().descriptionContains(test));
-        loc.click();
+        if(!test.equals("N/A")) {
+            loc = device.findObject(new UiSelector().descriptionContains(test));
+            loc.click();
+        }
         test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location3))).getText();
-        loc = device.findObject(new UiSelector().descriptionContains(test));
-        loc.click();
+        if(!test.equals("N/A")) {
+            loc = device.findObject(new UiSelector().descriptionContains(test));
+            loc.click();
+        }
         test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location4))).getText();
-        loc = device.findObject(new UiSelector().descriptionContains(test));
-        loc.click();
+        if(!test.equals("N/A")) {
+            loc = device.findObject(new UiSelector().descriptionContains(test));
+            loc.click();
+        }
         test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location5))).getText();
-        loc = device.findObject(new UiSelector().descriptionContains(test));
-        loc.click();
+        if(!test.equals("N/A")) {
+            loc = device.findObject(new UiSelector().descriptionContains(test));
+            loc.click();
+        }
         Espresso.pressBack();
         Espresso.pressBack();
     }
@@ -151,7 +164,7 @@ public class APITests {
             onView(ViewMatchers.withId(R.id.my_recycler_view_items)).perform(RecyclerViewActions.actionOnItemAtPosition(j, click()));
             //SystemClock.sleep(5000); //emulator lag
             System.out.println("********** ITEM:" + j+" **************");
-            SystemClock.sleep(500);
+            SystemClock.sleep(1000);
             onView(ViewMatchers.withId(R.id.location1)).check(matches(IsNot.not((withText("loc1")))));
             onView(ViewMatchers.withId(R.id.location2)).check(matches(IsNot.not((withText("loc2")))));
             onView(ViewMatchers.withId(R.id.location3)).check(matches(IsNot.not((withText("loc3")))));
