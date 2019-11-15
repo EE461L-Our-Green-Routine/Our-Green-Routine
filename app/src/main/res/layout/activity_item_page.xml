@@ -50,6 +50,7 @@
         android:id="@+id/imageView"
         android:layout_width="116dp"
         android:layout_height="164dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toStartOf="@id/locations"
         app:layout_constraintHorizontal_bias="0.0"

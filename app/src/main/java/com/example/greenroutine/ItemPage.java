@@ -13,6 +13,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -193,7 +194,11 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private void setPicture(String pictureName){
         ImageView imageView = findViewById(R.id.imageView);
         String imageName = parser(itemName);
-        imageView.setImageResource(getResources().getIdentifier(imageName, "drawable", this.getPackageName()));
+        int id = getResources().getIdentifier(imageName, "drawable", this.getPackageName());
+        imageView.setImageResource(id);
+        if(id != 0) {
+            imageView.setVisibility(View.VISIBLE);
+        }
     }
 
 

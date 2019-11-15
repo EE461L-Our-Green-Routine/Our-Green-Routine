@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.Espresso;
@@ -32,7 +33,9 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
@@ -78,71 +81,59 @@ public class UITests {
     @Test
     public void homeToFootprint(){
         onView(withId(R.id.button3)).perform(click());
-        onView(withId(R.id.linearLayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.coolClimate)).check(matches(isDisplayed()));
         Espresso.pressBack();
         onView(withId(R.id.homePage)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void calculateFootprint(){
-        onView(withId(R.id.button3)).perform(click());
-        onView(withId(R.id.linearLayout)).check(matches(isDisplayed()));
-        onView(withId(R.id.textInputEditText)).perform(typeText("battery"));
-        onView(withId(R.id.calculate)).perform(click());
-        //onView(withId(R.id.carbonTotal)).check(matches(withText("15.0")));
-    }
-
-    @Test
-    public void categoryUI(){
+    public void whereToUI() throws UiObjectNotFoundException {
         onView(withId(R.id.button1)).perform(click());
+        int cat = ((RecyclerView) (APITests.getActivityInstance().findViewById(R.id.my_recycler_view_cats))).getAdapter().getItemCount();
         onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
-        onView(withId(R.id.my_recycler_view_cats)).perform(click());
-        onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
-        onView(withId(R.id.my_recycler_view_items)).perform(click());
-        onView(withId(R.id.itemCard)).check(matches(isDisplayed()));
-        Espresso.pressBack();
-        onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
-        Espresso.pressBack();
-        onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
-        Espresso.pressBack();
-        onView(withId(R.id.homePage)).check(matches(isDisplayed()));
+        if (cat == 0) {
+            fail("No categories!");
+        }
+        for (int i = 1; i < cat; i++) {
+            onView(ViewMatchers.withId(R.id.my_recycler_view_cats)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
+            SystemClock.sleep(1500);
+            int itm = ((RecyclerView) (APITests.getActivityInstance().findViewById(R.id.my_recycler_view_items))).getAdapter().getItemCount();
+            onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
+            if (itm == 0) {
+                fail("No items!");
+            }
+            for (int j = 0; j < itm; j++) {
+                onView(ViewMatchers.withId(R.id.my_recycler_view_items)).perform(RecyclerViewActions.actionOnItemAtPosition(j, click()));
+                onView(withId(R.id.itemCard)).check(matches(isDisplayed()));
+                Espresso.pressBack();
+            }
+            Espresso.pressBack();
+        }
     }
 
     @Test
     public void howToUI(){
         onView(withId(R.id.button4)).perform(click());
-        int cat = ((RecyclerView)(getActivityInstance().findViewById(R.id.my_recycler_view_cats))).getAdapter().getItemCount();
+        int cat = ((RecyclerView)(APITests.getActivityInstance().findViewById(R.id.my_recycler_view_cats))).getAdapter().getItemCount();
+        onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
+        if(cat == 0){
+            fail("No categories!");
+        }
         for(int i = 0; i<cat; i++) {
             onView(ViewMatchers.withId(R.id.my_recycler_view_cats)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
-            int itm = ((RecyclerView)(getActivityInstance().findViewById(R.id.my_recycler_view_items))).getAdapter().getItemCount();
+            int itm = ((RecyclerView)(APITests.getActivityInstance().findViewById(R.id.my_recycler_view_items))).getAdapter().getItemCount();
+            onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
+            if(itm == 0){
+                fail("No items!");
+            }
             for(int j = 0; j<itm; j++){
                 onView(ViewMatchers.withId(R.id.my_recycler_view_items)).perform(RecyclerViewActions.actionOnItemAtPosition(j, click()));
-                SystemClock.sleep(5000);
+                SystemClock.sleep(5000); //emulator lag
                 assertEquals("com.android.chrome",device.getCurrentPackageName());
                 device.pressBack();
             }
             Espresso.pressBack();
         }
-        //onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
-        //onView(withId(R.id.my_recycler_view_cats)).perform(click());
-        //onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
-    }
-    Activity currentActivity = null;
-
-    public Activity getActivityInstance(){
-        getInstrumentation().runOnMainSync(new Runnable() {
-            public void run() {
-                Collection<Activity> resumedActivities =
-                        ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                for (Activity activity: resumedActivities){
-                    Log.d("Your current activity: ", activity.getClass().getName());
-                    currentActivity = activity;
-                    break;
-                }
-            }
-        });
-
-        return currentActivity;
     }
 
 }
