@@ -258,7 +258,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
 //                    Intent intent = getIntent();
 //                    finish();
 //                    startActivity(intent);
@@ -300,8 +300,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                             lat = location.getLatitude();
                             lng = location.getLongitude();
 
-                            Toast debugToast = Toast.makeText(context, lat+" "+lng, Toast.LENGTH_LONG);
-                            debugToast.show();
+                            //Toast debugToast = Toast.makeText(context, lat+" "+lng, Toast.LENGTH_LONG);
+                            //debugToast.show();
 
                             displayMap();
                             //setRecyclingLocations();
