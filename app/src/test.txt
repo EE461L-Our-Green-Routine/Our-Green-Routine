@@ -1,5 +1,5 @@
-total 10
-mpontikes 10
+total 15
+mpontikes 15
 Djadih 0
 zsisti 0
 agonzales5071 0
