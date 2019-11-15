@@ -20,7 +20,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     private ArrayList<Card> data;
     private String catName;
     private static String ITEM_NAME = "ITEM_NAME";
-    private static String PICTURE_ID = "PICTURE_ID";
+    //private static String PICTURE_ID = "PICTURE_ID";
     private static String CATEGORY_NAME = "CATEGORY_NAME";
     private static String DESCRIPTION = "DESCRIPTION";
     private static Map nameDescrip = new HashMap();
@@ -33,7 +33,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
 
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
         //ConstraintLayout cL;
-        ImageView pic;
+        //ImageView pic;
         TextView item;
         TextView description;
         String catName;
@@ -41,10 +41,10 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
         public MyViewHolder(View v, final String catName) {
             super(v);
             View v1 = v;
-            pic = v.findViewById(R.id.pic);
+            //pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
-            pic.setOnClickListener(new View.OnClickListener(){
+            /*pic.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     Intent itL = new Intent(v.getContext(), ItemPage.class);
                     String name=(String)item.getText();
@@ -57,7 +57,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
                     pic.getImageAlpha();
 
                 }
-            });
+            });*/
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     Intent itL = new Intent(v.getContext(), ItemPage.class);
@@ -68,7 +68,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
                     if(descrip!=null) itL.putExtra(DESCRIPTION, descrip);
                     else itL.putExtra(DESCRIPTION, description.getText());
                     v.getContext().startActivity(itL);
-                    pic.getImageAlpha();
+                    //pic.getImageAlpha();
 
                 }
             });
@@ -79,7 +79,7 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inf = LayoutInflater.from(cardCont);
-        View v = inf.inflate(R.layout.card, null);
+        View v = inf.inflate(R.layout.card2, null);
         MyViewHolder h = new MyViewHolder(v, catName);
         return h;
     }
@@ -88,19 +88,20 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Card c = data.get(position);
         holder.item.setText(c.getItem());
-        holder.pic.setImageDrawable(c.getPic());
+        //holder.pic.setImageDrawable(c.getPic());
         String name = c.getItem();
         String descript = c.getDescription();
+
         nameDescrip.put(c.getItem(), c.getDescription());
-        if(name.length()>28){
+        /*if(name.length()>28){
             descript = " ";
-        }
-        if(name.length()>=17 && descript.length()>30){
-            String d = descript.substring(0,29)+"...";
+        }*/
+        if(name.length()>=35 && descript.length()>92){
+            String d = descript.substring(0,91)+"...";
             descript = d;
         }
-        else if(descript.length()>80){
-            String d = descript.substring(0,79)+"...";
+        else if(descript.length()>181){
+            String d = descript.substring(0,180)+"...";
             descript = d;
         }
         holder.description.setText(descript);

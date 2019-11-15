@@ -146,7 +146,7 @@ public class ItemListHTR extends AppCompatActivity {
         Card c50 = new Card(getDrawable(R.drawable.clothing),"Clothing & Accessories", "Old clothes and wearable products");
         Card c51 = new Card(getDrawable(R.drawable.cookingoil),"Cooking Oil", "Used cooking oil");
         Card c52 = new Card(getDrawable(R.drawable.cookware),"Cookware", "Pots, pans, spatulas, etc.");
-        Card c53 = new Card(getDrawable(R.drawable.defaultimage),"Corks", "Products made from cork");
+        Card c53 = new Card(getDrawable(R.drawable.corks),"Corks", "Products made from cork");
         Card c54 = new Card(getDrawable(R.drawable.fluorescenttubes),"Fluorescent Tubes", "Flourescent tubes used for lighting");
         Card c55 = new Card(getDrawable(R.drawable.frozenfoodboxes),"Frozen Food Boxes", "Paperboard coated in plastic");
         Card c56 = new Card(getDrawable(R.drawable.furniture),"Furniture", "Dressers, nightstands, chairs, etc.");

@@ -56,7 +56,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
-    private static final String PICTURE_PATH = "PICTURE_PATH";
+    //private static final String PICTURE_PATH = "PICTURE_PATH";
     private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private static String DESCRIPTION = "DESCRIPTION";
     private static final int FINE_LOCATION_REQUEST = 69;
@@ -67,7 +67,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     public String itemName;
     public String description;
     public String categoryName;
-    private String pictureFilePath;
+    //private String pictureFilePath;
     private String cat;
     private double lat;
     private double lng;
@@ -142,7 +142,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         categoryName = getIntent().getStringExtra(CATEGORY_NAME);
         description = getIntent().getStringExtra(DESCRIPTION);
 
-        pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
+        //pictureFilePath = getIntent().getStringExtra(PICTURE_PATH);
         //cat = getIntent().getStringExtra(CATEGORY_NAME);
 
 //        Toast.makeText(getApplicationContext(),CATEGORY_NAME,Toast.LENGTH_SHORT).show();
@@ -190,7 +190,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         TextView totalTextView = findViewById(R.id.description);
         totalTextView.setText(descrip);
     }
-
+/*
     private void setPicture(String pictureName){
         ImageView imageView = findViewById(R.id.imageView);
         String imageName = parser(itemName);
@@ -200,7 +200,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
             imageView.setVisibility(View.VISIBLE);
         }
     }
-
+*/
 
     @Override
     public void onMapReady(GoogleMap map) {
