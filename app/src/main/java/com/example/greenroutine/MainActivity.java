@@ -61,11 +61,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(FootIntent);
     }
 
-    public void searchNear(View view) {
-    }
-    public void test(View view){
-
-    }
     public class tipTask extends AsyncTask<ArrayList<String>, Integer, Void> {
 
 
@@ -90,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("nice", document.getId() + " => " + document.getData());
                                     if(random == 0) {
-                                        Object docMatId = document.getData().get("material_id");
-
                                         setItemName ((String)document.get("description"));
                                         setItemDesc((String) document.get("long_description"));
                                         break;
