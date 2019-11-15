@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToFoot(View view){//currently not working
-        Intent FootIntent = new Intent(this, CarbonFootPrint.class);
+        Intent FootIntent = new Intent(this, CoolClimate.class);
         startActivity(FootIntent);
     }
 
