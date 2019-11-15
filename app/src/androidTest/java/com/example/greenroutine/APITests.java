@@ -38,9 +38,31 @@ public class APITests {
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.aboutpage)).check(matches(isDisplayed()));
         SystemClock.sleep(4000);
-        onView(withId(R.id.mpcommit)).check(matches(not(withText("... Commits"))));
-        onView(withId(R.id.mpIssues)).check(matches(not(withText("... Issues"))));
-        onView(withId(R.id.mptest)).check(matches(not(withText("... Tests"))));
+        onView(withId(R.id.mpcommit)).check(matches(not(withText("... commits"))));
+        onView(withId(R.id.mpIssues)).check(matches(not(withText("... issues"))));
+        onView(withId(R.id.mptest)).check(matches(not(withText("... tests"))));
+        onView(withId(R.id.mpcommit1)).check(matches(not(withText("... commits"))));
+        onView(withId(R.id.mpIssues1)).check(matches(not(withText("... issues"))));
+        onView(withId(R.id.mptest1)).check(matches(not(withText("... tests"))));
+        onView(withId(R.id.mpcommit2)).check(matches(not(withText("... commits"))));
+        onView(withId(R.id.mpIssues2)).check(matches(not(withText("... issues"))));
+        onView(withId(R.id.mptest2)).check(matches(not(withText("... tests"))));
+        onView(withId(R.id.mpcommit3)).check(matches(not(withText("... commits"))));
+        onView(withId(R.id.mpIssues3)).check(matches(not(withText("... issues"))));
+        onView(withId(R.id.mptest3)).check(matches(not(withText("... tests"))));
+        onView(withId(R.id.mpcommit4)).check(matches(not(withText("... commits"))));
+        onView(withId(R.id.mpIssues4)).check(matches(not(withText("... issues"))));
+        onView(withId(R.id.mptest4)).check(matches(not(withText("... tests"))));
+        onView(withId(R.id.totalTests)).check(matches(not(withText("0 Total Commits"))));
+        onView(withId(R.id.totalCommits)).check(matches(not(withText("0 Total Issues"))));
+        onView(withId(R.id.mpIssues)).check(matches(not(withText("0 Total Tests"))));
+    }
+
+    @Test
+    public void tipTest(){
+        SystemClock.sleep(4000);
+        onView(withId(R.id.DOTD)).check(matches(not(withText(""))));
+        onView(withId(R.id.IOTD)).check(matches(not(withText(""))));
     }
 
     //String key = res.getString(R.string.earth911);
