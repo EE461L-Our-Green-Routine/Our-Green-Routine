@@ -151,7 +151,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
         setName(itemName);
         setDescrip(description);
-        setPicture(pictureFilePath);
+        //setPicture(pictureFilePath);
     }
 
     private void setLink(){
