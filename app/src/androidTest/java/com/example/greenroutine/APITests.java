@@ -23,17 +23,14 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.Matchers.not;
 
 import org.hamcrest.core.IsNot;
-import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -54,6 +51,7 @@ public class APITests {
         device = UiDevice.getInstance(getInstrumentation());
     }
 
+    @Category(FastTest.class)
     @Test
     public void gitHubPull() {
         onView(withId(R.id.button)).perform(click());
@@ -79,6 +77,61 @@ public class APITests {
         onView(withId(R.id.mpIssues)).check(matches(not(withText("0 Total Tests"))));
     }
 
+    @Category(FastTest.class)
+    @Test
+    public void quickItemCardTest() throws UiObjectNotFoundException {
+        onView(withId(R.id.button1)).perform(click());
+        int cat = ((RecyclerView)(getActivityInstance().findViewById(R.id.my_recycler_view_cats))).getAdapter().getItemCount();
+        onView(withId(R.id.recyMainC)).check(matches(isDisplayed()));
+        if(cat == 0){
+            fail("No categories!");
+        }
+        onView(ViewMatchers.withId(R.id.my_recycler_view_cats)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        SystemClock.sleep(1500);
+        int itm = ((RecyclerView)(getActivityInstance().findViewById(R.id.my_recycler_view_items))).getAdapter().getItemCount();
+        onView(withId(R.id.recyMainI)).check(matches(isDisplayed()));
+        if(itm == 0){
+            fail("No items!");
+        }
+        onView(ViewMatchers.withId(R.id.my_recycler_view_items)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        //SystemClock.sleep(5000); //emulator lag
+        SystemClock.sleep(500);
+        onView(ViewMatchers.withId(R.id.location1)).check(matches(IsNot.not((withText("loc1")))));
+        onView(ViewMatchers.withId(R.id.location2)).check(matches(IsNot.not((withText("loc2")))));
+        onView(ViewMatchers.withId(R.id.location3)).check(matches(IsNot.not((withText("loc3")))));
+        onView(ViewMatchers.withId(R.id.location4)).check(matches(IsNot.not((withText("loc4")))));
+        onView(ViewMatchers.withId(R.id.location5)).check(matches(IsNot.not((withText("loc5")))));
+        onView(ViewMatchers.withId(R.id.distance1)).check(matches(IsNot.not((withText("dist1")))));
+        onView(ViewMatchers.withId(R.id.distance2)).check(matches(IsNot.not((withText("dist2")))));
+        onView(ViewMatchers.withId(R.id.distance3)).check(matches(IsNot.not((withText("dist3")))));
+        onView(ViewMatchers.withId(R.id.distance4)).check(matches(IsNot.not((withText("dist4")))));
+        onView(ViewMatchers.withId(R.id.distance5)).check(matches(IsNot.not((withText("dist5")))));
+        onView(ViewMatchers.withId(R.id.name)).check(matches(IsNot.not((withText("TextView")))));
+        onView(ViewMatchers.withId(R.id.description)).check(matches(IsNot.not((withText("TextView")))));
+        UiObject map = device.findObject(new UiSelector().descriptionContains("Google Map"));
+        map.pinchIn(80, 10);
+        UiObject loc = device.findObject(new UiSelector().descriptionContains("You are here."));
+        loc.click();
+        String test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location1))).getText();
+        loc = device.findObject(new UiSelector().descriptionContains(test));
+        loc.click();
+        test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location2))).getText();
+        loc = device.findObject(new UiSelector().descriptionContains(test));
+        loc.click();
+        test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location3))).getText();
+        loc = device.findObject(new UiSelector().descriptionContains(test));
+        loc.click();
+        test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location4))).getText();
+        loc = device.findObject(new UiSelector().descriptionContains(test));
+        loc.click();
+        test = (String) ((TextView)(getActivityInstance().findViewById(R.id.location5))).getText();
+        loc = device.findObject(new UiSelector().descriptionContains(test));
+        loc.click();
+        Espresso.pressBack();
+        Espresso.pressBack();
+    }
+
+    @Category(SlowTest.class)
     @Test
     public void itemCardTest() throws UiObjectNotFoundException {
         onView(withId(R.id.button1)).perform(click());
@@ -98,7 +151,6 @@ public class APITests {
             onView(ViewMatchers.withId(R.id.my_recycler_view_items)).perform(RecyclerViewActions.actionOnItemAtPosition(j, click()));
             //SystemClock.sleep(5000); //emulator lag
             System.out.println("********** ITEM:" + j+" **************");
-            //onView(ViewMatchers.withId(R.id.imageView)).check(matches(isDisplayed()));
             SystemClock.sleep(500);
             onView(ViewMatchers.withId(R.id.location1)).check(matches(IsNot.not((withText("loc1")))));
             onView(ViewMatchers.withId(R.id.location2)).check(matches(IsNot.not((withText("loc2")))));
@@ -135,6 +187,7 @@ public class APITests {
         }
     }
 
+    @Category(FastTest.class)
     @Test
     public void tipTest(){
         SystemClock.sleep(4000);
@@ -165,22 +218,27 @@ public class APITests {
         final static String five =  "5 person or more";
     }
 
+    @Category(FastTest.class)
     @Test
     public void calcNormal(){
         testInput("75093", Income.six, People.three);
     }
+    @Category(FastTest.class)
     @Test
     public void calcNoZip(){
         testInput("", Income.u, People.three);
     }
+    @Category(FastTest.class)
     @Test
     public void calcNoIncome(){
         testInput("75093", Income.a, People.two);
     }
+    @Category(FastTest.class)
     @Test
     public void calcNoPeople(){
         testInput("75093", Income.five, People.a);
     }
+    @Category(FastTest.class)
     @Test
     public void calcLetters(){
         testInput("GEC", Income.two, People.one);

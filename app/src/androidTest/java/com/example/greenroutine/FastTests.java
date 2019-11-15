@@ -1,15 +1,14 @@
 package com.example.greenroutine;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.junit.Test;
+import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
+@RunWith(Categories.class)
+@Categories.IncludeCategory({FastTest.class})
 @Suite.SuiteClasses({
         UITests.class,
         APITests.class
 })
-public class LiveTests {
+public class FastTests {
 }
