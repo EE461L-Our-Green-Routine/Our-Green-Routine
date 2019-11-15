@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -166,6 +167,7 @@ public class ItemListHTR extends AppCompatActivity {
 
 
         String cat = getIntent().getStringExtra(CATEGORY_NAME);
+        ((TextView)findViewById(R.id.textView4)).setText(cat+":");
         ItemListAdapterHTR mAdapter;
         switch(cat) {
             case ("Glass"):
