@@ -47,7 +47,7 @@ tasks.register("createAPI") {
         }else {
             println("No file found, creating new keys.xml");
             keyFile.createNewFile();
-            keyFile.write "<resources>\n    <string name=\"earth911\">" + System.getenv("TESTING") + "</string>\n    <string name=\"googleMaps\">" + System.getenv("TESTING") + "</string>\n    <string name=\"fireBaseFireStore\">" + System.getenv("TESTING") + "</string>\n</resources>"
+            keyFile.write "<resources>\n    <string name=\"earth911\">" + System.getenv("TESTING") + "</string>\n    <string name=\"googleMaps\">" + System.getenv("TESTING") + "</string>\n    <string name=\"fireBaseFireStore\">" + System.getenv("TESTING") + "</string>\n    <string name=\"coolClimateID\">" + System.getenv("TESTING") + "</string>\n    <string name=\"coolClimateKey\">" + System.getenv("TESTING") + "</string>\n</resources>"
         }
     }
 }
