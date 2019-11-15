@@ -45,7 +45,10 @@ public class CategoriesPageWTR extends AppCompatActivity {
 
             ArrayList<Card> cards = new ArrayList<>();
             for (String s : categories) {
-                Card c = new Card(getDrawable((R.drawable.defaultimage)), s, "Category");
+                String usable = (s.replaceAll("\\s", "")).toLowerCase();
+                //String usable = "automotive";
+                Card c = new Card(getDrawable(getResources().getIdentifier(usable, "drawable", this.getPackageName())), s, "Category");
+                //Card c = new Card(getDrawable((R.drawable.defaultimage)), s, "Category");
                 cards.add(c);
             }
 

@@ -3,4 +3,25 @@
     <string name="michaelcommits">... commits</string>
     <string name="IOTD">Placeholder of the day</string>
     <string name="DOTD">Placeholder Description</string>
+    <string-array name="income_array">
+            <item>Average</item>
+            <item>Less than $10,000</item>
+            <item>$10,000 to $19,999</item>
+            <item>$20,000 to $29,999</item>
+            <item>$30,000 to $39,999</item>
+            <item>$40,000 to $49,999</item>
+            <item>$50,000 to $59,999</item>
+            <item>$60,000 to $79,999</item>
+            <item>$80,000 to $99,999</item>
+            <item>$100,000 to $119,999</item>
+            <item>$120,000 or more</item>
+    </string-array>
+    <string-array name="houseSize_array">
+        <item>Average</item>
+        <item>1 person</item>
+        <item>2 person</item>
+        <item>3 person</item>
+        <item>4 person</item>
+        <item>5 person or more</item>
+    </string-array>
 </resources>

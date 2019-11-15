@@ -30,6 +30,7 @@
         <activity android:name=".ItemListWTR" />
         <activity android:name=".ItemListHTR" />
         <activity android:name=".CarbonFootPrint" />
+        <activity android:name=".CoolClimate"/>
         <activity android:name=".MainActivity">
 
             <intent-filter>
