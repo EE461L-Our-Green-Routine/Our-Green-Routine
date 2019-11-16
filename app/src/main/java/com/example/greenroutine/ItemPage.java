@@ -351,7 +351,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         String matID = getIntent().getStringExtra(ID);
         int matIDNum = parseInt(matID);
         String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911)
-                + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum;
+                + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum + "&max_results=5" + "&max_distance=1000";
 
         try {
             //JSONObject db = getData(url);                                                         Networking on main thread exception
