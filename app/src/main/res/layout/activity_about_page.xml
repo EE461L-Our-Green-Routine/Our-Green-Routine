@@ -9,7 +9,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="131dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -344,14 +346,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="... tests" />
+                android:text="... tests\n" />
 
             <TextView
                 android:id="@+id/totalCommits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:text="0 Total Commits" />
 
             <TextView
@@ -377,9 +379,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Data source: \n
-                 No data for Phase 1\n
+                 Earth911 and CoolClimate\n
                  Data Source Links:\n
-                 No data for Phase 1\n" />
+                 Links are API requests\n" />
 
             <TextView
                 android:id="@+id/tools"
@@ -391,6 +393,7 @@
                     Android Studio\n
                     Used as the basic of our app creation\n
                     Google Maps API\n
+                    Cool CLimate\n
                     Used to show maps of local recycling\n
                     Github API\n
                     Main collaborative tool\n" />
