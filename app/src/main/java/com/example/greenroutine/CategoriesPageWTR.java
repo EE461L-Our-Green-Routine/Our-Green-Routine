@@ -56,7 +56,7 @@ public class CategoriesPageWTR extends AppCompatActivity {
                          
 
 
-            CategoriesAdapterWTR mAdapter = new CategoriesAdapterWTR(this, cards);
+            CategoriesAdapter mAdapter = new CategoriesAdapter(this, cards, false);
             recycleView.setAdapter(mAdapter);
         }
     }
