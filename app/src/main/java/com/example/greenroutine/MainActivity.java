@@ -3,17 +3,13 @@ package com.example.greenroutine;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,12 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
-
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
@@ -61,51 +53,38 @@ public class MainActivity extends AppCompatActivity {
         startActivity(FootIntent);
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class tipTask extends AsyncTask<ArrayList<String>, Integer, Void> {
-
-
+        @SafeVarargs
         @Override
-        protected Void doInBackground(ArrayList<String>... arrayLists) {
-
+        protected final Void doInBackground(ArrayList<String>... arrayLists) {
             setTip();
             return null;
         }
     }
         private void setTip() {
             final CollectionReference colRef = mFirestore.collection("testmp"); //collection of items from database
-            //DocumentReference docRef = mFirestore.collection("glass").document("glass");
-
-            colRef.get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            //Thread.sleep(1000);
-                            if (task.isSuccessful()) {
-                                int random = (int)(Math.random()*450);
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("nice", document.getId() + " => " + document.getData());
-                                    if(random == 0) {
-                                        setItemName ((String)document.get("description"));
-                                        setItemDesc((String) document.get("long_description"));
-                                        break;
-                                    }
-                                    random--;
-                                }
+            colRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        int random = (int)(Math.random()*450);
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            Log.d("nice", document.getId() + " => " + document.getData());
+                            if(random == 0) {
+                                setItemName ((String)document.get("description"));
+                                setItemDesc((String) document.get("long_description"));
+                                break;
                             }
-
-
-                             else {
-                                Log.d("notNice", "Error getting documents: ", task.getException());
-                            }
+                            random--;
                         }
-
-
-
-                    });
-
-
+                    }
+                    else {
+                        Log.d("notNice", "Error getting documents: ", task.getException());
+                    }
+                }
+            });
         }
-
     public void setItemName(String name){
         ((TextView)findViewById(R.id.IOTD)).setText(name);
     }
