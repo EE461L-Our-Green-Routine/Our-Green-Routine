@@ -27,14 +27,9 @@ public class CoolClimate extends AppCompatActivity {
     private String footPrint = null;
 
     private boolean getCarbon(String income, String household, String ZIP){
-        String url = "https://apis.berkeley.edu/coolclimate/footprint-defaults?input_location_mode=1&input_location="
-                + ZIP +"&input_income="+ income +"&input_size="+ household;
-
+        String url = "https://apis.berkeley.edu/coolclimate/footprint-defaults?input_location_mode=1&input_location=" + ZIP +"&input_income="+ income +"&input_size="+ household;
         getResponse(url);
-
-        if(footPrint != null) return false;
-
-        return true;
+        return footPrint == null;
     }
 
     public void calculate(View view){
