@@ -205,10 +205,6 @@ public class ItemListHTR extends AppCompatActivity {
         recycleView.setAdapter(mAdapter);
 
     }
-    /*
-    public void sendToItemPage(View view){
-        Intent itemIntent = new Intent(this, ItemPage.class);
-        startActivity(itemIntent);
-    }*/
+
 
 }
