@@ -43,18 +43,7 @@ public class CoolClimate extends AppCompatActivity {
         String houseSize = getHouseSize(size_spin.getSelectedItem().toString());
         String ZIP = txtDescription.getText().toString();
 
-        if(Integer.valueOf(ZIP) < Integer.valueOf("OOOOO")){
-            TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
-            myAwesomeTextView.setText("N/A");
-        }
-        else if(Integer.valueOf(ZIP) > Integer.valueOf("99999")){
-            TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
-            myAwesomeTextView.setText("N/A");
-        }
-        else {
-            getCarbon(income, houseSize, ZIP);
-        }
-
+        getCarbon(income, houseSize, ZIP);
 
     }
     private String getIncome(String input){
@@ -131,11 +120,14 @@ public class CoolClimate extends AppCompatActivity {
             return new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    String l = response.substring(response.indexOf("result_grand_total"));
-                    String actual = l.substring(19, l.indexOf("</result_grand_total"));
-                    TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
-                    myAwesomeTextView.setText(actual);
-                    Log.e("Check Response",response);
+                    TextView myAwesomeTextView = (TextView) findViewById(R.id.textView7);
+                    if(response.contains("result_grand_total")) {
+                        String l = response.substring(response.indexOf("result_grand_total"));
+                        String actual = l.substring(19, l.indexOf("</result_grand_total"));
+                        myAwesomeTextView.setText(actual);
+                        Log.e("Check Response", response);
+                    }
+                    else myAwesomeTextView.setText("N/A");
                 }
             };
         }
