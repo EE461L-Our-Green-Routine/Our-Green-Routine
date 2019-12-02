@@ -19,7 +19,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     private static String CATEGORY_NAME = "CATEGORY_NAME";
     private static Class<?> ItemList;
 
-
+    /*Constructor, uses a boolean to set the ItemList class to be accessed from this adapter */
     public CategoriesAdapter(Context cardCont, ArrayList<Card> data, boolean whereOrHow) {
         this.cardCont = cardCont;
         this.data = data;

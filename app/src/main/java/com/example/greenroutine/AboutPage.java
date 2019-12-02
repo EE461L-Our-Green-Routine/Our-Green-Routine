@@ -21,26 +21,20 @@ public class AboutPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         queue = Volley.newRequestQueue(this);
         setContentView(R.layout.activity_about_page);
-        getCommits("agonzales5071", R.id.mpcommit);
-        getIssues("agonzales5071", R.id.mpIssues);
-        getTests("agonzales5071", R.id.mptest);
 
-        getCommits("ElginAllen", R.id.mpcommit1);
-        getIssues("ElginAllen", R.id.mpIssues1);
-        getTests("ElginAllen", R.id.mptest1);
+        /* Update Git information for each teammate */
+        getGitInfo("agonzales5071", R.id.mpcommit, R.id.mpIssues, R.id.mptest);
 
-        getCommits("Djadih", R.id.mpcommit2);
-        getIssues("Djadih", R.id.mpIssues2);
-        getTests("Djadih", R.id.mptest2);
+        getGitInfo("ElginAllen", R.id.mpcommit1, R.id.mpIssues1, R.id.mptest1);
 
-        getCommits("mpontikes", R.id.mpcommit3);
-        getIssues("mpontikes", R.id.mpIssues3);
-        getTests("mpontikes", R.id.mptest3);
+        getGitInfo("Djadih", R.id.mpcommit2, R.id.mpIssues2, R.id.mptest2);
 
-        getCommits("zsisti", R.id.mpcommit4);
-        getIssues("zsisti", R.id.mpIssues4);
-        getTests("zsisti", R.id.mptest4);
+        getGitInfo("mpontikes", R.id.mpcommit3, R.id.mpIssues3, R.id.mptest3);
+
+        getGitInfo("zsisti", R.id.mpcommit4, R.id.mpIssues4, R.id.mptest4);
     }
+
+
     public void getAPIData(String url, String search, int id, String tag){
         getAPIHelp(url,1,search, id, tag);
     }
@@ -72,15 +66,26 @@ public class AboutPage extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    public void getCommits(final String user, final int id){
+    public void getGitInfo(final String user, final int idC, final int idI, final int idT){
+        getCommits(user, idC);
+        getIssues(user, idI);
+        getTests(user, idT);
+    }
+
+    /*Get number of commits for a given member */
+    private void getCommits(final String user, final int id){
         String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/commits?author=" + user;
         getAPIData(url, "\"commit\"", id, "commits");
     }
-    public void getIssues(final String user, final int id){
+
+    /*Get number of issues for a given member */
+    private void getIssues(final String user, final int id){
         String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all&creator=" + user;
         getAPIData(url, "\"repository_url\"", id, "issues");
     }
-    public void getTests(final String user, final int id){
+
+    /*Get number of tests for a given member */
+    private void getTests(final String user, final int id){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
