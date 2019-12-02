@@ -78,9 +78,6 @@ public class ItemListWTR extends AppCompatActivity {
             String name;
             if(cat.has("material_ids") && cat.has("description")){
                 JSONArray idsArray = (JSONArray) cat.get("material_ids"); //gets array of string
-//                for (JSONObject cur : idsArray) {//puts array of string into mappable arraylist
-//                    ids.add(cur);
-//                }
 
                 for (int j = 0; j < idsArray.length(); j++) {
                     ids.add(idsArray.get(j).toString());
@@ -172,24 +169,6 @@ public class ItemListWTR extends AppCompatActivity {
 
     }
 
-//    public void myMakeCards(String fam, Map<String, ArrayList<String>> famItems){
-//        for(String currentID : famItems.get(fam)){
-//            if(currentID.equals(document.get("material_id"))){
-//                String name = (String) document.get("description");
-//                String descript = (String) document.get("long_description");
-//                String picUrl = (String) document.get("image");
-//                try {
-//                    //InputStream is = (InputStream) new URL(picUrl).getContent();
-//                    //Drawable itemPic = Drawable.createFromStream(is, null);
-//                    Drawable itemPic = getDrawable(R.drawable.defaultimage);
-//                    Card item = new Card(itemPic, name, descript);
-//                    itemsInFam.add(item);
-//                } catch (Exception e) {
-//                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,10 +204,5 @@ public class ItemListWTR extends AppCompatActivity {
 
 
     }
-    /*
-    public void sendToItemPage(View view){
-        Intent itemIntent = new Intent(this, ItemPage.class);
-        startActivity(itemIntent);
-    }*/
 
 }
