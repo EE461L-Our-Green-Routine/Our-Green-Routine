@@ -213,18 +213,17 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void setRecyclingLocations() {
-        for (Integer i = 0; i < 5; i++){
+        for (Integer i = 1; i < 6; i++){
 
             String name = "N/A";
             String dist = "N/A";
-            if(limit>i){
-                name = locNames.get(i);
-                dist = locDist.get(i) + "mi";
+            if(limit>=i){
+                name = locNames.get((i-1));
+                dist = locDist.get((i-1)) + "mi";
             }
-
-            int nameid = getResources().getIdentifier("location" + i.toString(), "id", "");
+            int nameid = getResources().getIdentifier("location" + i.toString(), "id", this.getPackageName());
             ((TextView)findViewById(nameid)).setText(name);
-            int distid = getResources().getIdentifier("distance" + i.toString(), "id", "");
+            int distid = getResources().getIdentifier("distance" + i.toString(), "id", this.getPackageName());
             ((TextView)findViewById(distid)).setText(dist);
 
         }
