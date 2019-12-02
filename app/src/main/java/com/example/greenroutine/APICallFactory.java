@@ -9,6 +9,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public abstract class APICallFactory {
+    Context context;
+
+    public APICallFactory(Context app) {
+        this.context = app;
+    }
+
     public APICall getCall(String type){
         APICall call;
         call = createCall(type);

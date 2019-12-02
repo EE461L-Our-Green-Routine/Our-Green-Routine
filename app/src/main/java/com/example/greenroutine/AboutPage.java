@@ -35,39 +35,6 @@ public class  AboutPage extends AppCompatActivity {
         getGitInfo("zsisti", R.id.mpcommit4, R.id.mpIssues4, R.id.mptest4);
     }
 
-
-    public void getAPIData(String url, String search, int id, String tag){
-        //getAPIHelp(url,1,search, id, tag);
-
-    }
-
-    private void getAPIHelp(final String url, final int page, final String search, final int id, final String tag){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url+"&page="+page,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        int out = response.split(search).length -1;
-                        if(out == 30){
-                            getAPIHelp(url,page+1,search, id, tag);
-                        }else{
-                            ((TextView)findViewById(id)).setText(Integer.toString(out + 30*(page-1)) + " " + tag);
-                            if(tag.equals("commits")) {
-                                ((TextView) findViewById(R.id.totalCommits)).setText(Integer.toString(exterctNumber(R.id.totalCommits) + out + 30 * (page - 1)) + " Total Commits");
-                            }
-                            if(tag.equals("issues")) {
-                                ((TextView) findViewById(R.id.totalIssues)).setText(Integer.toString(exterctNumber(R.id.totalIssues) + out + 30 * (page - 1)) + " Total Issues");
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ((TextView)findViewById(id)).setText("ERR commits");
-            }
-        });
-        queue.add(stringRequest);
-    }
-
     public void getGitInfo(final String user, final int idC, final int idI, final int idT){
         APICallFactory factory = new GitHubAPICallFactory(this,user,idT);
         APICall call = factory.getCall("test");
@@ -80,20 +47,6 @@ public class  AboutPage extends AppCompatActivity {
         call.getData("https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all&creator=" + user);
     }
 
-    /*Get number of commits for a given member */
-    private void getCommits(final String user, final int id){
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/commits?author=" + user;
-        getAPIData(url, "\"commit\"", id, "commits");
-    }
-
-    /*Get number of issues for a given member */
-    private void getIssues(final String user, final int id){
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all&creator=" + user;
-        getAPIData(url, "\"repository_url\"", id, "issues");
-    }
-
-    /*Get number of tests for a given member */
-
     public int exterctNumber(int ind){
         String up = (String) ((TextView)findViewById(ind)).getText();
         up = up.substring(0,up.indexOf(" "));
@@ -103,9 +56,8 @@ public class  AboutPage extends AppCompatActivity {
     public class GitHubAPICallFactory extends APICallFactory{
         String user;
         int id;
-        Context context;
         public GitHubAPICallFactory(Context app, String user, int id){
-            this.context = app;
+            super(app);
             this.user = user;
             this.id = id;
         }

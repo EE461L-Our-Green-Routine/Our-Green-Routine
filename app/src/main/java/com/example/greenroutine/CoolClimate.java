@@ -3,6 +3,7 @@ package com.example.greenroutine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,9 @@ public class CoolClimate extends AppCompatActivity {
 
     private boolean getCarbon(String income, String household, String ZIP){
         String url = "https://apis.berkeley.edu/coolclimate/footprint-defaults?input_location_mode=1&input_location=" + ZIP +"&input_income="+ income +"&input_size="+ household;
-        getResponse(url);
+        APICallFactory factory = new CoolClimateAPICallFactory(this);
+        APICall call = factory.createCall("cool");
+        call.getData(url);
         return footPrint == null;
     }
 
@@ -53,45 +56,6 @@ public class CoolClimate extends AppCompatActivity {
         }
 
 
-    }
-    private void getResponse(String url){
-        String URL = url;
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.GET, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        String l = response.substring(response.indexOf("result_grand_total"));
-                        String actual = l.substring(19, l.indexOf("</result_grand_total"));
-                        TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
-                        myAwesomeTextView.setText(actual);
-                        Log.e("Check Response",response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Check Error","Error");
-                    }
-                }
-        ){
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                return new byte[]{};
-
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put("accept", "application/json");
-                map.put("app_id", getString(R.string.coolClimateID));
-                map.put("app_key", getString(R.string.coolClimateKey));
-                return map;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(15000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_MAX_RETRIES));
-        queue.add(request);
     }
     private String getIncome(String input){
         String ret = "1";
@@ -144,5 +108,67 @@ public class CoolClimate extends AppCompatActivity {
         // Apply the adapter to the spinner
         size.setAdapter(adapterSize);
 
+    }
+    public class CoolClimateAPICallFactory extends APICallFactory {
+
+        public CoolClimateAPICallFactory(Context app) {
+            super(app);
+        }
+
+        @Override
+        APICall createCall(String type) {
+            return new CoolClimateAPICall(context);
+        }
+    }
+    public class CoolClimateAPICall extends APICall{
+
+        public CoolClimateAPICall(Context app) {
+            super(app);
+        }
+
+        @Override
+        public Response.Listener<String> getResponse() {
+            return new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    String l = response.substring(response.indexOf("result_grand_total"));
+                    String actual = l.substring(19, l.indexOf("</result_grand_total"));
+                    TextView myAwesomeTextView = (TextView)findViewById(R.id.textView7);
+                    myAwesomeTextView.setText(actual);
+                    Log.e("Check Response",response);
+                }
+            };
+        }
+
+        @Override
+        public Response.ErrorListener getError() {
+            return new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Check Error","Error");
+                }
+            };
+        }
+        @Override
+        public void getData(String url){
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, getResponse(), getError()){
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    return new byte[]{};
+
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> map = new HashMap<>();
+                    map.put("accept", "application/json");
+                    map.put("app_id", getString(R.string.coolClimateID));
+                    map.put("app_key", getString(R.string.coolClimateKey));
+                    return map;
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(15000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_MAX_RETRIES));
+            super.queue.add(stringRequest);
+        }
     }
 }

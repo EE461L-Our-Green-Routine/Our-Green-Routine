@@ -12,7 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public abstract class APICall {
-    private RequestQueue queue = null;
+    public RequestQueue queue = null;
     public abstract Response.Listener<String> getResponse();
     public abstract Response.ErrorListener getError();
     public APICall(Context app){
