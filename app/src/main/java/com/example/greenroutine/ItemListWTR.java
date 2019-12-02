@@ -91,33 +91,17 @@ public class ItemListWTR extends AppCompatActivity {
         return out;
     }
 
-
-    public static JSONObject getData(String url) throws IOException, JSONException {
-        InputStream web = new URL(url).openStream();
-        BufferedReader read = new BufferedReader(new InputStreamReader(web, Charset.forName("UTF-8")));
-        StringBuilder bld = new StringBuilder();
-        int cp;
-        while ((cp = read.read()) != -1) {
-            bld.append((char) cp);
-        }
-        JSONObject data = new JSONObject(bld.toString());
-        web.close();
-        return data;
-    }
-
     //gets list of items in input family returns list of cards
     private void makeCards(final ArrayList<String> famItems ){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
         FirebaseApp.initializeApp(this);
         mFirestore = FirebaseFirestore.getInstance();
         final CollectionReference colRef = mFirestore.collection("testmp"); //collection of items from database
-        //DocumentReference docRef = mFirestore.collection("glass").document("glass");
 
             colRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //Thread.sleep(1000);
                         Map matIDs = new HashMap();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -129,8 +113,6 @@ public class ItemListWTR extends AppCompatActivity {
                                         String descript = (String) document.get("long_description");
                                         String picUrl = (String) document.get("image");
                                         try {
-                                            //InputStream is = (InputStream) new URL(picUrl).getContent();
-                                            //Drawable itemPic = Drawable.createFromStream(is, null);
                                             Drawable itemPic = getDrawable(R.drawable.defaultimage);
                                             Card item = new Card(itemPic, name, descript);
                                             itemsInFam.add(item);
@@ -141,7 +123,6 @@ public class ItemListWTR extends AppCompatActivity {
                                     }
                                 }
                             }
-
 
                         } else {
                             Log.d("notNice", "Error getting documents: ", task.getException());
