@@ -28,11 +28,7 @@ public class CategoriesPageHTR extends AppCompatActivity {
         recycleView.setLayoutManager(layManager);
 
         ArrayList<Card> cards = new ArrayList<>();
-      /*  Card c1 = new Card(R.drawable.beer,"Glass Bottles", "Bottles made from glass");
-        Card c2 = new Card(R.drawable.dasani,"Plastic Bottles", "Bottles made from glass");
-        Card c3 = new Card(R.drawable.cereal,"Cardboard", "Anything made from cardboard");
-        Card c4 = new Card(R.drawable.officepaper,"Paper", "Paper products");
-        */
+
         Card c1 = new Card(getDrawable(R.drawable.automotive),"Automotive", "Car parts and accessories");
         Card c2 = new Card(getDrawable(R.drawable.construction),"Construction", "Construction waste and materials");
         Card c3 = new Card(getDrawable(R.drawable.beer),"Glass", "Glass products and materials");

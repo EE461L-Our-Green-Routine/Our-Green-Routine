@@ -15,29 +15,22 @@ import java.util.ArrayList;
 
 
 public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.MyViewHolder>{
-    private Context cardCont;
-    private ArrayList<Card> data;
-    private String catName;
-    private static String ITEM_NAME = "ITEM_NAME";
-    private static String PICTURE_ID = "PICTURE_ID";
-    private static String CATEGORY_NAME = "CATEGORY_NAME";
+    private Context cont;               //object accessing this adapter
+    private ArrayList<Card> data;       //Cards to add to list
 
 
-    public ItemListAdapterHTR(Context cardCont, ArrayList<Card> data, String catName) {
-        this.cardCont = cardCont;
+    public ItemListAdapterHTR(Context cont, ArrayList<Card> data) {
+        this.cont = cont;
         this.data = data;
-        this.catName = catName;
     }
 
-
-
+    /*Class to hold the "views" (card information) for an item in this list*/
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
-        //ConstraintLayout cL;
         ImageView pic;
         TextView item;
         TextView description;
-        String catName;
 
+        /*Create a URL to send the user to the correct recycling guide page*/
         public String createURL(String name){
             char nameChars[] = name.toCharArray();
             for(int i=0; i<nameChars.length; i++){
@@ -75,23 +68,27 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
         }
 
 
-        public MyViewHolder(View v, final String catName) {
+        public MyViewHolder(View v) {
             super(v);
             View v1 = v;
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
+            /*When the picture for an item is clicked we want to send a user to recycling guide
+            webpage corresponding to the item they clicked*/
             pic.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     String name=(String)item.getText();
-                    Intent recycleGuide = new Intent(Intent.ACTION_VIEW, Uri.parse(createURL(name)));
+                    Intent recycleGuide = new Intent(Intent.ACTION_VIEW, Uri.parse(createURL(name))); //Information object for webpage
                     v.getContext().startActivity(recycleGuide);
                 }
             });
+            /*When an item is clicked we want to send a user to recycling guide
+            webpage corresponding to the item they clicked*/
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     String name=(String)item.getText();
-                    Intent recycleGuide = new Intent(Intent.ACTION_VIEW, Uri.parse(createURL(name)));
+                    Intent recycleGuide = new Intent(Intent.ACTION_VIEW, Uri.parse(createURL(name))); //Information object for webpage
                     v.getContext().startActivity(recycleGuide);
 
                 }
@@ -100,14 +97,17 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
 
     }
 
+    /*Before construction of a viewHolder we want to connect it to the card layout we created */
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inf = LayoutInflater.from(cardCont);
+        LayoutInflater inf = LayoutInflater.from(cont);
         View v = inf.inflate(R.layout.card, null);
-        MyViewHolder h = new MyViewHolder(v, catName);
+        MyViewHolder h = new MyViewHolder(v);
         return h;
     }
 
+    /*Take each field from the Card class corresponding to each viewHolder and set the views inside it with the
+     * information from those fields */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Card c = data.get(position);
@@ -115,6 +115,8 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
         holder.pic.setImageDrawable(c.getPic());
         String descript = c.getDescription();
         String name = c.getItem();
+        /*Due to the size of the card being finite, we need to cut off descriptions at certain
+        limits based on their own size and that of the name*/
         if(name.length()>28){
             descript = " ";
         }
@@ -129,6 +131,7 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
         holder.description.setText(descript);
     }
 
+    /*Simple getter class for number of cards*/
     @Override
     public int getItemCount() {
         return data.size();

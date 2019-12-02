@@ -34,11 +34,11 @@ import static java.lang.Integer.parseInt;
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
-    private static final String CATEGORY_NAME = "CATEGORY_NAME";
+    //private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private static final int FINE_LOCATION_REQUEST = 69;
     public String itemName;
     public String description;
-    public String categoryName;
+    //public String categoryName;
     private double lat;
     private double lng;
     private GoogleMap map;
@@ -74,7 +74,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private void setupItemDetails(){
         itemName = getIntent().getStringExtra(ITEM_NAME);
-        categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+        //categoryName = getIntent().getStringExtra(CATEGORY_NAME);
         String DESCRIPTION = "DESCRIPTION";
         description = getIntent().getStringExtra(DESCRIPTION);
         setName(itemName);

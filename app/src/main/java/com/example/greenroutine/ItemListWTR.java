@@ -78,9 +78,6 @@ public class ItemListWTR extends AppCompatActivity {
             String name;
             if(cat.has("material_ids") && cat.has("description")){
                 JSONArray idsArray = (JSONArray) cat.get("material_ids"); //gets array of string
-//                for (JSONObject cur : idsArray) {//puts array of string into mappable arraylist
-//                    ids.add(cur);
-//                }
 
                 for (int j = 0; j < idsArray.length(); j++) {
                     ids.add(idsArray.get(j).toString());
@@ -94,33 +91,17 @@ public class ItemListWTR extends AppCompatActivity {
         return out;
     }
 
-
-    public static JSONObject getData(String url) throws IOException, JSONException {
-        InputStream web = new URL(url).openStream();
-        BufferedReader read = new BufferedReader(new InputStreamReader(web, Charset.forName("UTF-8")));
-        StringBuilder bld = new StringBuilder();
-        int cp;
-        while ((cp = read.read()) != -1) {
-            bld.append((char) cp);
-        }
-        JSONObject data = new JSONObject(bld.toString());
-        web.close();
-        return data;
-    }
-
     //gets list of items in input family returns list of cards
     private void makeCards(final ArrayList<String> famItems ){
         //mDatabase.child(CATEGORY_NAME).child(itemName);
         FirebaseApp.initializeApp(this);
         mFirestore = FirebaseFirestore.getInstance();
         final CollectionReference colRef = mFirestore.collection("testmp"); //collection of items from database
-        //DocumentReference docRef = mFirestore.collection("glass").document("glass");
 
             colRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //Thread.sleep(1000);
                         Map matIDs = new HashMap();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -132,8 +113,6 @@ public class ItemListWTR extends AppCompatActivity {
                                         String descript = (String) document.get("long_description");
                                         String picUrl = (String) document.get("image");
                                         try {
-                                            //InputStream is = (InputStream) new URL(picUrl).getContent();
-                                            //Drawable itemPic = Drawable.createFromStream(is, null);
                                             Drawable itemPic = getDrawable(R.drawable.defaultimage);
                                             Card item = new Card(itemPic, name, descript);
                                             itemsInFam.add(item);
@@ -145,12 +124,11 @@ public class ItemListWTR extends AppCompatActivity {
                                 }
                             }
 
-
                         } else {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
                         cardsMade = true;
-                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, cat, matIDs);
+                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, matIDs);
                         recycleView.setAdapter(mAdapter);
                     }
 
@@ -172,24 +150,6 @@ public class ItemListWTR extends AppCompatActivity {
 
     }
 
-//    public void myMakeCards(String fam, Map<String, ArrayList<String>> famItems){
-//        for(String currentID : famItems.get(fam)){
-//            if(currentID.equals(document.get("material_id"))){
-//                String name = (String) document.get("description");
-//                String descript = (String) document.get("long_description");
-//                String picUrl = (String) document.get("image");
-//                try {
-//                    //InputStream is = (InputStream) new URL(picUrl).getContent();
-//                    //Drawable itemPic = Drawable.createFromStream(is, null);
-//                    Drawable itemPic = getDrawable(R.drawable.defaultimage);
-//                    Card item = new Card(itemPic, name, descript);
-//                    itemsInFam.add(item);
-//                } catch (Exception e) {
-//                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,10 +185,5 @@ public class ItemListWTR extends AppCompatActivity {
 
 
     }
-    /*
-    public void sendToItemPage(View view){
-        Intent itemIntent = new Intent(this, ItemPage.class);
-        startActivity(itemIntent);
-    }*/
 
 }
