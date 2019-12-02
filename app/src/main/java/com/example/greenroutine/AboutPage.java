@@ -2,6 +2,7 @@ package com.example.greenroutine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.TextView;
@@ -36,7 +37,8 @@ public class  AboutPage extends AppCompatActivity {
 
 
     public void getAPIData(String url, String search, int id, String tag){
-        getAPIHelp(url,1,search, id, tag);
+        //getAPIHelp(url,1,search, id, tag);
+
     }
 
     private void getAPIHelp(final String url, final int page, final String search, final int id, final String tag){
@@ -67,9 +69,15 @@ public class  AboutPage extends AppCompatActivity {
     }
 
     public void getGitInfo(final String user, final int idC, final int idI, final int idT){
-        getCommits(user, idC);
-        getIssues(user, idI);
-        getTests(user, idT);
+        APICallFactory factory = new GitHubAPICallFactory(this,user,idT);
+        APICall call = factory.getCall("test");
+        call.getData("https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt");
+        factory = new GitHubAPICallFactory(this,user,idC);
+        call = factory.getCall("commit");
+        call.getData("https://api.github.com/repos/mpontikes/Our-Green-Routine/commits?author=" + user);
+        factory = new GitHubAPICallFactory(this,user,idI);
+        call = factory.getCall("issue");
+        call.getData("https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all&creator=" + user);
     }
 
     /*Get number of commits for a given member */
@@ -85,33 +93,170 @@ public class  AboutPage extends AppCompatActivity {
     }
 
     /*Get number of tests for a given member */
-    private void getTests(final String user, final int id){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        response = response.substring(response.indexOf("\"content\":\"")+11);
-                        response = response.substring(0,response.indexOf("\""));
-                        response = response.replace("\\n", "");
-                        response = new String(Base64.decode(response,0));
-                        response = response.substring(response.indexOf(user)+user.length()+1);
-                        response = response.substring(0, response.indexOf("\n"));
-                        ((TextView)findViewById(id)).setText(response + " tests");
-                        ((TextView)findViewById(R.id.totalTests)).setText(Integer.toString(exterctNumber(R.id.totalTests)+Integer.parseInt(response))+" Total Tests");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ((TextView)findViewById(id)).setText("ERR tests");
-            }
-        });
-        queue.add(stringRequest);
-    }
+
     public int exterctNumber(int ind){
         String up = (String) ((TextView)findViewById(ind)).getText();
         up = up.substring(0,up.indexOf(" "));
         return Integer.parseInt(up);
+    }
+
+    public class GitHubAPICallFactory extends APICallFactory{
+        String user;
+        int id;
+        Context context;
+        public GitHubAPICallFactory(Context app, String user, int id){
+            this.context = app;
+            this.user = user;
+            this.id = id;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+        @Override
+        APICall createCall(String type) {
+            if(type.equals("test")){
+                return new GitHubTestAPICall(this.context,user,id);
+            }else if(type.equals("commit")){
+                return new GitHubCommitAPICall(this.context,user,id);
+            }
+            else if(type.equals("issue")){
+                return new GitHubIssuesAPICall(this.context,user,id);
+            }
+            return null;
+        }
+    }
+
+    public class GitHubTestAPICall extends APICall{
+        public String user;
+        public int id;
+
+        public GitHubTestAPICall(Context app, String user, int id) {
+            super(app);
+            this.user = user;
+            this.id = id;
+        }
+        @Override
+        public Response.Listener<String> getResponse() {
+            return  new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    response = response.substring(response.indexOf("\"content\":\"")+11);
+                    response = response.substring(0,response.indexOf("\""));
+                    response = response.replace("\\n", "");
+                    response = new String(Base64.decode(response,0));
+                    response = response.substring(response.indexOf(user)+user.length()+1);
+                    response = response.substring(0, response.indexOf("\n"));
+                    ((TextView)findViewById(id)).setText(response + " tests");
+                    ((TextView)findViewById(R.id.totalTests)).setText(Integer.toString(exterctNumber(R.id.totalTests)+Integer.parseInt(response))+" Total Tests");
+                }
+            };
+        }
+
+        @Override
+        public Response.ErrorListener getError() {
+            return new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    ((TextView)findViewById(id)).setText("ERR tests");
+                }
+            };
+        }
+    }
+
+    public class GitHubCommitAPICall extends APICall{
+        public String user;
+        public int id;
+        public String url;
+        public int page;
+
+        public GitHubCommitAPICall(Context app, String user, int id) {
+            super(app);
+            this.user = user;
+            this.id = id;
+        }
+        @Override
+        public Response.Listener<String> getResponse() {
+            return  new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    int out = response.split("\"commit\"").length -1;
+                    if(out == 30){
+                        page = page +1;
+                        getAPIHelp(url);
+                    }else{
+                        ((TextView)findViewById(id)).setText(Integer.toString(out + 30*(page-1)) + " commits");
+                        ((TextView) findViewById(R.id.totalCommits)).setText(Integer.toString(exterctNumber(R.id.totalCommits) + out + 30 * (page - 1)) + " Total Commits");
+                    }
+                }
+            };
+        }
+
+        @Override
+        public Response.ErrorListener getError() {
+            return new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    ((TextView)findViewById(id)).setText("ERR tests");
+                }
+            };
+        }
+        @Override
+        public void getData(String url){
+            this.url = url;
+            this.page = 1;
+            getAPIHelp(url);
+        }
+        private void getAPIHelp(final String url){
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url+"&page="+page, this.getResponse(), this.getError());
+            queue.add(stringRequest);
+        }
+    }
+    public class GitHubIssuesAPICall extends APICall{
+        public String user;
+        public int id;
+        public String url;
+        public int page;
+
+        public GitHubIssuesAPICall(Context app, String user, int id) {
+            super(app);
+            this.user = user;
+            this.id = id;
+        }
+        @Override
+        public Response.Listener<String> getResponse() {
+            return  new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    int out = response.split("\"repository_url\"").length -1;
+                    if(out == 30){
+                        page = page +1;
+                        getAPIHelp(url);
+                    }else{
+                        ((TextView)findViewById(id)).setText(Integer.toString(out + 30*(page-1)) + " issues");
+                        ((TextView) findViewById(R.id.totalIssues)).setText(Integer.toString(exterctNumber(R.id.totalIssues) + out + 30 * (page - 1)) + " Total Issues");
+                    }
+                }
+            };
+        }
+
+        @Override
+        public Response.ErrorListener getError() {
+            return new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    ((TextView)findViewById(id)).setText("ERR tests");
+                }
+            };
+        }
+        @Override
+        public void getData(String url){
+            this.url = url;
+            this.page = 1;
+            getAPIHelp(url);
+        }
+        private void getAPIHelp(final String url){
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url+"&page="+page, this.getResponse(), this.getError());
+            queue.add(stringRequest);
+        }
     }
 }
