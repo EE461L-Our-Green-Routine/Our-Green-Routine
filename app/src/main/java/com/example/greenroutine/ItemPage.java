@@ -213,48 +213,69 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void setRecyclingLocations() {
+        for (Integer i = 0; i < 5; i++){
+
+            String name = "N/A";
+            String dist = "N/A";
+            if(limit>i){
+                name = locNames.get(i);
+                dist = locDist.get(i) + "mi";
+            }
+
+            int nameid = getResources().getIdentifier("location" + i.toString(), "id", "");
+            ((TextView)findViewById(nameid)).setText(name);
+            int distid = getResources().getIdentifier("distance" + i.toString(), "id", "");
+            ((TextView)findViewById(distid)).setText(dist);
+
+        }
+
         //setting location names
-        String name0 = "N/A";
-        String name1 = "N/A";
-        String name2 = "N/A";
-        String name3 = "N/A";
-        String name4 = "N/A";
-        if(limit>0) name0 = locNames.get(0);
-        if(limit>1) name1 = locNames.get(1);
-        if(limit>2) name2 = locNames.get(2);
-        if(limit>3) name3 = locNames.get(3);
-        if(limit>4) name4 = locNames.get(4);
-
-        ((TextView)findViewById(R.id.location1)).setText(name0);
-        ((TextView)findViewById(R.id.location2)).setText(name1);
-        ((TextView)findViewById(R.id.location3)).setText(name2);
-        ((TextView)findViewById(R.id.location4)).setText(name3);
-        ((TextView)findViewById(R.id.location5)).setText(name4);
-
-        //setting the distance fields
-
-        name0 = "N/A";
-        name1 = "N/A";
-        name2 = "N/A";
-        name3 = "N/A";
-        name4 = "N/A";
-
-        if(limit>0) name0 = locDist.get(0)+"mi";
-        if(limit>1) name1 = locDist.get(1)+"mi";
-        if(limit>2) name2 = locDist.get(2)+"mi";
-        if(limit>3) name3 = locDist.get(3)+"mi";
-        if(limit>4) name4 = locDist.get(4)+"mi";
-
-        ((TextView)findViewById(R.id.distance1)).setText(name0);
-        ((TextView)findViewById(R.id.distance2)).setText(name1);
-        ((TextView)findViewById(R.id.distance3)).setText(name2);
-        ((TextView)findViewById(R.id.distance4)).setText(name3);
-        ((TextView)findViewById(R.id.distance5)).setText(name4);
+//        String name0 = "N/A";
+//        String name1 = "N/A";
+//        String name2 = "N/A";
+//        String name3 = "N/A";
+//        String name4 = "N/A";
+//        if(limit>0) name0 = locNames.get(0);
+//        if(limit>1) name1 = locNames.get(1);
+//        if(limit>2) name2 = locNames.get(2);
+//        if(limit>3) name3 = locNames.get(3);
+//        if(limit>4) name4 = locNames.get(4);
+//
+//        ((TextView)findViewById(R.id.location1)).setText(name0);
+//        ((TextView)findViewById(R.id.location2)).setText(name1);
+//        ((TextView)findViewById(R.id.location3)).setText(name2);
+//        ((TextView)findViewById(R.id.location4)).setText(name3);
+//        ((TextView)findViewById(R.id.location5)).setText(name4);
+//
+//        //setting the distance fields
+//
+//        name0 = "N/A";
+//        name1 = "N/A";
+//        name2 = "N/A";
+//        name3 = "N/A";
+//        name4 = "N/A";
+//
+//        if(limit>0) name0 = locDist.get(0)+"mi";
+//        if(limit>1) name1 = locDist.get(1)+"mi";
+//        if(limit>2) name2 = locDist.get(2)+"mi";
+//        if(limit>3) name3 = locDist.get(3)+"mi";
+//        if(limit>4) name4 = locDist.get(4)+"mi";
+//
+//        ((TextView)findViewById(R.id.distance1)).setText(name0);
+//        ((TextView)findViewById(R.id.distance2)).setText(name1);
+//        ((TextView)findViewById(R.id.distance3)).setText(name2);
+//        ((TextView)findViewById(R.id.distance4)).setText(name3);
+//        ((TextView)findViewById(R.id.distance5)).setText(name4);
 
     }
 
 
     private void dropLocationPins() {
+        LatLng[] locationPins = null;
+//        for(Integer i = 0; i < 5; i++){
+//            LatLng location = null;
+//            if(limit>i)location = new LatLng (locLat.get(i), locLng.get(i));
+//        }
         LatLng location0 = null;
         LatLng location1 = null;
         LatLng location2 = null;
@@ -267,7 +288,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         if(limit>3)location3 = new LatLng (locLat.get(3), locLng.get(3));
         if(limit>4)location4 = new LatLng (locLat.get(4), locLng.get(4));
 
-        LatLng[] locationPins = null;
         if(limit>4)  locationPins = new LatLng [] {location0, location1, location2, location3, location4};
         else if(limit>3)  locationPins = new LatLng [] {location0, location1, location2, location3};
         else if(limit>2)  locationPins = new LatLng [] {location0, location1, location2};
