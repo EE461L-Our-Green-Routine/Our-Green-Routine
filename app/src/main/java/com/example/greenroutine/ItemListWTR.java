@@ -150,7 +150,7 @@ public class ItemListWTR extends AppCompatActivity {
                             Log.d("notNice", "Error getting documents: ", task.getException());
                         }
                         cardsMade = true;
-                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, cat, matIDs);
+                        ItemListAdapterWTR mAdapter = new ItemListAdapterWTR(whatever, itemsInFam, matIDs);
                         recycleView.setAdapter(mAdapter);
                     }
 

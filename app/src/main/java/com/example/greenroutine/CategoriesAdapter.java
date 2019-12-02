@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder>{
-    private Context cardCont;
-    private ArrayList<Card> data;
-    private static String CATEGORY_NAME = "CATEGORY_NAME";
-    private static Class<?> ItemList;
+    private Context cont;                                   //object accessing this adapter
+    private ArrayList<Card> data;                           //Cards to add to list
+    private static String CATEGORY_NAME = "CATEGORY_NAME";  //String used to send category name to itemlist
+    private static Class<?> ItemList;                       //class of the itemlist where the user will be sent next
 
 
     /*Constructor, uses a boolean to set the ItemList class to be accessed from this adapter */
-    CategoriesAdapter(Context cardCont, ArrayList<Card> data, boolean whereOrHow) {
-        this.cardCont = cardCont;
+    CategoriesAdapter(Context cont, ArrayList<Card> data, boolean whereOrHow) {
+        this.cont = cont;
         this.data = data;
         ItemList = (whereOrHow) ? ItemListHTR.class : ItemListWTR.class;
     }
 
+    /*Class to hold the "views" (card information) for an item in this list*/
     static class MyViewHolder extends RecyclerView.ViewHolder   {
         ImageView pic;
         TextView item;
@@ -38,35 +38,40 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
             pic.setClickable(true);
+            /*When the picture for an item is clicked we want to send a user to the itemList for the category on which they clicked*/
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v){
-                    Intent cL = new Intent(v.getContext(), ItemList);
+                    Intent cL = new Intent(v.getContext(), ItemList);  //Information object for starting the next activity
+                    /*Add information to the information object*/
                     String category=(String)item.getText();
                     cL.putExtra(CATEGORY_NAME, category);
                     v.getContext().startActivity(new Intent(cL));
                 }
             });
+            /*When an item is clicked we want to send a user to the itemList for the category on which they clicked*/
             v.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
-                    Intent cL = new Intent(v.getContext(), ItemList);
+                    Intent cL = new Intent(v.getContext(), ItemList);  //Information object for starting the next activity
+                    /*Add information to the information object*/
                     String category=(String)item.getText();
                     cL.putExtra(CATEGORY_NAME, category);
                     v.getContext().startActivity(new Intent(cL));
                 }
             });
-
         }
-
     }
 
+    /*Before construction of a viewHolder we want to connect it to the card layout we created */
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inf = LayoutInflater.from(cardCont);
+        LayoutInflater inf = LayoutInflater.from(cont);
         View v = inf.inflate(R.layout.card, null);
         MyViewHolder h = new MyViewHolder(v);
         return h;
     }
 
+    /*Take each field from the Card class corresponding to each viewHolder and set the views inside it with the
+     * information from those fields */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Card c = data.get(position);
@@ -75,6 +80,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
         holder.description.setText(c.getDescription());
     }
 
+    /*Simple getter class for number of cards*/
     @Override
     public int getItemCount() {
         return data.size();

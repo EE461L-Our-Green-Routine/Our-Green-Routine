@@ -171,34 +171,34 @@ public class ItemListHTR extends AppCompatActivity {
         ItemListAdapterHTR mAdapter;
         switch(cat) {
             case ("Glass"):
-                mAdapter = new ItemListAdapterHTR(this, glass, cat);
+                mAdapter = new ItemListAdapterHTR(this, glass);
                 break;
             case ("Plastic"):
-                mAdapter = new ItemListAdapterHTR(this, plastic, cat);
+                mAdapter = new ItemListAdapterHTR(this, plastic);
                 break;
             case ("Automotive"):
-                mAdapter = new ItemListAdapterHTR(this, automotive, cat);
+                mAdapter = new ItemListAdapterHTR(this, automotive);
                 break;
             case ("Metal"):
-                mAdapter = new ItemListAdapterHTR(this, metal, cat);
+                mAdapter = new ItemListAdapterHTR(this, metal);
                 break;
             case ("Paper"):
-                mAdapter = new ItemListAdapterHTR(this, paper, cat);
+                mAdapter = new ItemListAdapterHTR(this, paper);
                 break;
             case ("Construction"):
-                mAdapter = new ItemListAdapterHTR(this, construction, cat);
+                mAdapter = new ItemListAdapterHTR(this, construction);
                 break;
             case ("Household Waste"):
-                mAdapter = new ItemListAdapterHTR(this, hhw, cat);
+                mAdapter = new ItemListAdapterHTR(this, hhw);
                 break;
             case ("Electronics"):
-                mAdapter = new ItemListAdapterHTR(this, electronics, cat);
+                mAdapter = new ItemListAdapterHTR(this, electronics);
                 break;
             case ("Household"):
-                mAdapter = new ItemListAdapterHTR(this, house, cat);
+                mAdapter = new ItemListAdapterHTR(this, house);
                 break;
             default:
-                mAdapter = new ItemListAdapterHTR(this, plastic, cat);
+                mAdapter = new ItemListAdapterHTR(this, plastic);
                 break;
         }
 

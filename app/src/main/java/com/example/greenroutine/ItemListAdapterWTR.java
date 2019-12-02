@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,54 +15,36 @@ import java.util.Map;
 
 
 public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.MyViewHolder>{
-    private Context cardCont;
-    private ArrayList<Card> data;
-    private String catName;
-    private static String ITEM_NAME = "ITEM_NAME";
-    private static String CATEGORY_NAME = "CATEGORY_NAME";
-    private static String DESCRIPTION = "DESCRIPTION";
-    private static String ID = "ID";
-    private static Map nameDescrip = new HashMap();
-    private static Map IDMAPGlobal;
+    private Context cont;                               //object accessing this adapter
+    private ArrayList<Card> data;                       //Cards to add to list
+    private static String ITEM_NAME = "ITEM_NAME";      //String used to send item name to itemPage
+    private static String DESCRIPTION = "DESCRIPTION";  //String used to send description to itemPage
+    private static String ID = "ID";                    //String used to send ID to itemPage
+    private static Map nameDescrip = new HashMap();     //Maps item names to item descriptions
+    private static Map IDMAPGlobal;                     //Maps item names to item ID's
 
 
-    public ItemListAdapterWTR(ItemListWTR cardCont, ArrayList<Card> data, String catName, Map<String, String> IDMAP ) {
-        this.cardCont = cardCont;
+    public ItemListAdapterWTR(ItemListWTR cont, ArrayList<Card> data, Map<String, String> IDMAP ) {
+        this.cont = cont;
         this.data = data;
         IDMAPGlobal = IDMAP;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder   {
-        //ConstraintLayout cL;
-        //ImageView pic;
         TextView item;
         TextView description;
 
-        public MyViewHolder(View v, final String catName) {
+        public MyViewHolder(View v) {
             super(v);
             View v1 = v;
             //pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
-            /*pic.setOnClickListener(new View.OnClickListener(){
-                @Override public void onClick(View v){
-                    Intent itL = new Intent(v.getContext(), ItemPage.class);
-                    String name=(String)item.getText();
-                    itL.putExtra(ITEM_NAME, name);
-                    itL.putExtra(CATEGORY_NAME, catName );
-                    String descrip = (String)nameDescrip.get(name);
-                    if(descrip!=null) itL.putExtra(DESCRIPTION, descrip);
-                    else itL.putExtra(DESCRIPTION, description.getText());
-                    v.getContext().startActivity(itL);
-                    pic.getImageAlpha();
-
-                }
-            });*/
             v1.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     Intent itL = new Intent(v.getContext(), ItemPage.class);
                     String name=(String)item.getText();
-                    itL.putExtra(CATEGORY_NAME, catName );
+                    //itL.putExtra(CATEGORY_NAME, catName );
                     itL.putExtra(ITEM_NAME, name);
                     String iden = (String)IDMAPGlobal.get(name);
                     String descrip = (String)nameDescrip.get(name);
@@ -82,9 +63,9 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inf = LayoutInflater.from(cardCont);
+        LayoutInflater inf = LayoutInflater.from(cont);
         View v = inf.inflate(R.layout.card2, null);
-        MyViewHolder h = new MyViewHolder(v, catName);
+        MyViewHolder h = new MyViewHolder(v);
         return h;
     }
 
