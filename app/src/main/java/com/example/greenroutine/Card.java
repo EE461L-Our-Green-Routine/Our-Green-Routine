@@ -6,15 +6,14 @@ public class Card implements Comparable<Card> {
     private Drawable pic;
     private String item;
     private String description;
-    private String category;
 
-    public Card(Drawable pic, String name, String description) {
+    Card(Drawable pic, String name, String description) {
         this.pic = pic;
         this.item = name;
         this.description = description;
     }
 
-    public Drawable getPic() {
+    Drawable getPic() {
         return pic;
     }
 

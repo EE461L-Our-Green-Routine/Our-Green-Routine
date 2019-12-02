@@ -20,7 +20,6 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     private ArrayList<Card> data;
     private String catName;
     private static String ITEM_NAME = "ITEM_NAME";
-    //private static String PICTURE_ID = "PICTURE_ID";
     private static String CATEGORY_NAME = "CATEGORY_NAME";
     private static String DESCRIPTION = "DESCRIPTION";
     private static String ID = "ID";
@@ -39,7 +38,6 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
         //ImageView pic;
         TextView item;
         TextView description;
-        String catName;
 
         public MyViewHolder(View v, final String catName) {
             super(v);

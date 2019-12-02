@@ -19,24 +19,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     private static String CATEGORY_NAME = "CATEGORY_NAME";
     private static Class<?> ItemList;
 
+
     /*Constructor, uses a boolean to set the ItemList class to be accessed from this adapter */
-    public CategoriesAdapter(Context cardCont, ArrayList<Card> data, boolean whereOrHow) {
+    CategoriesAdapter(Context cardCont, ArrayList<Card> data, boolean whereOrHow) {
         this.cardCont = cardCont;
         this.data = data;
-        this.ItemList = (whereOrHow) ? ItemListHTR.class : ItemListWTR.class;
+        ItemList = (whereOrHow) ? ItemListHTR.class : ItemListWTR.class;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder   {
-        //ConstraintLayout cL;
+    static class MyViewHolder extends RecyclerView.ViewHolder   {
         ImageView pic;
         TextView item;
         TextView description;
 
-        public MyViewHolder(View v) {
+        MyViewHolder(View v) {
             super(v);
-            View v1 = v;
-
-            //cL=itemView.findViewById(R.id.recyMain);
             pic = v.findViewById(R.id.pic);
             item = v.findViewById(R.id.item);
             description = v.findViewById(R.id.description);
@@ -49,10 +46,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
                     v.getContext().startActivity(new Intent(cL));
                 }
             });
-
-            //cL.setOnClickListener(this);
-            //pic.setOnClickListener(this);
-            v1.setOnClickListener(new View.OnClickListener(){
+            v.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v){
                     Intent cL = new Intent(v.getContext(), ItemList);
                     String category=(String)item.getText();
