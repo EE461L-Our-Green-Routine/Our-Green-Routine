@@ -16,11 +16,9 @@ import com.android.volley.toolbox.Volley;
 
 
 public class  AboutPage extends AppCompatActivity {
-    private RequestQueue queue = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        queue = Volley.newRequestQueue(this);
         setContentView(R.layout.activity_about_page);
 
         /* Update Git information for each teammate */
@@ -67,12 +65,12 @@ public class  AboutPage extends AppCompatActivity {
         @Override
         APICall createCall(String type) {
             if(type.equals("test")){
-                return new GitHubTestAPICall(this.context,user,id);
+                return new GitHubTestAPICall(this.queue,user,id);
             }else if(type.equals("commit")){
-                return new GitHubCommitAPICall(this.context,user,id);
+                return new GitHubCommitAPICall(this.queue,user,id);
             }
             else if(type.equals("issue")){
-                return new GitHubIssuesAPICall(this.context,user,id);
+                return new GitHubIssuesAPICall(this.queue,user,id);
             }
             return null;
         }
@@ -82,7 +80,7 @@ public class  AboutPage extends AppCompatActivity {
         public String user;
         public int id;
 
-        public GitHubTestAPICall(Context app, String user, int id) {
+        public GitHubTestAPICall(RequestQueue app, String user, int id) {
             super(app);
             this.user = user;
             this.id = id;
@@ -121,7 +119,7 @@ public class  AboutPage extends AppCompatActivity {
         public String url;
         public int page;
 
-        public GitHubCommitAPICall(Context app, String user, int id) {
+        public GitHubCommitAPICall(RequestQueue app, String user, int id) {
             super(app);
             this.user = user;
             this.id = id;
@@ -169,7 +167,7 @@ public class  AboutPage extends AppCompatActivity {
         public String url;
         public int page;
 
-        public GitHubIssuesAPICall(Context app, String user, int id) {
+        public GitHubIssuesAPICall(RequestQueue app, String user, int id) {
             super(app);
             this.user = user;
             this.id = id;

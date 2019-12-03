@@ -111,18 +111,19 @@ public class CoolClimate extends AppCompatActivity {
     }
     public class CoolClimateAPICallFactory extends APICallFactory {
 
+
         public CoolClimateAPICallFactory(Context app) {
             super(app);
         }
 
         @Override
         APICall createCall(String type) {
-            return new CoolClimateAPICall(context);
+            return new CoolClimateAPICall(queue);
         }
     }
     public class CoolClimateAPICall extends APICall{
 
-        public CoolClimateAPICall(Context app) {
+        public CoolClimateAPICall(RequestQueue app) {
             super(app);
         }
 

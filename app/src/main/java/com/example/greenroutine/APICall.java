@@ -12,13 +12,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public abstract class APICall {
-    public RequestQueue queue = null;
+    public RequestQueue queue;
     public abstract Response.Listener<String> getResponse();
     public abstract Response.ErrorListener getError();
-    public APICall(Context app){
-        if(queue == null){
-            queue = Volley.newRequestQueue(app);
-        }
+    public APICall(RequestQueue app){
+       queue = app;
     }
     public void getData(String url){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, getResponse(), getError());

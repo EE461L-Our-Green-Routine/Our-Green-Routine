@@ -9,10 +9,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public abstract class APICallFactory {
-    Context context;
-
+    public RequestQueue queue = null;
     public APICallFactory(Context app) {
-        this.context = app;
+        if(queue == null) {
+            queue = Volley.newRequestQueue(app);
+        }
     }
 
     public APICall getCall(String type){
