@@ -224,6 +224,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         locLat = (ArrayList<Double>)parseArray.get(2);
         locLng = (ArrayList<Double>)parseArray.get(3);
 
+        limit = locNames.size();
 
         dropLocationPins();
         setRecyclingLocations();
