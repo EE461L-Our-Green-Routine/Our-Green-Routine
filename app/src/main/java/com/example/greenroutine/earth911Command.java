@@ -5,8 +5,6 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 public class earth911Command implements Command {
-    String itemID;
-    String ZIPCode;
     earth911 command;
 
     public earth911Command(ArrayList<ArrayList<String>> parameters) {

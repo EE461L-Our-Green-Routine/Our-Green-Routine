@@ -182,7 +182,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     //https://dzone.com/articles/how-to-parse-json-data-from-a-rest-api-using-simpl
 
 
-    public void nearbyRecycling(){
+    private void nearbyRecycling(){
         //api request, there are additonal parameters such as item wish to recycle fyi
         //array list is the list of parameters for the api request
         ArrayList<ArrayList<String>> params = new ArrayList<ArrayList<String>>();
@@ -190,7 +190,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         ArrayList<String> method = new ArrayList<String>();
         method.add("searchLocations");
         params.add(method);
-
+ 
         ArrayList<String> key = new ArrayList<String>();
         key.add("?api_key=");
         key.add(getString(R.string.earth911));
