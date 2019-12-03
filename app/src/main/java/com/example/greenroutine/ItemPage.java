@@ -61,6 +61,10 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         locLng = new ArrayList<>();
         setupItemDetails();
         checkPermissions();
+        FirebaseFirestore db = setupFirestore();
+    }
+
+    private FirebaseFirestore setupFirestore(){
         // [START get_firestore_instance]
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // [END get_firestore_instance]
@@ -70,6 +74,7 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 .build();
         db.setFirestoreSettings(settings);
         // [END set_firestore_settings]
+        return db;
     }
 
     private void setupItemDetails(){
