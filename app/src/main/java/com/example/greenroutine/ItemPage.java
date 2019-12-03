@@ -48,6 +48,8 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
     private ArrayList<Double> locLng;
     private int limit=0;
 
+    private Command earth911Com;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,42 +179,61 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     public void nearbyRecycling(){
         //api request, there are additonal parameters such as item wish to recycle fyi
+        //array list is the list of parameters for the api request
+        ArrayList<ArrayList<String>> params = new ArrayList<ArrayList<String>>();
+
+        ArrayList<String> method = new ArrayList<String>();
+        method.add("searchLocations");
+        params.add(method);
+
+        ArrayList<String> key = new ArrayList<String>();
+        key.add("?api_key=");
+        key.add(getString(R.string.earth911));
+        params.add(key);
+
+        ArrayList<String> latitude = new ArrayList<String>();
+        latitude.add("&latitude=");
+        latitude.add(Double.toString(lat));
+        params.add(latitude);
+
+        ArrayList<String> longitude = new ArrayList<String>();
+        longitude.add("&longitude=");
+        longitude.add(Double.toString(lng));
+        params.add(longitude);
+
         String ID = "ID";
         String matID = getIntent().getStringExtra(ID);
         int matIDNum = parseInt(matID);
-        //following is to filter by distance
-        //String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911) + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum + "&max_results=5" + "&max_distance=1000";
+        ArrayList<String> materialID = new ArrayList<String>();
+        materialID.add("&material_id=");
+        materialID.add(Integer.toString(matIDNum));
+        params.add(materialID);
 
-        String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911) + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum + "&max_results=5";
+        ArrayList<String> maxRes = new ArrayList<String>();
+        maxRes.add("&max_results=");
+        maxRes.add("5");
+        params.add(maxRes);
+
+        earth911Command locCom = new earth911Command(params);
+        setCommand(locCom);
+        APIrequest();
+        ArrayList<Object> parseArray = locCom.commandRequest();
+
+        locNames = (ArrayList<String>)parseArray.get(0);
+        locDist = (ArrayList<String>)parseArray.get(1);
+        locLat = (ArrayList<Double>)parseArray.get(2);
+        locLng = (ArrayList<Double>)parseArray.get(3);
 
 
-        try {
-            AsyncTask name = new dataTask().execute(url);
-            JSONObject db = (JSONObject) name.get();
-            JSONArray locArray = db.getJSONArray("result");
-            //only store the 5 closest, as the api response is sorted by distance
-            limit = (locArray.length()<5) ? locArray.length() : 5;
-            for (int i = 0; i < limit; i++) {
-                //add description / name of result i
-                locNames.add(locArray.getJSONObject(i).getString("description"));
-                //add distance of result i
-                locDist.add(locArray.getJSONObject(i).getString("distance"));
-                //add lat of result i
-                locLat.add(locArray.getJSONObject(i).getDouble("latitude"));
-                //add long of result i
-                locLng.add(locArray.getJSONObject(i).getDouble("longitude"));
-            }
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-            throw new ArithmeticException();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw new ArithmeticException();
-        }
         dropLocationPins();
         setRecyclingLocations();
+    }
+
+    private void setCommand(Command command){
+        this.earth911Com = command;
+    }
+    private void APIrequest(){
+        earth911Com.execute();
     }
 
     private void setRecyclingLocations() {
