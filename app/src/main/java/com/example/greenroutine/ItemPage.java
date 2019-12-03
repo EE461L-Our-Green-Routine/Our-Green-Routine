@@ -180,7 +180,12 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
         String ID = "ID";
         String matID = getIntent().getStringExtra(ID);
         int matIDNum = parseInt(matID);
-        String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911) + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum + "&max_results=5" + "&max_distance=1000";
+        //following is to filter by distance
+        //String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911) + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum + "&max_results=5" + "&max_distance=1000";
+
+        String url ="https://api.earth911.com/earth911.searchLocations?api_key="+ getString(R.string.earth911) + "&latitude=" + lat + "&longitude=" + lng + "&material_id=" + matIDNum + "&max_results=5";
+
+
         try {
             AsyncTask name = new dataTask().execute(url);
             JSONObject db = (JSONObject) name.get();
