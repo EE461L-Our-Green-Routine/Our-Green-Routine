@@ -24,14 +24,14 @@ public class ItemListAdapterWTR extends RecyclerView.Adapter<ItemListAdapterWTR.
     private static Map IDMAPGlobal;                     //Maps item names to item ID's
 
 
-    public ItemListAdapterWTR(ItemListWTR cont, ArrayList<Card> data, Map<String, String> IDMAP ) {
+    protected ItemListAdapterWTR(ItemListWTR cont, ArrayList<Card> data, Map<String, String> IDMAP ) {
         this.cont = cont;
         this.data = data;
         IDMAPGlobal = IDMAP;
     }
 
     /*Class to hold the "views" (card information) for an item in this list*/
-    public static class MyViewHolder extends RecyclerView.ViewHolder   {
+    protected static class MyViewHolder extends RecyclerView.ViewHolder   {
         TextView item;
         TextView description;
 

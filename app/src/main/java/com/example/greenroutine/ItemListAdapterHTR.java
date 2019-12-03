@@ -19,19 +19,19 @@ public class ItemListAdapterHTR extends RecyclerView.Adapter<ItemListAdapterHTR.
     private ArrayList<Card> data;       //Cards to add to list
 
 
-    public ItemListAdapterHTR(Context cont, ArrayList<Card> data) {
+    protected ItemListAdapterHTR(Context cont, ArrayList<Card> data) {
         this.cont = cont;
         this.data = data;
     }
 
     /*Class to hold the "views" (card information) for an item in this list*/
-    public static class MyViewHolder extends RecyclerView.ViewHolder   {
+    protected static class MyViewHolder extends RecyclerView.ViewHolder   {
         ImageView pic;
         TextView item;
         TextView description;
 
         /*Create a URL to send the user to the correct recycling guide page*/
-        public String createURL(String name){
+        private String createURL(String name){
             char nameChars[] = name.toCharArray();
             for(int i=0; i<nameChars.length; i++){
                 if((int)nameChars[i]>64&&(int)nameChars[i]<90){

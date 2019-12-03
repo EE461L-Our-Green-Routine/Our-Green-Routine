@@ -20,14 +20,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
 
     /*Constructor, uses a boolean to set the ItemList class to be accessed from this adapter */
-    CategoriesAdapter(Context cont, ArrayList<Card> data, boolean whereOrHow) {
+    protected CategoriesAdapter(Context cont, ArrayList<Card> data, boolean whereOrHow) {
         this.cont = cont;
         this.data = data;
-        ItemList = (whereOrHow) ? ItemListHTR.class : ItemListWTR.class;
+        this.ItemList = (whereOrHow) ? ItemListHTR.class : ItemListWTR.class;
     }
 
     /*Class to hold the "views" (card information) for an item in this list*/
-    static class MyViewHolder extends RecyclerView.ViewHolder   {
+    protected static class MyViewHolder extends RecyclerView.ViewHolder   {
         ImageView pic;
         TextView item;
         TextView description;

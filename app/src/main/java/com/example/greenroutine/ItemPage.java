@@ -34,21 +34,19 @@ import static java.lang.Integer.parseInt;
 public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String ITEM_NAME = "ITEM_NAME";
-    //private static final String CATEGORY_NAME = "CATEGORY_NAME";
     private static final int FINE_LOCATION_REQUEST = 69;
-    public String itemName;
-    public String description;
-    //public String categoryName;
+    private String itemName;
+    private String description;
     private double lat;
     private double lng;
     private GoogleMap map;
 
 
-    public ArrayList<String> locNames;
-    public ArrayList<String> locDist;
-    public ArrayList<Double> locLat;
-    public ArrayList<Double> locLng;
-    public int limit=0;
+    private ArrayList<String> locNames;
+    private ArrayList<String> locDist;
+    private ArrayList<Double> locLat;
+    private ArrayList<Double> locLng;
+    private int limit=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,9 +225,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
             ((TextView)findViewById(distid)).setText(dist);
 
         }
-
-
-
     }
 
 
@@ -245,7 +240,6 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                 name = locNames.get(i);
                 locationNames.add(name);
             }
-
         }
         if(!locationPins.isEmpty() && !locationNames.isEmpty() ) {
             for (int i = 0; i < locationPins.size(); i++) {
@@ -253,8 +247,5 @@ public class ItemPage extends AppCompatActivity implements OnMapReadyCallback {
                         .title(locationNames.get(i)));
             }
         }
-
-
     }
-
 }

@@ -35,7 +35,7 @@ public class  AboutPage extends AppCompatActivity {
         getGitInfo("zsisti", R.id.mpcommit4, R.id.mpIssues4, R.id.mptest4);
     }
 
-    public void getGitInfo(final String user, final int idC, final int idI, final int idT){
+    private void getGitInfo(final String user, final int idC, final int idI, final int idT){
         APICallFactory factory = new GitHubAPICallFactory(this,user,idT);
         APICall call = factory.getCall("test");
         call.getData("https://api.github.com/repos/mpontikes/Our-Green-Routine/contents/app/src/test.txt");
@@ -47,13 +47,13 @@ public class  AboutPage extends AppCompatActivity {
         call.getData("https://api.github.com/repos/mpontikes/Our-Green-Routine/issues?state=all&creator=" + user);
     }
 
-    public int exterctNumber(int ind){
+    private int exterctNumber(int ind){
         String up = (String) ((TextView)findViewById(ind)).getText();
         up = up.substring(0,up.indexOf(" "));
         return Integer.parseInt(up);
     }
 
-    public class GitHubAPICallFactory extends APICallFactory{
+    private class GitHubAPICallFactory extends APICallFactory{
         String user;
         int id;
         public GitHubAPICallFactory(Context app, String user, int id){
@@ -78,7 +78,7 @@ public class  AboutPage extends AppCompatActivity {
         }
     }
 
-    public class GitHubTestAPICall extends APICall{
+    private class GitHubTestAPICall extends APICall{
         public String user;
         public int id;
 
