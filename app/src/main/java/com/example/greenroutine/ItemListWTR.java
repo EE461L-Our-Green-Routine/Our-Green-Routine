@@ -137,7 +137,7 @@ public class ItemListWTR extends AppCompatActivity {
     }
 
 
-    public class cardTask extends AsyncTask<ArrayList<String>, Integer, Void> {
+    private class cardTask extends AsyncTask<ArrayList<String>, Integer, Void> {
 
 
         @Override
@@ -175,9 +175,6 @@ public class ItemListWTR extends AppCompatActivity {
             Map<String, ArrayList<String>> dum = getDatabase(key);
             ArrayList<String> itemList = dum.get(cat);
             new cardTask().execute(itemList);
-
-
-
         }
         catch(Exception e){
             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();

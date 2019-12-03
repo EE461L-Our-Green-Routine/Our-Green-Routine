@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(CIntent);
     }
 
-    public void goToFoot(View view){//currently not working
+    public void goToFoot(View view){
         Intent FootIntent = new Intent(this, CoolClimate.class);
         startActivity(FootIntent);
     }
